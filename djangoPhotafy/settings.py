@@ -25,11 +25,36 @@ SECRET_KEY = 'hgsk$eui-7^_mqr0v7ii--l*!hyh+3ntyv$v#pv8)w+#b)iel@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0',
+                '127.0.0.1',
+                'photafy.me',]
+
+#CUSTOM Paged Apps used for HomePage
+PAGE_APPS = {
+    # 'photaMusic.apps.photaMusicCuonfig':{
+    #     'link_display_text':'Musician',
+    #     'url_extension':'music',
+    #     'icon_class':'fa fa-book'
+    # },
+    # 'photaChristianity.apps.photaChristianityConfig':{
+    #     'link_display_text':'Christian',
+    #     'url_extension':'christianity',
+    #     'icon_class':'fa fa-flask'
+    # },
+    # 'photaPhysics.apps.photaPhysicsConfig':{
+    #     'link_display_text':'Physicist',
+    #     'url_extension':'physics',
+    #     'icon_class':'fa fa-headphones'
+    # },
+    # 'photaMisc.apps.photaMiscConfig':{
+    #     'link_display_text':'Other Stuff',
+    #     'url_extension':'physics',
+    #     'icon_class':'fa fa-question'
+    # },
+}
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +62,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+
+    'djangoPhotafy.apps.djangoPhotafyConfig'
+] + list(PAGE_APPS.keys())
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,3 +147,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR,"static_root/")

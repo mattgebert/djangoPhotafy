@@ -1,0 +1,298 @@
+body {
+  margin:0;
+  overflow-x: hidden;
+  /*background: #000010;*/
+}
+
+.row {
+  margin:0;
+  margin-left:0;
+  margin-right:0;
+}
+
+/*TODO: Controversal, should I keep this or not??*/
+* {
+  white-space: nowrap;
+}
+/*-------------------------------------------------------------------------*/
+/*--------------------------- FOREGROUND ELEMENTS -------------------------*/
+/*-------------------------------------------------------------------------*/
+
+.information {
+  width: 100%;
+  height: 100%;
+  display:block;
+  position:fixed;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin:0 auto;
+  z-index:2;
+}
+
+.space {
+  height: 25%;
+  width:100%;
+  margin:0;
+}
+.space2 {
+  height: 10%;
+  width:100%;
+  margin:0;
+}
+
+/*--------------------------- Introduction Elements -----------------------*/
+
+.nameplate {
+  width:100%;
+  margin:0;
+}
+
+.nameplate h1 {
+  font-family: 'Electrolize', sans-serif, bold;
+  letter-spacing: 5px;
+  font-weight:bolder;
+  font-size: 80px;
+  line-height: 50px;
+  color: #FFFFFF
+}
+
+.nameplate h2 {
+  font-size: 30px;
+  line-height: 20px;
+  color: #888888;
+  font-family: 'Josefin Slab', serif;
+}
+
+.links {
+  width:100%;
+  margin:0;
+}
+
+.links .linkbar{
+  padding:0px
+}
+
+.links span {
+  padding-right: 80px;
+  font-size: 22px;
+  color: #FFFFFF;
+  font-family: 'Share Tech Mono', monospace;
+  transition:0.5s;
+}
+
+.links i {
+  padding-right: 10px;
+  color: #77EEEE;
+  transition:0.5s;
+}
+
+.links .subpagelink {
+  background-color:none;
+  display: block;
+  transition:0.5s;
+}
+.links .subpagelink:hover span {
+  color: #114455;
+}
+.links .subpagelink:hover i {
+  color: #114455;
+}
+
+.links .subpagelink:hover {
+  background-color:rgba(255,255,255,0.8);
+  cursor:pointer;
+}
+.links h3 {
+  white-space: nowrap;
+  text-align:center;
+}
+
+.underline {
+  height: 2px;
+  transition:1s;
+}
+
+/*--------------------------- Subpage Elements ----------------------------*/
+
+.subpage {
+  display:none;
+  opacity:0;
+  padding:0px;
+}
+
+.subpage .subpagemenu{
+  border-right: solid 1px white;
+  overflow-y:auto;
+  background-color: rgba(204, 68, 0, 0.4);
+  display: table;
+  height:100%;
+  padding:0px;
+}
+
+.subpage .menuoption {
+  background-color:none;
+  vertical-align: middle;
+  transition:0.5s;
+  height:5%;
+  color:white;
+  font-family: 'Ubuntu', sans-serif;
+  display: table;
+  width:100%;
+  margin:0 auto;
+}
+
+.subpage .menuoption span {
+  padding-left: 20px;
+  width:100%;
+  height:100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.subpage .menuoption:hover {
+  background-color:rgba(255,255,255,0.8);
+  cursor:pointer;
+  color: #114455;
+}
+
+.subpage .viewport{
+  display:table;
+  position:relative;
+  opacity:1;
+  height:100%;
+  padding: 0px;
+}
+.subpage .loadmask{
+  display:block;
+  position:absolute;
+  width:100%;
+  height: 100%;
+  text-align: center;
+  background-color: #000010;
+  z-index: 2;
+}
+
+.algnTble{
+  display:table;
+  width:100%;
+  height:100%;
+}
+
+.algnMiddle {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.algnInner {
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
+}
+
+.subpage .loadimg {
+  height:200px;
+  width:200px;
+  margin:0 auto;
+}
+
+.subpage .content{
+  display:none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index: 1;
+  /*top:0;*/
+  /*left:0;*/
+  /*width:inherit;*/
+}
+
+.subpage .category {
+  display:none;
+  opacity:1;
+}
+/*--------------------------- Rotating SVG ----------------------------*/
+
+#piece1 {
+  animation-name: ckw;
+  animation-duration: 1s;
+  transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece2 {
+  animation-name: ckw;
+  animation-duration: 2s;
+  transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece3 {
+  animation-name: ckw;
+  animation-duration: 3.2s;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+  animation-timing-function: linear;
+}
+#piece4 {
+  animation-name: ckw;
+  animation-duration: 5s;
+  transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes ckw {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*---------------------- BACKGROUND ELEMENTS ------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+.background {
+  background: #000010;
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  display:block;
+  color:white;
+  /*display:block;
+  position:fixed;
+  overflow-x:hidden;
+  margin:0 auto;
+  z-index:1;*/
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+.chart rect {
+  fill:steelblue
+}
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------- D3 TUTORIAL CODE ----------------------------*/
+/*-------------------------------------------------------------------------*/
+
+/*Barlines*/
+/*.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}*/
