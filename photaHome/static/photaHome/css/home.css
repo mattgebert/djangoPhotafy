@@ -112,106 +112,68 @@ body {
   transition:1s;
 }
 
-/*--------------------------- Subpage Elements ----------------------------*/
-
-.subpage {
-  display:none;
-  opacity:0;
-  padding:0px;
+.maincontent {
+  padding:20px;
 }
 
-.subpage .subpagemenu{
-  border-right: solid 1px white;
-  overflow-y:auto;
-  background-color: rgba(204, 68, 0, 0.4);
-  display: table;
-  height:100%;
-  padding:0px;
+/*--------------------------- Font Awesome ---------------------------*/
+.social-links {
+  width: 100%;
+  opacity: 0;
+  display: none;
 }
 
-.subpage .menuoption {
-  background-color:none;
-  vertical-align: middle;
-  transition:0.5s;
-  height:5%;
-  color:white;
-  font-family: 'Ubuntu', sans-serif;
-  display: table;
-  width:100%;
-  margin:0 auto;
-}
-
-.subpage .menuoption span {
-  padding-left: 20px;
-  width:100%;
-  height:100%;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.subpage .menuoption:hover {
-  background-color:rgba(255,255,255,0.8);
-  cursor:pointer;
-  color: #114455;
-}
-
-.subpage .viewport{
-  display:table;
+.algnRight {
   position:relative;
-  opacity:1;
-  height:100%;
-  padding: 0px;
-}
-.subpage .loadmask{
-  display:block;
-  position:absolute;
+  text-align: right;
+  /*vertical-align: bottom;*/
   width:100%;
-  height: 100%;
-  text-align: center;
-  background-color: #000010;
-  z-index: 2;
+  height:inherit;
 }
 
-.algnTble{
+.social-links .link-container{
+  position: absolute;
+  bottom:0;
+  right:0;
+  text-align: right;
   display:table;
-  width:100%;
-  height:100%;
+  padding: 40px;
 }
 
-.algnMiddle {
+.social-links .fa{
+  text-align: center;
+  text-decoration: none;
+  padding: 3px;
+  font-size: 20px;
+  width: 20px;
+  /*height: 90px;*/
   display:table-cell;
-  vertical-align: middle;
+  color: #448888;
+  transition: 0.5s;
+}
+.social-links .fa:hover{
+  color: rgba(255,255,255,1);
+  /*color: #114455;*/
+  /*color: #993322;*/
+  /*background-color: rgba(255,255,255,0.8);*/
+  /*background-color: #114455;*/
+  background-color: #DD5522;
+  transition: 0.5s;
 }
 
-.algnInner {
-  margin-left: auto;
-  margin-right: auto;
-  width:100%;
+.fa-facebook {
+
 }
 
-.subpage .loadimg {
-  height:200px;
-  width:200px;
-  margin:0 auto;
+.fa-twitter {
+
 }
 
-.subpage .content{
-  display:none;
-  position:absolute;
-  width:100%;
-  height:100%;
-  z-index: 1;
-  /*top:0;*/
-  /*left:0;*/
-  /*width:inherit;*/
+.fa-linkedin {
+
 }
 
-.subpage .category {
-  display:none;
-  opacity:1;
-}
 /*--------------------------- Rotating SVG ----------------------------*/
-
 #piece1 {
   animation-name: ckw;
   animation-duration: 1s;

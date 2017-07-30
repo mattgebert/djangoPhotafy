@@ -4,3 +4,9 @@ from django.urls import reverse
 from django.template import loader
 
 # Create your views here.
+def defaultView(request):
+    return render(
+        request=request,
+        template_name="photaMusic/defaultview.html",
+        context=None
+    )
