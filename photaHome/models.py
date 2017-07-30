@@ -45,8 +45,8 @@ class Socialprofile(models.Model):
         YOUTUBE: 'fa fa-youtube',
         SOUNDCLOUD: 'fa fa-soundcloud',
         GITHUB: 'fa fa-github',
-        STACKOVERFLOW: 'fa fa-stackoverflow',
-        STACKEXCHANGE: 'fa fa-stackexchange',
+        STACKOVERFLOW: 'fa fa-stack-overflow',
+        STACKEXCHANGE: 'fa fa-stack-exchange',
         REDDIT: 'fa fa-reddit'
     }
 

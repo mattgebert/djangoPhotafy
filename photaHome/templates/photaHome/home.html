@@ -66,7 +66,7 @@
         <div class="col-xs-2"></div>
         <div class="col-xs-8 maincontent">
           {% for name, href, icon in page_apps %}
-          <div class="col-xs-3 subpagelink" id="{{ name }}">
+          <div class="col-xs-3 subpagelink" id="{{ name }}" onclick="location.href = '{{ href }}';" href="{{ href }}">
             <a href="{{ href }}"><h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3></a>
           </div>
           {% endfor %}

@@ -153,24 +153,9 @@ body {
 }
 .social-links .fa:hover{
   color: rgba(255,255,255,1);
-  /*color: #114455;*/
-  /*color: #993322;*/
-  /*background-color: rgba(255,255,255,0.8);*/
-  /*background-color: #114455;*/
   background-color: #DD5522;
   transition: 0.5s;
-}
-
-.fa-facebook {
-
-}
-
-.fa-twitter {
-
-}
-
-.fa-linkedin {
-
+  /*color: #114455;*/
 }
 
 /*--------------------------- Rotating SVG ----------------------------*/
