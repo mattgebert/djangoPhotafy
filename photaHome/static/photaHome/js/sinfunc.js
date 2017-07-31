@@ -20,7 +20,7 @@ var line = d3.line()
 
 //Generation of Data Points
 var expfunc = function(xval){
-  return +Math.exp(5*xval/dataPoints);
+  return +Math.exp(6*xval/dataPoints);
 }
 var yfunc = function(xval){
   return +Math.pow(Math.sin(Math.PI * xval / 80),2)*expfunc(xval);
@@ -42,11 +42,11 @@ y.domain([0,d3.max(data, function(d) { return d.amp; })]);
 //Draw Dataset
 g.append("path")
     .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-linecap", "round")
-    .attr("stroke-width", 1.5)
+    // .attr("fill", "none")
+    // .attr("stroke", "steelblue")
+    // .attr("stroke-linejoin", "round")
+    // .attr("stroke-linecap", "round")
+    // .attr("stroke-width", 1.5)
     .attr("d", line);
 
 //Define function to get next datapoint.
