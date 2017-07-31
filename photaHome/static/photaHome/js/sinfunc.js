@@ -20,7 +20,7 @@ var line = d3.line()
 
 //Generation of Data Points
 var expfunc = function(xval){
-  return +Math.exp(6*xval/dataPoints);
+  return +Math.exp(width/height*2*xval/dataPoints);
 }
 var yfunc = function(xval){
   return +Math.pow(Math.sin(Math.PI * xval / 80),2)*expfunc(xval);
