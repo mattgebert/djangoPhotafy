@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djangoPhotafy.apps.djangoPhotafyConfig',
     'photaHome.apps.PhotahomeConfig',
+    'amy.apps.AmyConfig',
 ]
 
 #CUSTOM Paged Apps used for HomePage
