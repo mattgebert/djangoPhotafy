@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from photaHome.pageapps import get_page_app
+from photaHome import get_page_apps()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,19 +41,7 @@ INSTALLED_APPS = [
     'djangoPhotafy.apps.djangoPhotafyConfig',
     'photaHome.apps.PhotahomeConfig',
     'amy.apps.AmyConfig',
-]
-
-#CUSTOM Paged Apps used for HomePage
-PAGE_APPS = [
-    'photaMusic.apps.photaMusicConfig',
-]
-
-# Add PAGE_APPS to INSTALLED_APPS if satisfies requirements
-for app in PAGE_APPS:
-    klass = get_page_app(app)
-    # if type(klass) is type(type):
-    INSTALLED_APPS += [app]
-
+] + get_page_apps()
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

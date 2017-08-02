@@ -5,8 +5,7 @@ app_name = 'photaHome'
 
 # Page Apps
 from djangoPhotafy.settings import PAGE_APPS
-from photaHome.pageapps import PageAppConfig, get_page_app, get_page_urls
-
+from photaHome.pageapps import PageAppConfig, get_page_app
 # Add Page App Urls
 page_urls = []
 for app in PAGE_APPS:

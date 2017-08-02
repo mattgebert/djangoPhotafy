@@ -1,6 +1,6 @@
 from photaHome.pageapps import PageAppConfig
 
-class photaMusicConfig(PageAppConfig):
+class PhotamusicConfig(PageAppConfig):
     name = 'photaMusic'
     page_name = 'Musician'              #Displayed Text
     href = 'music'                  #Url text of root page.

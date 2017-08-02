@@ -3,8 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.template import loader
 
-from djangoPhotafy.settings import PAGE_APPS
-from photaHome.pageapps import get_page_app
+from photaHome.pageapps import get_app_details
 from photaHome.models import Socialprofile
 
 # Create your views here.
@@ -27,11 +26,3 @@ def homeView(request):
             'profiles':Socialprofile.objects.all(),
         }
     )
-
-#Used to load different page app names
-def getAppDetails():
-    applist = []
-    for app in PAGE_APPS:
-        klass = get_page_app(app)
-        applist += [klass]
-        return applist

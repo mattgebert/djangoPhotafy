@@ -1,4 +1,7 @@
 from django.apps import AppConfig
+#You may need to need to modify the app name import in this file appropriately, and specify PAGE_APPS.
+from .settings import PAGE_APPS
+
 
 class PageAppConfig(AppConfig):
     """This class serves as the base for other apps that will generate a link from the home page."""
@@ -19,7 +22,7 @@ class PageAppConfig(AppConfig):
         return "Properties:\n\tPage Name:\t"+self.page_name+"\tPage Url:\t"+self.href+"\tIcon Class:\t"+self.icon_class
 
 
-def get_page_app(app):
+def get_pageapp(app):
     """Checks If The App Text Extends PageAppConfig"""
     try:
         #Check <Name>Config class exists and is PageAppConfig type.
@@ -41,7 +44,24 @@ def get_page_app(app):
         print("Execption found with", app)
         raise
 
-def get_page_urls(app):
-    """Returns the urls  """
-    klass = get_page_app(app)
-    return
+
+def get_pageapp_classes():
+    """Returns a list of classes types of installed page apps from PAGE_APPS specified in ./settings.py
+    These need to be instantiated correctly.
+    """
+    applist = []
+    for app in PAGE_APPS:
+        klass = get_pageapp(app)
+        applist += [klass]
+        return applist
+
+def get_pageapp_list():
+    """Returns a list of strings of installed page apps from PAGE_APPS specified in ./settings.py"""
+    INSTALLED_PAGE_APPS = []
+    for app in PAGE_APPS:
+        klass = get_pageapp(app)
+        if issubclass(klass, PageAppConfig): #Check if application was correctly installed.
+            INSTALLED_PAGE_APPS += [app]
+        else:
+            raise TypeError("The defined application ", app, " did not extend the pageapp type correctly.")
+    return INSTALLED_PAGE_APPS
