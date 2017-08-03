@@ -5,7 +5,6 @@ var svg = d3.select("svg.chart"),
 var width = +jsvg.width() - margin.left - margin.right,
     height = +jsvg.height() - margin.top - margin.bottom;
 var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-var parseTime = d3.timeParse("%d-%b-%y");
 
 var x = d3.scaleLinear()
     .rangeRound([0, width]);
@@ -16,6 +15,16 @@ var line = d3.line()
     .x(function(d) { return x(d.time); })
     .y(function(d) { return y(d.sinamp); });
 
+var svgResize = function() {
+  //Update Container Elements
+  width = +jsvg.width() - margin.left - margin.right;
+  height = +jsvg.height() - margin.top - margin.bottom;
+  g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  x = d3.scaleLinear()
+      .rangeRound([0, width]);
+  y = d3.scaleLinear()
+      .rangeRound([height, 0]);
+};
 
 
 //Generation of Data Points
@@ -42,11 +51,6 @@ y.domain([0,d3.max(data, function(d) { return d.amp; })]);
 //Draw Dataset
 g.append("path")
     .datum(data)
-    // .attr("fill", "none")
-    // .attr("stroke", "steelblue")
-    // .attr("stroke-linejoin", "round")
-    // .attr("stroke-linecap", "round")
-    // .attr("stroke-width", 1.5)
     .attr("d", line);
 
 //Define function to get next datapoint.

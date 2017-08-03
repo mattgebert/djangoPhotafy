@@ -3,12 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.template import loader
 
-from photaHome.pageapps import get_app_details
+from photaHome.pageapps import get_pageapp_classes
 from photaHome.models import Socialprofile
 
 # Create your views here.
 def homeView(request):
-    apps = getAppDetails()
+    apps = get_pageapp_classes()
 
     page_names = []
     page_hrefs = []

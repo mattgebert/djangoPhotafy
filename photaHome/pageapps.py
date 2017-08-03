@@ -53,7 +53,7 @@ def get_pageapp_classes():
     for app in PAGE_APPS:
         klass = get_pageapp(app)
         applist += [klass]
-        return applist
+    return applist
 
 def get_pageapp_list():
     """Returns a list of strings of installed page apps from PAGE_APPS specified in ./settings.py"""
@@ -62,6 +62,7 @@ def get_pageapp_list():
         klass = get_pageapp(app)
         if issubclass(klass, PageAppConfig): #Check if application was correctly installed.
             INSTALLED_PAGE_APPS += [app]
+            print(app, "installed.")
         else:
             raise TypeError("The defined application ", app, " did not extend the pageapp type correctly.")
     return INSTALLED_PAGE_APPS

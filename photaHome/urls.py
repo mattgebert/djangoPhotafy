@@ -4,12 +4,12 @@ from photaHome import views
 app_name = 'photaHome'
 
 # Page Apps
-from djangoPhotafy.settings import PAGE_APPS
-from photaHome.pageapps import PageAppConfig, get_page_app
+from .settings import PAGE_APPS
+from photaHome.pageapps import PageAppConfig, get_pageapp
 # Add Page App Urls
 page_urls = []
 for app in PAGE_APPS:
-    klass = get_page_app(app)
+    klass = get_pageapp(app)
     page_urls += [
         url(r'^'+klass.href, include(klass.name + ".urls"))
     ]
