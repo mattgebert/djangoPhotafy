@@ -1,0 +1,28 @@
+body {
+  margin:0;
+  overflow-x: hidden;
+  /*background: #000010;*/
+}
+
+.row {
+  margin:0;
+  margin-left:0;
+  margin-right:0;
+}
+
+/*TODO: Controversal, should I keep this or not??*/
+* {
+  white-space: nowrap;
+}
+
+.background {
+  background: #000010;
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  color:white;
+  z-index: -1;
+}

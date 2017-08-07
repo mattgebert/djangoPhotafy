@@ -28,14 +28,12 @@
   <meta name="twitter:image"             content="{% static 'Matt_Portrait.jpg' %}">
 
 
-  <!-- Stylesheets External -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> <!-- integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" /><!-- integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/ad2d84ce45.css">
+  {% include "photaHome/_css_external.html" %}
 
   <!-- Stylesheets Internal -->
   <link rel="stylesheet" href="{% static 'photaHome/css/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'photaHome/css/menubar.css' %}" />
+  <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
 
   <!--Extra Fonts: https://fonts.google.com, also https://designshack.net/articles/css/the-10-best-script-and-handwritten-google-web-fonts/-->
   <link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Share+Tech+Mono|Ubuntu:400" rel="stylesheet">
@@ -61,18 +59,7 @@
         <div class="col-sm-2"></div>
       </div>
       <div class="row space2"></div>
-      <div class="row links">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-8 maincontent">
-          {% for name, href, icon in page_apps %}
-          <div class="col-xs-3 subpagelink" id="{{ name }}" onclick="location.href = '{{ href }}';" href="{{ href }}">
-            <a href="{{ href }}"><h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3></a>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="col-xs-2 linkbar sidebars"></div>
-      </div>
-      <div class="row underline"></div>
+      {% include "photaHome/menubar.html" %}
       <div class="row social-links">
         <div class="algnRight">
           <div class="link-container">
@@ -91,19 +78,14 @@
   </div>
 </div>
 
-<!--Scripts-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><!-- integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" -->
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% include "photaHome/_js_scripts.html" %}
 
 <!--Specific Page Script -->
 <script src="{% static 'photaHome/js/home.js' %}"></script>
 <script src="{% static 'photaHome/js/sinfunc.js' %}"></script>
 
 <!-- Custom Library -->
-<script src="{% static 'customFns.js' %}"></script>
+<script src="{% static 'photaHome/js/customFns.js' %}"></script>
 
 </body>
 </html>

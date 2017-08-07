@@ -3,26 +3,19 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.template import loader
 
-from photaHome.pageapps import get_pageapp_classes
+from photaHome.pageapps import get_pageapp_webitems
 from photaHome.models import Socialprofile
 
 # Create your views here.
 def homeView(request):
-    apps = get_pageapp_classes()
-
-    page_names = []
-    page_hrefs = []
-    page_icons = []
-    for app in apps:
-        page_names+=[app.page_name]
-        page_hrefs+=[app.href]
-        page_icons+=[app.icon_class]
+    page_apps = get_pageapp_webitems()
 
     return render(
         request,
         'photaHome/home.html',
         {
-            'page_apps':zip(page_names,page_hrefs,page_icons),
+            'HOME_ON':False,
+            'page_apps':page_apps,
             'profiles':Socialprofile.objects.all(),
         }
     )

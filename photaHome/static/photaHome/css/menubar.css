@@ -1,0 +1,53 @@
+/*----------------------Specifies the CSS for a menubar---------------------*/
+
+.links {
+  width:100%;
+  margin:0;
+}
+.links .maincontent {
+  /*padding:20px;*/
+}
+
+.links .linkbar{
+  padding:0px
+}
+
+.links span {
+  padding-right: 80px;
+  font-size: 22px;
+  color: #FFFFFF;
+  font-family: 'Share Tech Mono', monospace;
+  transition:0.5s;
+}
+
+.links i {
+  padding-right: 10px;
+  color: #77EEEE;
+  transition:0.5s;
+}
+
+.links .subpagelink {
+  background-color:none;
+  display: block;
+  transition:0.5s;
+}
+.links .subpagelink:hover span {
+  color: #114455;
+}
+.links .subpagelink:hover i {
+  color: #114455;
+}
+
+.links .subpagelink:hover {
+  background-color:rgba(255,255,255,0.8);
+  cursor:pointer;
+}
+.links h3 {
+  white-space: nowrap;
+  text-align:center;
+}
+
+.underline {
+  height: 2px;
+  transition:1s;
+}

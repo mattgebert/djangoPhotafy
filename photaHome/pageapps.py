@@ -66,3 +66,15 @@ def get_pageapp_list():
         else:
             raise TypeError("The defined application ", app, " did not extend the pageapp type correctly.")
     return INSTALLED_PAGE_APPS
+
+def get_pageapp_webitems():
+    "Returns a zipped object of lists, directly usable in context render call. Includes [names, hrefs, icons]."
+    apps = get_pageapp_classes()
+    page_names = []
+    page_hrefs = []
+    page_icons = []
+    for app in apps:
+        page_names+=[app.page_name]
+        page_hrefs+=[app.href]
+        page_icons+=[app.icon_class]
+    return zip(page_names, page_hrefs, page_icons)

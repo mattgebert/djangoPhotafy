@@ -15,5 +15,5 @@ for app in PAGE_APPS:
     ]
 
 urlpatterns = [
-    url(r'^$', views.homeView, name='homeView'),
+    url(r'^$', views.homeView, name='home'),
 ] + page_urls

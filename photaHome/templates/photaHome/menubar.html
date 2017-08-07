@@ -1,0 +1,28 @@
+<!-- Generalized Menubar -->
+<div class="row links">
+  {% if not HOME_ON %}
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8 maincontent">
+    {% for name, href, icon in page_apps %}
+    <div class="col-xs-3 subpagelink" id="{{ name }}" onclick="location.href = '{{ href }}';" href="{{ href }}">
+      <a href="{{ href }}"><h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3></a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-xs-2 linkbar sidebars"></div>
+
+  {% else %}
+  <div class="maincontent">
+    <div class="col-xs-1 subpagelink" id="home" onclick="location.href = '{% url 'photaHome:home' %}';" href="{% url 'photaHome:home' %}">
+      <a href="{% url 'photaHome:home' %}"><h3><i class="fa fa-home"></i></h3></a>
+    </div>
+    {% for name, href, icon in page_apps %}
+    <div class="col-xs-2 subpagelink" id="{{ name }}" onclick="location.href = '{{ href }}';" href="{{ href }}">
+      <a href="{{ href }}"><h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3></a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+<div class="row underline"></div>
+<!-- End Generalized Menubar -->

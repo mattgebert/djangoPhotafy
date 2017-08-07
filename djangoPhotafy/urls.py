@@ -19,5 +19,5 @@ from photaHome.views import homeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('photaHome.urls')),
+    url(r'^', include('photaHome.urls'), name="photaHome"),
 ]
