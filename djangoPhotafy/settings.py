@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djangoPhotafy.apps.djangoPhotafyConfig',
     'photaHome.apps.PhotahomeConfig',
+    'sekizai',
     'amy.apps.AmyConfig',
 ] + get_pageapp_list()
 
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai'
             ],
         },
     },

@@ -1,7 +1,10 @@
 {% load static %}
+{% load sekizai_tags %}
 
-<!-- TODO: Add css/js calls to head / endbody -->
+<!-- Add css/js calls to head / endbody -->
+{% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'photaHome/css/menubar.css' %}" />
+{% endaddtoblock %}
 
 <!-- Generalized Menubar -->
 <div class="row links">
@@ -32,6 +35,8 @@
 <div class="row underline"></div>
 <!-- End Generalized Menubar -->
 
+
+{% addtoblock "js" %}
 <script>
   //Content for menubar.js functionality
   //Requires libraries to load first!!
@@ -41,3 +46,4 @@
   {% if href in request.path %}crnt_pg = {{ forloop.counter0 }};{% endif %}{% endfor %}
 </script>
 <script src="{% static 'photaHome/js/menubar.js' %}" ></script>
+{% endaddtoblock %}
