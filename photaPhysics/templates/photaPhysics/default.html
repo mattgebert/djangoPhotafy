@@ -1,22 +1,21 @@
 {% load static %}
-
+{% load sekizai_tags %}
+{% include "photaHome/_css_external.html" %}
+{% include "photaHome/_js_scripts.html" %}
 <html>
 <head>
-  {% include "photaHome/_css_external.html" %}
+  {% render_block "css" %}
   <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
-
 </head>
 <body>
   <div class="frames">
-
     {% include "photaHome/menubar.html" %}
-
   </div>
   <div class="background">
 
   </div>
-
-  {% include "photaHome/_js_scripts.html" %}
-
+  <script src="{% static 'photaHome/js/customFns.js' %}"></script>
+  {% render_block "js" %}
+  <!-- Custom Library -->
 </body>
 </html>

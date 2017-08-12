@@ -1,5 +1,7 @@
 {% load static %}
 {% load sekizai_tags %}
+{% include "photaHome/_css_external.html" %}
+{% include "photaHome/_js_scripts.html" %}
 
 <html>
 <head>
@@ -29,17 +31,12 @@
   <meta name="twitter:image"             content="{% static 'Matt_Portrait.jpg' %}">
 
   {% render_block "css" %}
-
-  {% addtoblock "css" %}
-  {% include "photaHome/_css_external.html" %}
   <!-- Stylesheets Internal -->
   <link rel="stylesheet" href="{% static 'photaHome/css/home.css' %}" />
-  <link rel="stylesheet" href="{% static 'photaHome/css/menubar.css' %}" />
   <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
   <!--Extra Fonts: https://fonts.google.com, also https://designshack.net/articles/css/the-10-best-script-and-handwritten-google-web-fonts/-->
   <link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Share+Tech+Mono|Ubuntu:400" rel="stylesheet">
-  {% endaddtoblock %}
-  
+
   <!-- Scripts at the bottom! -->
 </head>
 <body>
@@ -80,15 +77,11 @@
 </div>
 
 {% render_block "js" %}
-
-{% addtoblock "js" %}
-{% include "photaHome/_js_scripts.html" %}
 <!-- Custom Library -->
 <script src="{% static 'photaHome/js/customFns.js' %}"></script>
 <!--Specific Page Script -->
 <script src="{% static 'photaHome/js/home.js' %}"></script>
 <script src="{% static 'photaHome/js/sinfunc.js' %}"></script>
-{% endaddtoblock %}
 
 </body>
 </html>

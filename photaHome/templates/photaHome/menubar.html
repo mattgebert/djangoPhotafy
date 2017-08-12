@@ -1,7 +1,7 @@
 {% load static %}
 {% load sekizai_tags %}
 
-<!-- Add css/js calls to head / endbody -->
+{# Add css/js calls to head / endbody #}
 {% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'photaHome/css/menubar.css' %}" />
 {% endaddtoblock %}
@@ -45,5 +45,7 @@
   {% for name, href, icon in page_apps %}menubar_items.push("{{ href }}");
   {% if href in request.path %}crnt_pg = {{ forloop.counter0 }};{% endif %}{% endfor %}
 </script>
+{% if HOME_ON %}
 <script src="{% static 'photaHome/js/menubar.js' %}" ></script>
+{% endif %}
 {% endaddtoblock %}
