@@ -7,16 +7,19 @@ from photaHome.pageapps import get_pageapp_webitems
 
 # Create your views here.
 def defaultView(request):
-    pageapps = get_pageapp_webitems()
-
     return render(
         request=request,
-        template_name="photaPhysics/default.html",
+        template_name="photaPhysics/home.html",
         context={
             'HOME_ON':True,
             'page_apps':get_pageapp_webitems,
-
         }
     )
 
+
 # Create your views here.
+
+#Use Tuples, and then a for a,b,c in list to get items!
+posts = [
+    ()
+]

@@ -26,3 +26,12 @@ body {
   color:white;
   z-index: -1;
 }
+
+.frames {
+  height:100%;
+  width: 100%;
+  overflow-y: scroll; /*Temporary - will need to implement absolute behaviour of the menubar div in .content. */
+}
+
+.content {
+}

@@ -10,6 +10,10 @@
 <body>
   <div class="frames">
     {% include "photaHome/menubar.html" %}
+    <div class=" row content">
+      {% block "content" %}
+      {% endblock %}
+    </div>
   </div>
   <div class="background">
 
