@@ -1,0 +1,245 @@
+.buffer {
+  height:15%;
+}
+
+.msg {
+  margin:0;
+}
+
+.msg-centre {
+  width:100%;
+  height:50%;
+  /*background-color: rgba(255,255,255,0.1);*/
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 15px;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.7);
+  padding-top: 10px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.msg-title {
+  font-size: 50px;
+  line-height: 50px;
+  color: #FFFFFF;
+  font-family: 'Mogra', cursive;
+  text-decoration: underline;
+}
+
+.msg-para {
+  width:100%;
+  color: rgb(255,241,173);
+  font-family: 'Raleway', sans-serif;
+  white-space: normal;
+  text-align: left;
+}
+
+.msg-signature {
+  width:100%;
+  color:rgb(255,195,0);
+  /*font-family: 'Barrio', cursive;*/
+  /*font-family: 'Bahiana', cursive;*/
+  font-family: 'Indie Flower', cursive;
+  /*font-style: italic;*/
+  font-size: 40px;
+  line-height: 40px;
+
+}
+
+.div-line{
+  height:70%;
+  width:2px;
+  background-color: rgb(255,195,0);
+  margin-left:auto;
+  margin-right: 0;
+}
+
+
+/*font-family: 'Barrio', cursive;
+font-family: 'Raleway', sans-serif;
+font-family: 'Bahiana', cursive;
+font-family: 'Caveat Brush', cursive;*/
+
+.frame {
+  position: fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+}
+
+.button {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  user-select: none;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  -o-user-select: none;
+  cursor:pointer;
+  box-shadow: 0px 3px 5px black;
+}
+
+body {
+  background-color: black;
+  /*background:url('lost.jpg') no-repeat center center  fixed;*/
+  /*background:url('StarSky720.mp4') no-repeat center center  fixed;*/
+  background-size: 100%;
+  overflow-x:hidden;
+  webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+* {
+  white-space: nowrap;
+}
+
+#picture_frame{
+  opacity:0;
+  display:none;
+  z-index: 1;
+}
+
+.movingImg {
+  position:absolute;
+  opacity:1;
+  display:none;
+  z-index: 1;
+}
+
+
+/*TODO: ADJUST RESIZE JS FOR INSTANCES WHERE HEIGHT > WIDTH*/
+
+#vid_frame{
+  height: 100%;
+  width:100%;
+  background-color: black;
+  opacity: 1;
+  z-index: -1;
+}
+
+video {
+  /*-webkit-transform: scaleX(1.2);*/
+  /*-moz-transform: scaleX(1.2);*/
+  width: 100%;
+  height: auto;
+  /*height: auto;*/
+  /*width: auto;*/
+  /*min-width: 100%;*/
+  /*min-height: 100%;*/
+}
+
+video source {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+audio {
+  volume: 0.2;
+}
+
+
+/*Loading Icon Stuff :) */
+
+#load_frame{
+  height: 100%;
+  width:100%;
+  background-color: black;
+  opacity: 1;
+  z-index: 10;
+}
+
+
+.algnFrame {
+  display:table;
+  text-align: center;
+}
+
+.algnMiddle {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.algnInner {
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
+}
+
+.loadimg {
+  height:200px;
+  width:200px;
+  margin:0 auto;
+}
+
+/*Animation Stuff :)*/
+
+#piece1 {
+  fill: rgb(210,105,30);
+  animation-name: ckw;
+  animation-duration: 1s;
+  transform-origin: center;
+  -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece2 {
+  animation-name: ckw;
+  animation-duration: 2s;
+  transform-origin: center;
+  -webkit-transform-origin: 100% 100% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece3 {
+  animation-name: ckw;
+  animation-duration: 3.2s;
+  transform-origin: center;
+  -webkit-transform-origin: 50% 100% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece4 {
+  animation-name: ckw;
+  animation-duration: 5s;
+  transform-origin: center; /*Firefox Support;*/
+  -webkit-transform-origin: 0% 100% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece5 {
+  animation-name: ckw;
+  animation-duration: 1.6s;
+  transform-origin: center; /*Firefox Support;*/
+  -webkit-transform-origin: 0% 0% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece6 {
+  animation-name: ckw;
+  animation-duration: 2.4s;
+  transform-origin: center; /*Firefox Support;*/
+  -webkit-transform-origin: 50% 0% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes ckw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

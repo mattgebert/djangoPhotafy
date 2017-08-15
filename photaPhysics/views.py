@@ -19,7 +19,9 @@ def defaultView(request):
 
 # Create your views here.
 
+
 #Use Tuples, and then a for a,b,c in list to get items!
 posts = [
-    ()
+    #(<PageExtension>,<TemplateName>,<>)
+    ('spinning_circle','','')
 ]
