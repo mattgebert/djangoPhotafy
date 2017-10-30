@@ -2,6 +2,8 @@
 
 {% block content %}
 
-
+{% for title, date, description in event_posts %}
+  <div>{{ title }}</div>
+{% endfor %}
 
 {% endblock %}

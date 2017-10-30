@@ -1,11 +1,9 @@
 {% load static %}
 {% load sekizai_tags %}
-
 {# Add css/js calls to head / endbody #}
 {% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'photaHome/css/menubar.css' %}" />
 {% endaddtoblock %}
-
 <!-- Generalized Menubar -->
 <div class="row links">
   {% if not HOME_ON %}
@@ -18,7 +16,6 @@
     {% endfor %}
   </div>
   <div class="col-xs-2 linkbar sidebars"></div>
-
   {% else %}
   <div class="maincontent">
     <div class="col-xs-1 subpagelink" id="home" onclick="location.href = '{% url 'photaHome:home' %}';">
@@ -34,8 +31,6 @@
 </div>
 <div class="row underline"></div>
 <!-- End Generalized Menubar -->
-
-
 {% addtoblock "js" %}
 <script>
   //Content for menubar.js functionality

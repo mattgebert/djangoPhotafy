@@ -1,0 +1,9 @@
+{% extends 'photaHome/linearView.html' %}
+
+{% block "content" %}
+<form enctype="multipart/form-data" method="post" action="{% url 'amy:upload'  %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

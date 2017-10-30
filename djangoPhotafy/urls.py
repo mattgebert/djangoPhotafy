@@ -17,7 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from photaHome.views import homeView
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^amy/', include('amy.urls'), name="amy"),
     url(r'^', include('photaHome.urls'), name="photaHome"),
 ]
