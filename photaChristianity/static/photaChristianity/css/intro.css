@@ -1,0 +1,15 @@
+.intro h3 {
+  color: white;
+}
+
+.row .aspectIcon {
+  font-size:8em;
+  display: block;
+  text-align: center;
+}
+
+.row .aspectTitle {
+  font-size:2em;
+  display: block;
+  text-align: center;
+}

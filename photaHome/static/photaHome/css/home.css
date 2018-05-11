@@ -71,7 +71,7 @@
   padding: 40px;
 }
 
-.social-links .fa{
+.social-links .fab{
   text-align: center;
   text-decoration: none;
   padding: 3px;
@@ -82,7 +82,7 @@
   color: #448888;
   transition: 0.5s;
 }
-.social-links .fa:hover{
+.social-links .fab:hover{
   color: rgba(255,255,255,1);
   background-color: #DD5522;
   transition: 0.5s;

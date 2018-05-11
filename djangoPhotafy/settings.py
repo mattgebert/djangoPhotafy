@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
                 '127.0.0.1',
+                'localhost',
                 'photafy.me',]
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'photaHome.apps.PhotahomeConfig',
     'sekizai',
     'amy.apps.AmyConfig',
+    'fivehundred',
 ] + get_pageapp_list()
 
 MIDDLEWARE = [

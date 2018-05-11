@@ -38,16 +38,16 @@ class Socialprofile(models.Model):
     )
 
     SOCIAL_PLATFORM_ICONS = {
-        GOOGLE: 'fa fa-google',
-        FACEBOOK: 'fa fa-facebook',
-        TWITTER: 'fa fa-twitter',
-        LINKEDIN: 'fa fa-linkedin',
-        YOUTUBE: 'fa fa-youtube',
-        SOUNDCLOUD: 'fa fa-soundcloud',
-        GITHUB: 'fa fa-github',
-        STACKOVERFLOW: 'fa fa-stack-overflow',
-        STACKEXCHANGE: 'fa fa-stack-exchange',
-        REDDIT: 'fa fa-reddit'
+        GOOGLE: 'fab fa-google',
+        FACEBOOK: 'fab fa-facebook',
+        TWITTER: 'fab fa-twitter',
+        LINKEDIN: 'fab fa-linkedin',
+        YOUTUBE: 'fab fa-youtube',
+        SOUNDCLOUD: 'fab fa-soundcloud',
+        GITHUB: 'fab fa-github',
+        STACKOVERFLOW: 'fab fa-stack-overflow',
+        STACKEXCHANGE: 'fab fa-stack-exchange',
+        REDDIT: 'fab fa-reddit'
     }
 
     platform = models.CharField(

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'fivehundred/CSS-Playing-Cards/cards.css' %}" />
+</head>
+<body>
+  <div class="playingCards rotateHand">
+    <ul class="hand" id="playerHand">
+      <li>
+        <a class="card rank-q hearts" href="#">
+          <span class="rank">Q</span>
+          <span class="suit">&hearts;</span>
+        </a>
+      </li>
+      <li>
+        <a class="card rank-q hearts" href="#">
+          <span class="rank">Q</span>
+          <span class="suit">&hearts;</span>
+        </a>
+      </li>
+      <li>
+        <a class="card rank-q hearts" href="#">
+          <span class="rank">Q</span>
+          <span class="suit">&hearts;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <input id="clickMe" type="button" value="Test" onclick="joinGame();" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+  <script>
+    var socket = io('localhost:3000');
+
+    var joinGame = function() {
+      socket.emit('joinGame');
+    };
+
+    var capatalize = function (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
+    socket.on('addHand', function(hand) {
+      var h = $('#playerHand');
+      h.html("");
+      hand.forEach(function(e){
+        if (e.rank.val == 15) {//Joker:
+          h.append("<li><a class =\"card big joker \" href=\"#\"><span class=\"rank\">-</span><span class=\"suit\">Joker</span>\n</a></li>");
+        } else {
+          h.append("<li><a class =\"card rank-" + e.rank.css + " " + e.suit.css + "\" href=\"#\"><span class=\"rank\">"+capatalize(e.rank.css)+"</span><span class=\"suit\">&"+e.suit.css+";</span>\n</a></li>");
+        }
+      });
+    });
+  </script>
+
+
+  <!-- <script src="static/dbest-ca/draw_hands.js"></script>
+  <script>fillHand("showtens", "CDSH", {H:"TTTTTTTTTT" , C:"" , D:"" , S:"" , J:"1"} );</script-->
+</body>
+</html>
