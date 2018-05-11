@@ -29,7 +29,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['0.0.0.0',
                 '127.0.0.1',
                 'localhost',
-                'photafy.me',]
+                'photafy.me',
+                'mattgebert.com',
+                '128.199.216.183']
 
 # Application definition
 INSTALLED_APPS = [
