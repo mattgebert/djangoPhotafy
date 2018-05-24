@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse
 from django.views.generic.edit import FormView
 from .forms import FileFieldForm
+from photaHome.pageapps import get_pageapp_webitems
 
 
 class FileFieldView(FormView):
@@ -34,8 +35,8 @@ def homeView(request):
     {
         # 'form': form,
         'HOME_ON':True,
-        'page_apps':page_apps,
-        'items':event_posts,
+        'page_apps':get_pageapp_webitems,
+        'event_posts':event_posts,
     })
 
 def get_img(request):
@@ -57,7 +58,7 @@ def get_img(request):
         {
             'form': form,
             'HOME_ON':True,
-            'page_apps':page_apps,
+            'page_apps':get_pageapp_webitems,
         })
 
 

@@ -1,0 +1,27 @@
+{% load static %}
+{% load sekizai_tags %}
+
+{% addtoblock "css" %}
+<link rel="stylesheet" href="{% static 'amy/css/home.css' %}" />
+{% endaddtoblock %}
+
+<div class="col-md-2" id="events">
+  {% for title, date, description in event_posts %}
+    <div class="row event_post" id="{{ title }}">
+      <div> {{ title }} </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="col-md-10 viewport" id="event_page">
+      {% include "photaHome/loadmask.html" %}
+</div>
+
+{% addtoblock "js" %}
+<script>
+  //On Doc Ready, Set the subpage height to a fixed amount.
+  var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '') + 2;
+  var subpageHeight = $(document).height() - pageBarHeight
+  $('#events').css('height', subpageHeight + 'px');
+  $('#event_page').css('height', subpageHeight + 'px');
+</script>
+{% endaddtoblock %}

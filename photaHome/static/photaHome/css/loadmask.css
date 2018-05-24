@@ -1,0 +1,85 @@
+.loadmask{
+  display:block;
+  position:absolute;
+  width:100%;
+  height: 100%;
+  text-align: center;
+  background-color: #000010;
+  z-index: 2;
+}
+
+.algnTble{
+  display:table;
+  width:100%;
+  height:100%;
+}
+
+.algnMiddle {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.algnInner {
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
+}
+
+.loadimg {
+  height:200px;
+  width:200px;
+  margin:0 auto;
+}
+
+/*.subpage .content{
+  display:none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index: 1;
+  /*top:0;*/
+  /*left:0;*/
+  /*width:inherit;*/
+
+  /*--------------------------- Rotating SVG ----------------------------*/
+  #piece1 {
+    fill: rgb(148, 169, 206);
+    animation-name: ckw;
+    animation-duration: 1s;
+    transform-origin: center;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  #piece2 {
+    fill: rgb(102, 115, 149);
+    animation-name: ckw;
+    animation-duration: 2s;
+    transform-origin: center;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  #piece3 {
+    fill: rgb(41, 38, 100);
+    animation-name: ckw;
+    animation-duration: 3.2s;
+    animation-iteration-count: infinite;
+    transform-origin: center;
+    animation-timing-function: linear;
+  }
+  #piece4 {
+    fill: rgb(245, 244, 250);
+    animation-name: ckw;
+    animation-duration: 5s;
+    transform-origin: center;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @keyframes ckw {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }

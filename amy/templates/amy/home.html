@@ -1,9 +1,11 @@
 {% extends 'photaHome/linearView.html' %}
 
+{% load static %}
+{% load sekizai_tags %}
+
+<!-- Do an include on 'displaypages.html' -->
+
+
 {% block content %}
-
-{% for title, date, description in event_posts %}
-  <div>{{ title }}</div>
-{% endfor %}
-
+  {% include "amy/displaypages.html" %}
 {% endblock %}
