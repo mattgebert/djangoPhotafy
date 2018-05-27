@@ -26,7 +26,7 @@ from photaHome.pageapps import get_pageapp_webitems
 page_apps = get_pageapp_webitems()
 from datetime import *
 event_posts = [
-    ('2017 Birthday', date(2017,6,18), 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.'),
+    # ('2017 Birthday', date(2017,6,18), 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.'),
 ]
 
 def homeView(request):

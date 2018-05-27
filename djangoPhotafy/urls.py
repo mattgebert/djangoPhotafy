@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.urls import path
 from django.contrib import admin
 from photaHome.views import homeView
 
@@ -23,4 +24,6 @@ urlpatterns = [
     url(r'^amy/', include('amy.urls'), name="amy"),
     url(r'^500/', include('fivehundred.urls'), name="500"),
     url(r'^', include('photaHome.urls'), name="photaHome"),
+    #auth urls for login, logout & password management.
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

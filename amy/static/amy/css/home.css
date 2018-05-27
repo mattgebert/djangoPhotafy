@@ -5,7 +5,7 @@
 .col-md-2#events {
   /*padding-top: 5px;*/
   border-right: 2px solid white;
-  border-bottom: 1px solid #77EEEE;
+  /*border-bottom: 1px solid #77EEEE;*/
   display: block;
 }
 
@@ -25,7 +25,6 @@
   color: white;
 }
 
-
 .viewport{
   display:inline-block;; /*Necessary to allow 100% height use*/
   position:relative;
@@ -34,4 +33,35 @@
   /*width: 100%;*/
   height: 100%;
   bottom: 0;
+}
+
+.account {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: white;
+  vertical-align: middle;
+}
+
+.account .buffer {
+  height:5px;
+}
+
+.account .info {
+  display: table;
+  width: 100%;
+  /*border: 1px solid #77EEEE;*/
+  background-color: rgb(52, 85, 119);
+}
+
+.account a{
+  text-align: right;
+}
+
+.account #inbtn {
+
+}
+
+.account #outbtn {
+
 }

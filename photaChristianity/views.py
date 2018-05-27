@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.template import loader
 from django.shortcuts import render
 from photaHome.pageapps import get_pageapp_webitems
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 
 # Create your views here.
 def defaultView(request):
