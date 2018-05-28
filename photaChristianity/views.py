@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.template import loader
 from django.shortcuts import render
-from photaHome.pageapps import get_pageapp_webitems
 from django.urls import resolve
 
 # Create your views here.
@@ -13,9 +12,8 @@ def defaultView(request):
         request=request,
         template_name="photaChristianity/home.html",
         context={
-            'HOME_ON':True,
-            'page_apps':get_pageapp_webitems,
             'name':current_url,
+            # Add variables here
             }
     )
 

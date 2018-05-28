@@ -1,8 +1,7 @@
 from django.shortcuts import render, reverse
 from django.views.generic.edit import FormView
 from .forms import FileFieldForm
-from photaHome.pageapps import get_pageapp_webitems
-
+from django.contrib.auth.decorators import login_required
 
 class FileFieldView(FormView):
     form_class = FileFieldForm
@@ -22,20 +21,16 @@ class FileFieldView(FormView):
             return self.form_invalid(form)
 
 # Create your views here.
-from photaHome.pageapps import get_pageapp_webitems
-page_apps = get_pageapp_webitems()
 from datetime import *
 event_posts = [
     # ('2017 Birthday', date(2017,6,18), 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.'),
 ]
 
+@login_required(login_url='/accounts/login') #TODO in future - change to a permission_required
 def homeView(request):
     return render(request,
     'amy/home.html',
     {
-        # 'form': form,
-        'HOME_ON':True,
-        'page_apps':get_pageapp_webitems,
         'event_posts':event_posts,
     })
 
@@ -57,8 +52,6 @@ def get_img(request):
         return render(request, 'amy/content_upload.html',
         {
             'form': form,
-            'HOME_ON':True,
-            'page_apps':get_pageapp_webitems,
         })
 
 

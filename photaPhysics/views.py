@@ -11,8 +11,7 @@ def defaultView(request):
         request=request,
         template_name="photaPhysics/home.html",
         context={
-            'HOME_ON':True,
-            'page_apps':get_pageapp_webitems,
+            # Add variables here.
         }
     )
 
