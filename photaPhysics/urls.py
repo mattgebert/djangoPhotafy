@@ -1,8 +1,8 @@
 from django.conf.urls import url
-from photaPhysics import views
+from photaPhysics import views,apps
 
-app_name = 'photaPhysics' #identifier for {% url %} html tag --> {% url 'polls:detail' question.id %}
+app_name = apps.PhotaphysicsConfig.name #identifier for {% url %} html tag --> {% url 'polls:detail' question.id %}
 
 urlpatterns = [
-    url(r'^$', views.defaultView, name='physicsDefault'),
+    url(r'^$', views.defaultView, name=apps.PhotaphysicsConfig.href),
 ]

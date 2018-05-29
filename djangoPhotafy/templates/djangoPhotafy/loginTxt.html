@@ -2,7 +2,7 @@
 {% load sekizai_tags %}
 
 {% addtoblock "css" %}
-  <link rel="stylesheet" href="{% static 'djangoPhotafy/css/login.css' %}" />
+<link rel="stylesheet" href="{% static 'djangoPhotafy/css/login.css' %}" />
 {% endaddtoblock %}
 
 <div class="loginContent">
@@ -10,39 +10,42 @@
     <div class="algnTble">
       <div class="algnMiddle">
         <div class="algnInner">
-          {% if form.errors %}
-          <p>Your username and password didn't match. Please try again.</p>
-          {% endif %}
-
-          {% if next %}
-              {% if user.is_authenticated %}
-              <p>Your account doesn't have access to this page. To proceed,
-              please login with an account that has access.</p>
-              {% else %}
-              <p>Please login to see this page.</p>
-              {% endif %}
-          {% endif %}
-
           <form method="post" action="{% url 'login' %}">
-          {% csrf_token %}
-
-          <div class="username">
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-          </div>
-          <div class="password">
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-          </div>
-
-          <div class="submit">
-              <input type="submit" value="Login" />
-              <input type="hidden" name="next" value="{{ next }}" />
-          </div>
+            {% csrf_token %}
+            <div class="row context">
+              {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+              {% endif %}
+              {% if next %}
+                {% if user.is_authenticated %}
+                  <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+                {% else %}
+                  <p>Please login to see this page.</p>
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="row username">
+              <div class="col-md-4">{{ form.username.label_tag }}</div>
+              <div class="col-md-8">{{ form.username }}</div>
+            </div>
+            <div class="row password">
+              <div class="col-md-4">{{ form.password.label_tag }}</div>
+              <div class="col-md-8">{{ form.password }}</div>
+            </div>
+            <div class="row submit">
+              <div class="col-md-4">
+                <!-- Crucial for navigating to the next location: -->
+                <input type="hidden" name="next" value="{{ next }}" />
+              </div>
+              <div class="col-md-8">
+                <input type="submit" value="Login" />
+              </div>
+            </div>
+            <div class="row reset">
+              {# Assumes you setup the password_reset view in your URLconf #}
+              <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+            </div>
           </form>
-
-          {# Assumes you setup the password_reset view in your URLconf #}
-          <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
         </div>
       </div>
     </div>
@@ -51,10 +54,10 @@
 
 {% addtoblock "js" %}
 <script>
-  //On Doc Ready, Set the subpage height to a fixed amount.
-  var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
-  var subpageHeight = $(document).height() - (Number.parseFloat(pageBarHeight)+2);
-  $('.loginContent').css('height', subpageHeight + 'px');
+//On Doc Ready, Set the subpage height to a fixed amount.
+var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
+var subpageHeight = $(document).height() - (Number.parseFloat(pageBarHeight)+2);
+$('.loginContent').css('height', subpageHeight + 'px');
 </script>
 
 {% endaddtoblock %}

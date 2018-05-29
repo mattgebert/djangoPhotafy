@@ -22,7 +22,7 @@
       <a href="{% url 'photaHome:home' %}"><h3><i class="fa fa-home"></i></h3></a>
     </div>
     {% for name, href, icon in page_apps %}
-    <div class="col-xs-2 subpagelink" id="menubar-{{ href }}" onclick="location.href = '{{ href }}';">
+    <div class="col-xs-2 subpagelink" id="menubar-{{ href }}" onclick="location.href = '{% url {{ name }}+':'+{{ href }} %}';"> <!-- '{% url '{{ name }}:{{ href }}' -->
       <a href="{{ href }}"><h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3></a>
     </div>
     {% endfor %}
