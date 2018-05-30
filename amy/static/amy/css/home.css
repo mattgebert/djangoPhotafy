@@ -2,11 +2,13 @@
   display: block;
 }
 
-.col-md-2#events {
+.col-md-2.events {
   /*padding-top: 5px;*/
   border-right: 2px solid white;
   /*border-bottom: 1px solid #77EEEE;*/
   display: block;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .col-md-2 div {
@@ -21,7 +23,7 @@
   /*margin:0;*/
 }
 
-.row .event_post {
+.row.event_post {
   color: white;
 }
 
@@ -38,9 +40,12 @@
 .account {
   padding-top: 50px;
   padding-bottom: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
   text-align: center;
   color: white;
   vertical-align: middle;
+  border-bottom: 2pt solid white;
 }
 
 .account .buffer {

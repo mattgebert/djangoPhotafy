@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'amy/css/home.css' %}" />
 {% endaddtoblock %}
 
-<div class="col-md-2" id="events">
+<div class="col-md-2 events" id="events">
   <div class="row account">
     <div class="row buffer"></div>
     <div class="row info">
@@ -23,6 +23,9 @@
      {% endif %}
     </div>
     <div class="row buffer"></div>
+  </div>
+  <div class="row" id="eventlist">
+
   </div>
   {% for title, date, description in event_posts %}
     <div class="row event_post" id="{{ title }}">
