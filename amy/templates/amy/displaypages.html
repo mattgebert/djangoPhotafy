@@ -25,13 +25,12 @@
     <div class="row buffer"></div>
   </div>
   <div class="row" id="eventlist">
-
+    {% for date, title, description, url in event_posts %}
+      <div class="row event_post" id="{{ title }}">
+        <div><a href="{{ date }}"> {{ title }} </a></div>
+      </div>
+    {% endfor %}
   </div>
-  {% for title, date, description in event_posts %}
-    <div class="row event_post" id="{{ title }}">
-      <div> {{ title }} </div>
-    </div>
-  {% endfor %}
 </div>
 <div class="col-md-10 viewport" id="event_page">
       {% include "photaHome/loadmask.html" %}

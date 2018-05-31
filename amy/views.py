@@ -23,7 +23,8 @@ class FileFieldView(FormView):
 # Create your views here.
 from datetime import *
 event_posts = [
-    # ('2017 Birthday', date(2017,6,18), 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.'),
+     (date(2017,6,18), '2017 Birthday', 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.', 'amy/events/2017-06-18.html'),
+     ()
 ]
 
 @login_required(login_url='/accounts/login') #TODO in future - change to a permission_required
@@ -54,12 +55,13 @@ def get_img(request):
             'form': form,
         })
 
+from .models import ImageSet
 
-# def defaultView(request):
-#     return render(request,
-#     'amy/2017birthday.html',
-#     {'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all()})
-#     # {'img_set':Image.objects.all()})
+def event20170618(request):
+     return render(request,
+     'amy/events/2017-06-18.html',
+     {'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all()})
+     # {'img_set':Image.objects.all()})
 
 
 # def templateView(request):
