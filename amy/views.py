@@ -29,7 +29,6 @@ def homeView(request):
     'amy/home.html',
     {
         'event_posts':event_posts,
-        'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all()
     })
 
 ### Generic load of an event template.
@@ -41,10 +40,12 @@ def event_display(request, year, month, day):
     event_date = date(year,month,day)
     search = [event for event in event_posts if event.date==event_date] #Get all elements with  matching date.
     if len(search) == 1:
-        context = {'event':search[0]}
-        return render(request,
-        'amy/event_display.html',
-        context)
+        context = {
+            'event':search[0],
+            'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all(),
+        }
+
+        return render(request,'amy/event_display.html',context)
     else:
         # return HttpResponseRedirect('/amy/')
         a = len(search)
