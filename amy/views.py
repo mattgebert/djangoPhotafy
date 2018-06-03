@@ -29,6 +29,7 @@ def homeView(request):
     'amy/home.html',
     {
         'event_posts':event_posts,
+        'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all()
     })
 
 ### Generic load of an event template.
