@@ -1,0 +1,17 @@
+{% load static %}
+{% load sekizai_tags %}
+{% include "photaHome/_css_external.html" %}
+{% include "photaHome/_js_scripts.html" %}
+<html>
+<head>
+  {% render_block "css" %}
+  <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
+</head>
+<body>
+  <div class="row event_page">
+    {% include event.template %}
+  </div>
+  <script src="{% static 'photaHome/js/customFns.js' %}"></script>
+  {% render_block "js" %}
+</body>
+</html>

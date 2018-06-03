@@ -1,0 +1,172 @@
+.buffer {
+  height:25%;
+}
+
+.msg {
+  margin:0;
+}
+
+.msg-centre {
+  width:100%;
+  height:50%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.7);
+  padding-top: 10px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.msg-title {
+  font-size: 50px;
+  line-height: 50px;
+  color: #444444;
+  font-family: 'Caveat Brush', cursive;
+  text-decoration: underline;
+}
+
+.msg-para {
+  width:100%;
+  color: #888888;
+  font-family: 'Raleway', sans-serif;
+  white-space: normal;
+  text-align: left;
+}
+
+.msg-signature {
+  width:100%;
+  color:red;
+  /*font-family: 'Barrio', cursive;*/
+  /*font-family: 'Bahiana', cursive;*/
+  font-family: 'Indie Flower', cursive;
+  /*font-style: italic;*/
+  font-size: 40px;
+  line-height: 40px;
+
+}
+
+.div-line{
+  height:70%;
+  width:2px;
+  background-color: red;
+  margin-left:auto;
+  margin-right: 0;
+}
+
+
+/*font-family: 'Barrio', cursive;
+font-family: 'Raleway', sans-serif;
+font-family: 'Bahiana', cursive;
+font-family: 'Caveat Brush', cursive;*/
+
+.frame {
+  position: fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+}
+
+body {
+  background-color: pink;
+  background-size: 100%;
+  overflow-x:hidden;
+  webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+* {
+  white-space: nowrap;
+}
+
+
+/*Loading Icon Stuff :) */
+
+#load_frame{
+  height: 100%;
+  width:100%;
+  background-color: black;
+  opacity: 1;
+  z-index: 2;
+}
+
+.algnFrame {
+  display:table;
+  text-align: center;
+}
+
+
+
+.algnMiddle {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.algnInner {
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
+}
+
+.loadimg {
+  height:200px;
+  width:200px;
+  margin:0 auto;
+}
+
+/*Animation Stuff :)*/
+
+#piece1 {
+  animation-name: ckw;
+  animation-duration: 1s;
+  transform-origin: center;
+  -webkit-transform-origin: 100% 100% 0;
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece2 {
+  animation-name: ckw;
+  animation-duration: 2s;
+  transform-origin: center;
+  -webkit-transform-origin: 0% 100% 0;
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece3 {
+  animation-name: ckw;
+  animation-duration: 3.2s;
+  transform-origin: center;
+  -webkit-transform-origin: 0% 0% 0;
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+#piece4 {
+  animation-name: ckw;
+  animation-duration: 5s;
+  transform-origin: center; /*Firefox Support;*/
+  -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+  -moz-transform-origin: center;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes ckw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.uil-blank {
+  background: none;
+  position: relative;
+  width: 200px;
+  height: 200px;
+}

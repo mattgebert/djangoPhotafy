@@ -1,0 +1,170 @@
+<html>
+<head>
+  <title>Happy Birthday!</title>
+
+  <!-- Metas-->
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-store"/>
+
+  <!-- Stylesheets External -->
+  {% load staticfiles %}
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> <!-- integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" /><!-- integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/ad2d84ce45.css"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+  <!-- Stylesheets Internal -->
+  <link rel="stylesheet" href="{% static 'amy/css/amy2.css' %}"/>
+  <!-- <link rel="stylesheet" href="Amy/amy.css"/> -->
+  <!-- Stylesheets Internal Page Specific -->
+
+  <!--Extra Fonts: https://fonts.google.com, also https://designshack.net/articles/css/the-10-best-script-and-handwritten-google-web-fonts/-->
+  <link href="https://fonts.googleapis.com/css?family=Bahiana|Barrio|Caveat+Brush|Raleway|Indie+Flower|Mogra" rel="stylesheet">
+
+  <!-- Scripts at the bottom! -->
+</head>
+
+<body>
+  <div class="frame" id="messageFrame">
+    <div class="row buffer"></div>
+    <!-- INFORMATION TEXT -->
+    <div class="row msg">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="msg-centre">
+          <div class="row">
+            <span class="msg-title">Happy Birthday Ames</span>
+          </div>
+          <div class="row" style="max-height: 73%; padding-top:20px; overflow-y:scroll; overflow-x:hidden; margin-right:0px">
+            <!-- <div class="col-sm-1"></div> COMMENTED OUT -->
+            <div class="col-sm-1">
+              <div class="div-line"></div>
+            </div>
+            <div class="col-sm-10">
+              <div class="row" style="text-align:left">
+                <span class="msg-para"></span>
+              </div>
+              <div class="row" style="text-align:right">
+                <span class="msg-signature">Matthew Gebert</span>
+              </div>
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+          <div class="row" style="text-align: centre; padding-top: 20px">
+            <div class="button" id="image_button" onclick=beginSlides()>
+              Checkout some images!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+  <div class="frame" id="vid_frame">
+    <video poster="{% static 'amy/img/StarSky.gif' %}" id="bgvid" playsinline muted loop>
+      <source src="{% static 'amy/vid/StarSky720.mp4' %}" type="video/mp4" \>
+
+      <!-- Hosted from GIT because I haven't figured out how to host servers properly yet hahaha..... -->
+      <!-- <source src="https://raw.githubusercontent.com/mattgebert/DjangoTutorial/master/mysite/amy/static/amy/vid/StarSky720.mp4" type="video/mp4" \> -->
+
+    </video>
+    <audio id="bgaud" loop >
+      <!-- <source src="{% static 'amy/audio/uptownfunk.mp3' %}" type="audio/mp3" /> -->
+      <!-- <source src="{% static 'amy/audio/cantstopthefeeling.mp3' %}" type="audio/mp3" \> -->
+      <source src="{% static 'amy/audio/bulletproof.mp3' %}" type="audio/mp3" \>
+
+      <!-- Hosted from GIT because I haven't figured out how to host servers properly yet hahaha..... -->
+      <!-- <source src="https://raw.githubusercontent.com/mattgebert/DjangoTutorial/master/mysite/amy/static/amy/audio/bulletproof.mp3" type="audio/mp3" \>-->
+
+    </audio>
+  </div>
+  <div class="frame algnFrame" id="load_frame">
+    <div class="algnMiddle">
+      <div class="algnInner">
+        <div class="row" style="text-align:center; padding-bottom: 20px; color: yellow">
+          There will be music incoming so chuck on some headphones!
+        </div>
+        <div class="row" id="loadtxt" style="text-align:center; padding-bottom: 20px; color: yellow">
+          Loading content...
+        </div>
+        <div class="row">
+          <svg class="loadimg" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid" class="uil-pie">
+            <rect x="0" y="0" width="200" height="200" fill="#ffffff" class="bk" style="fill: rgba(255, 255, 255, 0);"></rect>
+            <!-- https://developer.mozilla.org/en/docs/Web/SVG/Tutorial/Paths -->
+            <!-- Estimations for a Circle with 6 Segments found in loading/svgCIrclePoints.xlsx-->
+            <!-- http://www.color-hex.com/color-palettes/ -->
+            <path id="piece1" d="M100, 100
+            L50, 187
+            A100 100, 0, 0, 1, 0 100
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(210,105,30);"></path>
+            <path id="piece2" d="M100, 100
+            L10, 100
+            A90 90, 0, 0, 1, 55 22
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(255,165,0);"></path>
+            <path id="piece3" d="M100, 100
+            L60 31
+            A80 80, 0, 0, 1, 140 31
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(255,195,0);"></path>
+            <!-- (255,215,0)(255,195,0) -->
+            <path id="piece4" d="M100, 100
+            L135 39
+            A70 70, 0, 0, 1, 170 100
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(102,51,0);"></path>
+            <!-- (102,51,0)(255,162,135) -->
+            <path id="piece5" d="M100, 100
+            L160 100
+            A60 60, 0, 0, 1, 130 152
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(255, 255, 0);"></path>
+            <path id="piece6" d="M100, 100
+            L125 143
+            A50 50, 0, 0, 1, 75 143
+            L100, 100" fill="#000" opacity="0.5" style="fill: rgb(255,231,153);"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame" id="picture_frame">
+    {% if img_set %}
+    <div style="display: table; position:absolute; width:100%; height:100%; z-index:2;">
+      <div style="display: table-cell; vertical-align: middle; text-align:center">
+        <div style="margin-left: auto; margin-right:auto; z-index: 90">
+          <div class="button" id="message_button" onclick="returnToMessage()" style="z-index:100">
+            Lets go Back!</div>
+        </div>
+      </div>
+    </div>
+    <div id="image_set" style="">{%for image in img_set%}
+      <img class="movingImg" id="db_img{{forloop.counter}}" src="/{{ image.img.url|slice:'4:' }}" textarea="{{image.description}}"/>
+    {%endfor%}</div>
+
+    <script type="text/javascript">
+        var db_img_count = {{img_set|length}}
+    </script>
+    {% endif %}
+  </div>
+
+
+
+  <!--Scripts-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <!-- <script src="spcn/js/bootstrap.min.js"></script>
+  <script src="spcn/js/jquery-ui.min.js"></script>
+  <script src="spcn/js/jquery-3.1.0.min.js"></script> -->
+  <!-- <script src="../spcn/js/d3.min.js"></script> -->
+
+  <!--Specific Page Script -->
+  <script src="{% static 'amy/js/amy2.js' %}"></script>
+  <!-- <script src="Amy/amy.js"></script> -->
+
+  <!-- Custom Library -->
+  <script src="{% static 'amy/js/customFns.js' %}"></script>
+  <!-- <script src="customFns.js"></script> -->
+
+</body>
+</html>

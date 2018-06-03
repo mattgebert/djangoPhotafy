@@ -10,39 +10,39 @@
     <div class="row buffer"></div>
     <div class="row info">
       {% if user.is_authenticated %}
-        <div class="col-md-6">
-          Hi {{ user.get_short_name }}!
-        </div>
-        <div class="col-md-6" id="outbtn">
-            <a class="btn btn-info" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
-        </div>
-     {% else %}
-     <div class="row" id="inbtn">
-          <a class="btn btn-info" href="{% url 'login'%}?next={{request.path}}">Login</a>
-        </div>
-     {% endif %}
+      <div class="col-md-6">
+        Hi {{ user.get_short_name }}!
+      </div>
+      <div class="col-md-6" id="outbtn">
+        <a class="btn btn-info" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+      </div>
+      {% else %}
+      <div class="row" id="inbtn">
+        <a class="btn btn-info" href="{% url 'login'%}?next={{request.path}}">Login</a>
+      </div>
+      {% endif %}
     </div>
     <div class="row buffer"></div>
   </div>
   <div class="row" id="eventlist">
-    {% for date, title, description, url in event_posts %}
-      <div class="row event_post" id="{{ title }}">
-        <div><a href="{{ date }}"> {{ title }} </a></div>
-      </div>
+    {% for event in event_posts %}
+    <div class="row event_post" id="{{ event.title }}">
+      <div><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
+    </div>
     {% endfor %}
   </div>
 </div>
 <div class="col-md-10 viewport" id="event_page">
-      {% include "photaHome/loadmask.html" %}
+  {% include "photaHome/loadmask.html" %}
 </div>
 
 {% addtoblock "js" %}
 <script>
-  //On Doc Ready, Set the subpage height to a fixed amount.
-  var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
-  var subpageHeight = $(document).height() - (Number.parseFloat(pageBarHeight)+2);
-  $('#events').css('height', subpageHeight + 'px');
-  $('#event_page').css('height', subpageHeight + 'px');
+//On Doc Ready, Set the subpage height to a fixed amount.
+var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
+var subpageHeight = $(document).height() - (Number.parseFloat(pageBarHeight)+2);
+$('#events').css('height', subpageHeight + 'px');
+$('#event_page').css('height', subpageHeight + 'px');
 </script>
 
 {% endaddtoblock %}
