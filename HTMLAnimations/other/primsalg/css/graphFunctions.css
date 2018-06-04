@@ -1,0 +1,21 @@
+/*#00293e*/
+
+
+.link {
+  stroke: #5aa97b;
+}
+
+.node {
+  fill: #FFFFFF;
+  stroke: #000000;
+}
+
+svg rect {
+    fill: #00293e;
+}
+
+div #outerFrame {
+  width: 100%;
+  height: 100%;
+  display: table;
+}

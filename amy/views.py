@@ -7,7 +7,7 @@ from datetime import *
 from django.http import Http404
 
 class Event():
-    def __init__(self, date, title, description):
+    def __init__(self, date, title, description, isSubpage):
         self.date = date
         self.title = title
         self.description = description
@@ -15,12 +15,13 @@ class Event():
         self.month = '{0:02d}'.format(self.date.month)
         self.year = '{0:04d}'.format(self.date.year)
         self.template = 'amy/events/' + self.year + '-' + self.month + '-' + self.day + '.html'
+        self.isSubpage = isSubpage
 
 
 event_posts = [
-    Event(date(2018,6,18),'2018 Birthday', 'A birthday card for Amy\'s 21th Birthday!'),
-    Event(date(2017,6,18),'2017 Birthday', 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.'),
-    Event(date(2017,2,14),'2017 Valentines Day', 'What to do when you\'re down at Phillip Island without GF.'),
+    Event(date(2018,6,18),'2018 Birthday', 'A birthday card for Amy\'s 21th Birthday!', True),
+    Event(date(2017,6,18),'2017 Birthday', 'A birthday card for Amy\'s 20th Birthday! Includes a handful of images that depict some of our time together.', False),
+    Event(date(2017,2,14),'2017 Valentines Day', 'What to do when you\'re down at Phillip Island without GF.', False),
 ]
 
 @login_required(login_url='/accounts/login') #TODO in future - change to a permission_required
@@ -42,7 +43,7 @@ def event_display(request, year, month, day):
     if len(search) == 1:
         context = {
             'event':search[0],
-            'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all(),
+            'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all(), #TODO Clean dependencies into event post data.
         }
 
         return render(request,'amy/event_display.html',context)
@@ -51,11 +52,11 @@ def event_display(request, year, month, day):
         a = len(search)
         return Http404("%d results found for date %d", a, event_date)
 
-### Working upload of amy's 2017 birthday.
+### Working upload of amy's 2017 birthday. TODO remove.
 @login_required(login_url='/accounts/login') #TODO in future - change to a permission_required
 def event20170618(request):
      return render(request,
-     'amy/events/2017-06-18.html',
+     'amy/events/2017-06-18.old.html',
      {'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all()})
      # {'img_set':Image.objects.all()})
 

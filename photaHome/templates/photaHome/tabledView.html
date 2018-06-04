@@ -1,0 +1,30 @@
+{% load sekizai_tags %}
+
+{% addtoblock "css" %}
+<link rel="stylesheet" href="{% static 'photaHome/css/tabled.css' %}" />
+{% endaddtoblock %}
+
+<div class="col-xs-2 subpagemenu">
+  {% block "tabled_buttons" %}
+  {% endblock%}
+</div>
+<div class="col-xs-10 viewport">
+  {% include "photaHome/loadmask.html" %}
+  {% block "tabled_views"%}
+  {% endblock %}
+</div>
+
+{% addtoblock "js" %}
+
+<script src="{% static 'photaHome/js/tabled.js' %}"></script>
+<script>
+  var names = ['Prims Algorithm', '14-15 Puzzle']; //TODO UPDATE.
+  var refs = ['primsalg', '15puzzle']; //TODO UPDATE.
+  var control = new tabled('other/', refs, names, 'other');
+  $(document).ready(function(){
+    control.fill_page_options();
+    control.load_page(0);
+  });
+</script>
+
+{% endaddtoblock %}

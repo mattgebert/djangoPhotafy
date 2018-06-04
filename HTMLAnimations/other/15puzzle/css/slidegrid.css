@@ -1,0 +1,14 @@
+/*#00293e*/
+
+svg line {
+  fill: #5aa97b;
+  stroke: #5aa97b;
+}
+
+svg rect {
+    fill: #00293e;
+}
+
+svg .items rect {
+    fill: #FFFFFF;
+}

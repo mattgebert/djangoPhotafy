@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>Other Stuff Subpage</title>
+</head>
+<body>
+  <div class="col-xs-2 subpagemenu">
+  </div>
+  <div class="col-xs-10 viewport">
+    <div class="loadmask">
+      <div class="algnTble">
+        <div class="algnMiddle">
+          <div class="algnInner">
+            <svg class="loadimg" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid" class="uil-pie">
+              <rect x="0" y="0" width="200" height="200" fill="#ffffff" class="bk" style="fill: rgba(255, 255, 255, 0);"></rect>
+              <path id="piece1" d="M0 100A100 100 0 0 1 100 0L100 100L0 100" fill="#000" opacity="0.5" style="fill: rgb(148, 169, 206);"></path>
+              <path id="piece2" d="M100 0A100 100 0 0 1 200 100L100 100L100 0" fill="#000" opacity="0.5" style="fill: rgb(102, 115, 149);"></path>
+              <path id="piece3" d="M200 100A100 100 0 0 1 100 200L100 100L200 100" fill="#000" opacity="0.5" style="fill: rgb(41, 38, 100);"></path>
+              <path id="piece4" d="M100 200A100 100 0 0 1 0 100L100 100L100 200" fill="#000" opacity="0.5" style="fill: rgb(245, 244, 250);"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content" id="other_content"></div>
+  </div>
+</body>
+
+<script src="other/tabled.js"></script>
+<script>
+var names = ['Prims Algorithm', '14-15 Puzzle'];
+var refs = ['primsalg', '15puzzle'];
+var control = new tabled('other/', refs, names, 'other');
+
+$(document).ready(function(){
+  control.fill_page_options();
+  control.load_page(0);
+});
+</script>
+
+</html>

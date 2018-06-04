@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Prims Algorithm</title>
+		<meta charset="utf-8">
+		<!-- <link href="comp_sci_apps/primsalg/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+		<link href="other/primsalg/css/graphFunctions.css" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body>
+		<!-- <script src="comp_sci_apps/primsalg/js/jquery-2.0.3.min.js"></script> -->
+		<script src="other/primsalg/js/d3.v3.min.js" charset="utf-8"></script>
+		<!-- <script src="comp_sci_apps/primsalg/js/bootstrap.min.js"></script> -->
+		<script src="other/primsalg/js/graphFunctions.js"></script>
+<!--        <script src="js/test.js"></script>-->
+
+
+		<div id="outerFrame"></div>
+
+		<script>
+            var g = new Graph("#outerFrame");
+
+            var numNodes = 6;
+//            //Creates links for Graph:
+            var links = new LinkSet().polygonBasedSet(numNodes, 1); //secondParam = Probability of non-essential links.
+//            var linksCopy = new LinkSet().clone(links);
+
+            var node_names = [];
+            for (var i = 1; i <= numNodes; i++) {
+               node_names.push(i);
+            }
+
+            g.setup(numNodes, links, node_names);
+						
+//            links = linksCopy;
+
+            //Test Of Binding Buttons.
+            g.bindButton("step", step, null);
+            g.bindButton("reset", reset, null);
+
+
+            //Program Here: ---------------------------------------------------------------------------------------------
+
+            var nodesInTree = [];
+			var edgesInTree = [];
+            var prevStepNum = -1;
+			var stepNum = 0;
+
+			//These are the steps of the program. Have to be defined dependently....
+			var selectedEdge; //Used for transition from step3 to step4.
+
+
+            function reset() {
+                nodesInTree = [];
+                edgesInTree = [];
+                prevStepNum = -1;
+                stepNum = 0;
+                g.reset();
+            }
+
+			//General Step Function. Each step function is defined below.
+			function step() {
+				switch (stepNum) {
+					case 0:
+						step1();
+                        prevStepNum = 0;
+						stepNum = 1;
+						break;
+					case 1:
+                        prevStepNum = 1;
+						if (!step2()){stepNum = 2;} //alert("There are still nodes not in the tree.")}
+						else {stepNum = 4};
+						break;
+					case 2:
+                        prevStepNum = 1;
+						step3();
+						stepNum = 3;
+						break;
+					case 3:
+						step4();
+                        prevStepNum = 3;
+						stepNum = 1;
+						break;
+					default:
+                        alert("Finished");
+						break;
+				}
+			}
+
+			//Step 1: Select Aritrary Node in tree.
+			function step1() {
+				var index = Math.floor(Math.random() * numNodes);
+				nodesInTree.push(index);
+                g.highlightNodes([index], "yellow", 4, 0);
+			}
+
+            //Step 2: Check if all nodes are in the tree.
+			function step2() {
+				if (nodesInTree.length == numNodes) {return true}
+				else {return false}
+			}
+
+			function step3() {
+                function contains(i, l) {
+                    var found = false;
+                    for (var j = 0; j < l.length; j++) {
+                        if (i == l[j]){
+                            found = true;
+                        }
+                    }
+                    return found;
+                }
+
+				//Function to find an edge can connect to the tree.
+				var index = Math.floor(Math.random() * links.length);
+                var edge = links[index];
+                //Checks if either both nodes are in or out of the tree.
+                while((contains(edge.source, nodesInTree) && contains(edge.target, nodesInTree)) || ((!contains(edge.target, nodesInTree) && !contains(edge.source, nodesInTree)))) {
+                    index = (index + 1)%links.length;
+                    edge = links[index];
+                }
+                selectedEdge = edge;
+//                g.highlightEdgesOfNode(index, "yellow", 3, 1000);
+                g.highlightEdgeBetweenNodes(edge.source, edge.target, "yellow", 3, 1000);
+            }
+
+			function step4() {
+                var n1 = selectedEdge.source;
+                var n2 = selectedEdge.target;
+
+				var used1 = false;
+				var used2 = false;
+
+                for (var n = 0; n < nodesInTree.length; n++) {
+                    if (nodesInTree[n]==n1) {used1 = true;}
+                    if (nodesInTree[n]==n2) {used2 = true;}
+                }
+
+				if (!used2 && used1) {
+					nodesInTree.push(n2);
+                    g.highlightNodes([n2], "yellow", 4, 0);
+				};
+				if (used2 && !used1) {
+					nodesInTree.push(n1);
+					g.highlightNodes([n1], "yellow", 4, 0);
+				};
+			 }
+
+
+		</script>
+
+	</body>
+
+</html>

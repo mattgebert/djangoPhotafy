@@ -26,9 +26,15 @@
   </div>
   <div class="row" id="eventlist">
     {% for event in event_posts %}
-    <div class="row event_post" id="{{ event.title }}">
-      <div><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
-    </div>
+      {% if event.isSubpage %}
+      <div class="row event_post" id="{{ event.title }}">
+        <div class="row"><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
+      </div>
+      {% else %}
+        <div class="row event_post" id="{{ event.title }}">
+          <div class="row"><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
+        </div>
+      {% endif%}
     {% endfor %}
   </div>
 </div>

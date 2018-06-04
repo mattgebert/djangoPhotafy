@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>14-15 Puzzle</title>
+		<meta charset="utf-8">
+		<!-- TODO: For indepent use re-instate the following CSS libs -->
+		<!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+		<link href="other/15puzzle/css/slidegrid.css" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body>
+		<!-- <script src="js/jquery-2.0.3.min.js"></script> -->
+		<script src="other/15puzzle/js/d3.v3.min.js" charset="utf-8"></script>
+		<!-- <script src="js/bootstrap.min.js"></script> -->
+		<script src="other/15puzzle/js/slidegrid.js"></script>
+		<div id="outerFrame"></div>
+
+        <script>
+            var slidegrid = new Slidegrid("#outerFrame");
+            var text = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "15", null, "14"];
+            var completed = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", null];
+//            var text = ["1", null, null, null, null, null, null, null, null, null, null, null, null,  null, null, null];
+//            var completed = [null, null, null, null, null, null, null, null, null, null, null, null, null,  null, null, "1"];
+            slidegrid.setup(4,4,text);
+            slidegrid.solvedState(completed);
+        </script>
+
+    </body>
+</html>
