@@ -27,12 +27,12 @@
   <div class="row" id="eventlist">
     {% for event in event_posts %}
       {% if event.isSubpage %}
-      <div class="row event_post" id="{{ event.title }}">
-        <div class="row"><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
+      <div class="row event_post" id="event{{ forloop.counter0 }}" onclick="control.load_page('{{ forloop.counter0 }}')"> <!-- TODO change naming format.... -->
+        {{ event.title }}
       </div>
       {% else %}
         <div class="row event_post" id="{{ event.title }}">
-          <div class="row"><a href="{% url "amy:event" year=event.year month=event.month day=event.day %}"> {{ event.title }} </a></div>
+          <a href="{% url 'amy:event' year=event.year month=event.month day=event.day %}" target="_blank"> {{ event.title }} </a>
         </div>
       {% endif%}
     {% endfor %}
@@ -40,15 +40,38 @@
 </div>
 <div class="col-md-10 viewport" id="event_page">
   {% include "photaHome/loadmask.html" %}
+  {% for event in event_posts %}
+    {% if event.isSubpage %}
+      <div class="subpage" id="{{ event.year }}{{ event.month }}{{ event.day }}">
+      </div>
+    {% endif%}
+  {% endfor %}
 </div>
 
 {% addtoblock "js" %}
+<script src="{% static 'amy/js/tabled.js' %}"> //TODO MAKE THIS LIBRARY CALL GENERAL FOR PHOTAHOME </script>
 <script>
 //On Doc Ready, Set the subpage height to a fixed amount.
 var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
 var subpageHeight = $(document).height() - (Number.parseFloat(pageBarHeight)+2);
 $('#events').css('height', subpageHeight + 'px');
 $('#event_page').css('height', subpageHeight + 'px');
+
+//Menu options:
+var names = [];
+var containerIDs = [];
+var urls = [];
+var buttonIDs = [];
+{% for event in event_posts %}names.push("{{ event.title }}");
+urls.push("{% url 'amy:event' year=event.year month=event.month day=event.day %}");
+containerIDs.push("{{ event.year }}{{ event.month }}{{ event.day }}");
+buttonIDs.push("event{{ forloop.counter0 }}"); {% endfor %}
+
+var control = new tabled(urls,buttonIDs,containerIDs);
+
+$(document).ready(function(){
+  // control.load_page(0);
+});
 </script>
 
 {% endaddtoblock %}

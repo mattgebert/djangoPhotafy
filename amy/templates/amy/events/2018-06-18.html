@@ -1,0 +1,58 @@
+{% load static %}
+{% load sekizai_tags %}
+
+<style src="{% static 'amy/events/2018-06-18/styles.css' %}"></style>
+
+<div class="20180618s" style="background-image">
+  <div class="frame" id="vid_frame">
+    <video poster="{% static 'amy/img/StarSky.gif' %}" id="bgvid" playsinline muted loop autoplay>
+      <source src="{% static 'amy/events/2018-06-18/one-year-in-antarctica-time-lapse.mp4' %}" type="video/mp4">
+    </video>
+    <!-- <audio id="bgaud" loop > -->
+      <!-- <source src="{% static 'amy/audio/bulletproof.mp3' %}" type="audio/mp3" \> -->
+    <!-- </audio> -->
+  </div>
+</div>
+
+<script>
+document.querySelector('video').playbackRate = 0.7;
+</script>
+
+<!--
+<script>
+
+// /* --------------------- Functions to control Video Content -------------------------- */
+//
+var vid = $("#bgvid");
+var aud = $("#bgaud");
+function playAudioVideo() {
+    //VIDEO
+    // var vid = $("video");
+    playVideo();
+    //AUDIO
+    playAudio();
+};
+function playAudio() {
+  aud[0].volume = 0.5;
+  aud[0].play();
+}
+function playVideo() {
+    vid[0].playbackRate = 1;
+    vid[0].play();
+}
+function pauseVideo() {
+  vid[0].pause();
+}
+
+var vidReady = false;
+vid.ready(function(){
+  vidReady = true;
+});
+
+var audReady = false;
+aud.ready(function() {
+  audReady = true;
+});
+
+playVideo();
+</script> -->

@@ -2,6 +2,7 @@
 {% load sekizai_tags %}
 {% include "photaHome/_css_external.html" %}
 {% include "photaHome/_js_scripts.html" %}
+
 <html>
 <head>
   {% render_block "css" %}
@@ -15,11 +16,8 @@
       {% endblock %}
     </div>
   </div>
-  <div class="background">
-
-  </div>
+  <div class="background"></div>
   <script src="{% static 'photaHome/js/customFns.js' %}"></script>
   {% render_block "js" %}
-  <!-- Custom Library -->
 </body>
 </html>

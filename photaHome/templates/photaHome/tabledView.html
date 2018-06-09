@@ -1,10 +1,38 @@
 {% load sekizai_tags %}
+{% load static %}
+
+<!-- NOTE, you can ask upon include for particular variable names to be set.
+  That means you can keep track of each 'tabledView' necessary by specifying
+  a particular identifier. We'll call this variable tabledViewID. Because we need
+  to set this each time it's called, we can setup all variables with the identifier.
+  TODO - for loop on tabled views. and figure out if you want to load everything or one at a time? etc.
+ -->
 
 {% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'photaHome/css/tabled.css' %}" />
 {% endaddtoblock %}
 
 <div class="col-xs-2 subpagemenu">
+  {% if logged_in %}
+  <div class="row account">
+    <div class="row buffer"></div>
+    <div class="row info">
+      {% if user.is_authenticated %}
+      <div class="col-md-6">
+        Hi {{ user.get_short_name }}!
+      </div>
+      <div class="col-md-6" id="outbtn">
+        <a class="btn btn-info" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+      </div>
+      {% else %}
+      <div class="row" id="inbtn">
+        <a class="btn btn-info" href="{% url 'login'%}?next={{request.path}}">Login</a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="row buffer"></div>
+  </div>
+  {% endif %}
   {% block "tabled_buttons" %}
   {% endblock%}
 </div>
@@ -18,7 +46,8 @@
 
 <script src="{% static 'photaHome/js/tabled.js' %}"></script>
 <script>
-  var names = ['Prims Algorithm', '14-15 Puzzle']; //TODO UPDATE.
+  var names = [ for
+  ]; //TODO UPDATE.
   var refs = ['primsalg', '15puzzle']; //TODO UPDATE.
   var control = new tabled('other/', refs, names, 'other');
   $(document).ready(function(){
