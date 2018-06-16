@@ -1,58 +1,67 @@
 {% load static %}
 {% load sekizai_tags %}
 
+{% addtoblock 'css' %}
 <style src="{% static 'amy/events/2018-06-18/styles.css' %}"></style>
+{% endaddtoblock %}
 
-<div class="20180618s" style="background-image">
-  <div class="frame" id="vid_frame">
-    <video poster="{% static 'amy/img/StarSky.gif' %}" id="bgvid" playsinline muted loop autoplay>
-      <source src="{% static 'amy/events/2018-06-18/one-year-in-antarctica-time-lapse.mp4' %}" type="video/mp4">
+<div class="date20180618">
+  <div class="layer" id="backgroundVideo">
+    <video poster="" id="bgvid" playsinline muted loop autoplay>
+      <source src="{% static 'amy/events/2018-06-18/one-year-in-antarctica-time-lapse.mp4' %}" type="video/mp4"/>
     </video>
-    <!-- <audio id="bgaud" loop > -->
-      <!-- <source src="{% static 'amy/audio/bulletproof.mp3' %}" type="audio/mp3" \> -->
-    <!-- </audio> -->
+    <audio>
+      <source src ="{% static 'amy/events/2018-06-18/youmakemydreams.mp3' %}"/>
+    </audio>
+  </div>
+  <div class="layer">
+    <div class="algnTble">
+      <div class="algnMiddle">
+        <div class="algnInner birthdayMessage" >
+          <div class="row" id="title">
+            <span>
+              <i class="far fa-1x fa-heart"></i>
+              Guess what <span id="amy">Amy</span>?! It's your 21st birthday!!
+              <i class="far fa-1x fa-heart"></i>
+            </span>
+          </div>
+          <div class="row" id="messageBox">
+            Hey <span class="highlight">Amy</span> :)</br>
+            <span class="padding"></span>My name is Matt, and I thought it'd be very much appropriate to write to you in cursive writing, sorta like a letter, and wish you a very happy birthday my beautiful girl!
+          </div>
+
+          <div class="row scroll">
+            <div class="col-sm-4 header">
+              You are
+            </div>
+            <div class="col-sm-8 scroller">
+              <div class="innerIam">
+                Funnily mischevious<br />
+                Sweet<br />
+                Very very attractive<br />
+                Empathetic<br />
+                Christ-centered &#10014;<br />
+                Loving & encouraging<br />
+                Social, active, sporty!<br />
+                Easy to get on with!
+              </div>
+            </div>
+          </div>
+
+          <div class="row" id="signoff">
+             Love, <span class="highlight">Matt</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+
+{% addtoblock 'js' %}
 <script>
+//Setup video playback.
 document.querySelector('video').playbackRate = 0.7;
+document.querySelector('audio').play();
 </script>
-
-<!--
-<script>
-
-// /* --------------------- Functions to control Video Content -------------------------- */
-//
-var vid = $("#bgvid");
-var aud = $("#bgaud");
-function playAudioVideo() {
-    //VIDEO
-    // var vid = $("video");
-    playVideo();
-    //AUDIO
-    playAudio();
-};
-function playAudio() {
-  aud[0].volume = 0.5;
-  aud[0].play();
-}
-function playVideo() {
-    vid[0].playbackRate = 1;
-    vid[0].play();
-}
-function pauseVideo() {
-  vid[0].pause();
-}
-
-var vidReady = false;
-vid.ready(function(){
-  vidReady = true;
-});
-
-var audReady = false;
-aud.ready(function() {
-  audReady = true;
-});
-
-playVideo();
-</script> -->
+{% endaddtoblock %}

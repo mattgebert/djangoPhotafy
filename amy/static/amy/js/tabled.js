@@ -1,7 +1,8 @@
-function tabled(urls, buttonIDs, containerIDs) {
+function tabled(urls, buttonIDs, containerIDs, cjUrls) {
   this.urls = urls;
   this.buttonIDs = buttonIDs;
   this.containerIDs = containerIDs;
+  this.cjUrls = cjUrls;
   var crnt_pg = -1;
 
   this.load_page = function (i) {
@@ -29,13 +30,23 @@ function tabled(urls, buttonIDs, containerIDs) {
     //Create vars to enter namespace below:
     var path = this.path;
     var refs = this.refs;
+    var resources = this.cjUrls[i];
 
     //2. Hide Current Content:
     $('.subpage').css('opacity',0); //.css('dispaly','none') //:not(#'+cat+'_content)
     //Bring up loading mask.
     $('.loadmask').css('display','block').animate({'opacity':1}, 400, function(){
       //Start Loading new page
+      var randReq = Math.random();
+      //Preload css
+      var linkElem = document.createElement('link');
+      document.getElementsByTagName('head')[0].appendChild(linkElem);
+      linkElem.rel = 'stylesheet';
+      linkElem.type = 'text/css';
+      linkElem.href = (resources.css + "?v=" + randReq);
       $(".subpage#" + containerIDs[i]).load(urls[i], function(){
+      //Load script
+        $.ajax({url: resources.js + "?v=" + randReq, dataType: "script"});
       //Upon load, remove mask
         $(".subpage#" + containerIDs[i]).css('opacity',1).css('display','block');
         $('.loadmask').delay(200).animate({'opacity':0}, 1000, function(){

@@ -3,8 +3,9 @@
 
 {% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'amy/css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'amy/css/tabled.css' %}" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 {% endaddtoblock %}
-
 <div class="col-md-2 events" id="events">
   <div class="row account">
     <div class="row buffer"></div>
@@ -42,7 +43,7 @@
   {% include "photaHome/loadmask.html" %}
   {% for event in event_posts %}
     {% if event.isSubpage %}
-      <div class="subpage" id="{{ event.year }}{{ event.month }}{{ event.day }}">
+      <div class="subpage" id="{{ event.year }}{{ event.month }}{{ event.day }}">Yay
       </div>
     {% endif%}
   {% endfor %}
@@ -61,13 +62,19 @@ $('#event_page').css('height', subpageHeight + 'px');
 var names = [];
 var containerIDs = [];
 var urls = [];
+var cjUrls = []; //Css, Js
 var buttonIDs = [];
 {% for event in event_posts %}names.push("{{ event.title }}");
-urls.push("{% url 'amy:event' year=event.year month=event.month day=event.day %}");
+urls.push("{% url 'amy:eventsub' year=event.year month=event.month day=event.day %}");
 containerIDs.push("{{ event.year }}{{ event.month }}{{ event.day }}");
-buttonIDs.push("event{{ forloop.counter0 }}"); {% endfor %}
+buttonIDs.push("event{{ forloop.counter0 }}");
+{% with 'amy/events/'|add:event.year|add:'-'|add:event.month|add:'-'|add:event.day|add:'/styles.css' as cssPath %}
+  {% with 'amy/events/'|add:event.year|add:'-'|add:event.month|add:'-'|add:event.day|add:'/scripts.js' as jsPath %}
+    cjUrls.push({css:"{% static cssPath %}",js:"{% static jsPath %}"});
+  {% endwith %}
+{% endwith %}{% endfor %}
 
-var control = new tabled(urls,buttonIDs,containerIDs);
+var control = new tabled(urls,buttonIDs,containerIDs, cjUrls);
 
 $(document).ready(function(){
   // control.load_page(0);

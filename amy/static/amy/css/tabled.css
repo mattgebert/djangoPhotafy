@@ -1,0 +1,14 @@
+
+div.event_post:hover {
+  background-color:rgba(255,255,255,0.8);
+  cursor:pointer;
+  color: #114455 !important;
+}
+
+div.row.event_post:hover a{
+  /*background-color:rgba(255,255,255,0.8);*/
+  cursor:pointer;
+  color: #114455 !important;
+}
+
+/*TODO: Get hover working for COLOR on the event post element.*/

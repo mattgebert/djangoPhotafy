@@ -17,12 +17,13 @@
 .algnMiddle {
   display:table-cell;
   vertical-align: middle;
+  text-align: center;
 }
 
 .algnInner {
   margin-left: auto;
   margin-right: auto;
-  width:100%;
+  /*text-align: center;*/
 }
 
 .loadimg {

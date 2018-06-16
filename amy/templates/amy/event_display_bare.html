@@ -1,0 +1,11 @@
+{% load static %}
+{% load sekizai_tags %}
+<html>
+<head>
+  {% render_block "css" %}
+</head>
+<body>
+  {% include event.template %}
+  {% render_block "js" %}
+</body>
+</html>

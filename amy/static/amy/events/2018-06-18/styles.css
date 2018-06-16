@@ -1,10 +1,205 @@
+@import url(https://fonts.googleapis.com/css?family=Orbitron|Permanent+Marker|Philosopher|Satisfy);
+
 .date20180618 {
   display: block;
   width: 100%;
   height: 100%;
+  position: relative;
+}
 
+.date20180618 .layer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 
-.date20180618#vid_frame {
+.date20180618 div.birthdayMessage {
+  border: radius 2px;
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+  width:80%;
+  height: 60%;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
+
+.date20180618 .birthdayMessage div#title {
+  text-align: center
+  padding-top: 20px;
+}
+.date20180618 .birthdayMessage div#title span{
+  font-family: 'Permanent Marker', cursive;
+  font-size: 40px;
+  background-image: linear-gradient(0deg, #FFFF00 ,#FFAA00);
+  color: transparent;
+  background-clip: text;
+}
+
+.date20180618 span.highlight {
+  background-image: linear-gradient(0deg, #FFFF00 ,#FFAA00);
+  color: transparent;
+  background-clip: text;
+  transition: 0.5s;
+}
+
+.date20180618 span.highlight:hover{
+  transition: 1s;
+  background-image: linear-gradient(-90deg, #FFAAAA ,#FF0000);
+}
+
+.date20180618 .fa-heart {
+  color: orange;
+}
+.date20180618 div#title i, .date20180618 div#title span#amy{
+  transition: 0.5s;
+}
+.date20180618 div#title:hover i, .date20180618 div#title:hover span#amy{
+  color: red;
+}
+
+.date20180618 span.padding {
+  padding-left: 15px;
+  height: 20px;
+  width: auto;
+  white-space: normal;
+}
+
+.date20180618 div.birthdayMessage {
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+.date20180618 .birthdayMessage * {
+  white-space: normal;
+}
+
+.date20180618 .birthdayMessage div#messageBox {
+  text-align: left;
+  padding-top: 20px;
+  font-family: 'Satisfy', cursive;
+  font-size: 24px;
+  height: 40%;
+}
+.date20180618 .birthdayMessage div#signoff {
+  text-align: right;
+  padding-right: 40px;
+  /*font-family: 'Orbitron', sans-serif;*/
+  font-family: 'Philosopher', sans-serif;
+  font-size: 35px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+
+.date20180618 video {
+  object-fit: cover;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
+}
+
+.date20180618 video source {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+.date20180618 .scroll div{
+  font: 40px/50px 'Orbitron', sans-serif;
+}
+
+.date20180618 .scroll div.header {
+  text-align: right;
+}
+.date20180618 .scroll div.scroller {
+  float: left;
+  overflow: hidden;
+  height: 50px;
+  text-align: left;
+}
+
+.date20180618 .scroll .innerIam {
+  display: inline-block;
+  color: #FC9700;
+  top:0px;
+  position: relative;
+  white-space: nowrap;
+  /*animation*/
+  -webkit-animation:move 8s;
+  -moz-animation:move 8s;
+  -ms-animation:move 8s;
+  -o-animation:move 8s;
+  animation:move 8s;
+  /*animation-iteration-count*/
+  -webkit-animation-iteration-count:infinite;
+  -moz-animation-iteration-count:infinite;
+  -ms-animation-iteration-count:infinite;
+  -o-animation-iteration-count:infinite;
+  animation-iteration-count:infinite;
+  /*animation-delay*/
+  -webkit-animation-delay:1s;
+  -moz-animation-delay:1s;
+  -ms-animation-delay:1s;
+  -o-animation-delay:1s;
+  animation-delay:1s;
+}
+
+@keyframes move{
+  12.5% { top: -50px; }
+  25%   { top: -100px; }
+  37.5% { top: -150px; }
+  50%   { top: -200px; }
+  62.5% { top: -250px; }
+  75%   { top: -300px; }
+  87.5% { top: -350px; }
+}
+
+/*@-webkit-keyframes move {
+12.5% { top: 0px; }
+25%   { top: -50px; }
+37.5% { top: -100px; }
+50%   { top: -150px; }
+62.5% { top: -200px; }
+75%   { top: -250px; }
+87.5% { top: -300px; }
+}
+@-moz-keyframes move {
+12.5% { top: 0px; }
+25%   { top: -50px; }
+37.5% { top: -100px; }
+50%   { top: -150px; }
+62.5% { top: -200px; }
+75%   { top: -250px; }
+87.5% { top: -300px; }
+}
+@-o-keyframes move {
+12.5% { top: 0px; }
+25%   { top: -50px; }
+37.5% { top: -100px; }
+50%   { top: -150px; }
+62.5% { top: -200px; }
+75%   { top: -250px; }
+87.5% { top: -300px; }
+}
+@keyframes move {
+12.5% { top: 0px; }
+25%   { top: -50px; }
+37.5% { top: -100px; }
+50%   { top: -150px; }
+62.5% { top: -200px; }
+75%   { top: -250px; }
+87.5% { top: -300px; }
+}*/
+
+
+
+/*font-family: 'Permanent Marker', cursive;*/
+/*font-family: 'Satisfy', cursive;*/
+/*font-family: 'Philosopher', sans-serif;*/
+/*font-family: 'Orbitron', sans-serif;*/

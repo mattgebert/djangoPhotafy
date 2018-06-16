@@ -42,15 +42,36 @@ def event_display(request, year, month, day):
     search = [event for event in event_posts if event.date==event_date] #Get all elements with  matching date.
     if len(search) == 1:
         context = {
+            # 'event':search[0],
             'event':search[0],
             'img_set':ImageSet.objects.filter(set_name="set1")[0].image_set.all(), #TODO Clean dependencies into event post data.
         }
 
-        return render(request,'amy/event_display.html',context)
+        return render(request,search[0].template,context)
     else:
         # return HttpResponseRedirect('/amy/')
         a = len(search)
         return Http404("%d results found for date %d", a, event_date)
+
+
+@login_required(login_url='/accounts/login') #TODO in future - change to a permission_required
+def event_render(request, year, month, day):
+    year = int(year)
+    month = int(month)
+    day = int(day)
+    event_date = date(year,month,day)
+    search = [event for event in event_posts if event.date==event_date] #Get all elements with  matching date.
+    if len(search) == 1:
+        context = {
+            'event':search[0],
+        }
+
+        return render(request,'amy/event_display_bare.html',context)
+    else:
+        # return HttpResponseRedirect('/amy/')
+        a = len(search)
+        return Http404("%d results found for date %d", a, event_date)
+
 
 ### Working upload of amy's 2017 birthday. TODO remove.
 @login_required(login_url='/accounts/login') #TODO in future - change to a permission_required

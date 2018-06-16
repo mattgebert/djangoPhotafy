@@ -6,10 +6,11 @@ var konami = [38,38,40,40,37,39,37,39,66,65];
 
 document.onkeydown = function(evt) {
     evt = evt || window.event;
-    if ($.inArray(evt.keyCode), konami) {
+    if ($.inArray(evt.keyCode, konami) > -1) {
         track.shift();
         track.push(evt.keyCode);
         talkToAmy();
+
     }
 };
 
