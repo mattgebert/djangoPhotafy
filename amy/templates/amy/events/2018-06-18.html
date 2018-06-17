@@ -27,7 +27,14 @@
           </div>
           <div class="row" id="messageBox">
             Hey <span class="highlight">Amy</span> :)</br>
-            <span class="padding"></span>My name is Matt, and I thought it'd be very much appropriate to write to you in cursive writing, sorta like a letter, and wish you a very happy birthday my beautiful girl!
+            <span class="padding"></span>My name is <span class="highlight">Matt</span> (duh you say), and I thought it'd be very much appropriate to write to you in cursive writing, sorta like a letter, and wish you a very happy birthday my beautiful girl! However I think it's hard to read so <a class="readable" href="#">here is a button to change to more readable text.</a><br />
+            <span class="padding"></span>I want to wish you a very happy birthday 21st Birthday!!! This is a really significant age, and usually celebrated as a big milestone in having 'made it' as an adult! It was particularly beautiful to see you with all your people on Sunday night - These guys have had a significant impact on your life and are a part of where you are now. It's really awesome to be able to reflect on the years that have been given to you so far, and who you have become in this time.<br />
+            <span class="padding"></span>I'm very sorry that this year probably distanced us a little bit so far, due to the work load and our ability to see each other, and I know that hurts us. I think this has been a challenge for us, and hopefully we can grow from it and figure out how to better work together and remain Christ centred as a couple. Setting up the rest of our lives in this fashion is actually really important to get right now, because otherwise we'll get into a routine that doesn't give glory to God as we can best do. <br />
+            <span class="padding"></span>Baby, it has been so good being by your side over the last ~500 days, and it really is life that we're both experiencing. I find the things that you want to do with your time encouraging, be that your desire to give time for God's word, your friends and family, and just enjoying life a little bit. Honestly, I need a bit more of this in my life at the moment, and I'm encouraged by your example.<br />
+            <span class="padding"></span>You know how you like never stop growing? Yeah well as you continue to grow and learn and experience and relate, I pray that God would guide your steps only towards him, so that you may be more and more Jesus-like in your behaviour, in your compassion and grace to others. I pray that this would naturally rub of on others around you, on your friends and the people you and God both care about. How awesome will if our friends discover and believe what Jesus has done for us all? I hope that we both rub off on each other and will be able to make this happen more and more babe :) <span class="highlight">Amy</span> I hope that as you go out and find work, that it is satisfying and allows you to be a part of peoples lives, that it is meaningful. <br />
+            <span class="padding"></span>I love you alot babe, thankyou for all that you do for me - whether it be gathering food supplies for us to eat or sending me a enouraging message when I'm stressed, or even putting up with my work ethic and times when I'm not being truthful or clearly explaining my thoughts and feelings to you. I love being able to go and see some musicals and tv shows with you, to go running (I won't fall over next time!), to go to ball nights and dress up and just to spend time together. I promise to do some more of the things I like doing with you, so we can share in each others passions and hopefully be even closer together!<br />
+            <span class="padding"></span>Btw, I added a video of antactica because you know, you'd like to go travelling and experience the world a little bit. I also really like the penguins in it, and something about the clear sky spells some sort of symbolic freedom, like a bird (I know you don't like birds though). Ahahaha love youuuuuu
+            <a class="backtotop" href="#">Back to top</a>
           </div>
 
           <div class="row scroll">
@@ -37,17 +44,16 @@
             <div class="col-sm-8 scroller">
               <div class="innerIam">
                 Funnily mischevious<br />
-                Sweet<br />
                 Very very attractive<br />
-                Empathetic<br />
+                Empathetic & Sweet<br />
                 Christ-centered &#10014;<br />
                 Loving & encouraging<br />
                 Social, active, sporty!<br />
-                Easy to get on with!
+                Easy to get on with!<br />
+                My baby <i class="fas fa-1x fa-heart"></i>
               </div>
             </div>
           </div>
-
           <div class="row" id="signoff">
              Love, <span class="highlight">Matt</span>
           </div>
@@ -60,8 +66,26 @@
 
 {% addtoblock 'js' %}
 <script>
-//Setup video playback.
-document.querySelector('video').playbackRate = 0.7;
-document.querySelector('audio').play();
+  //Bind scroll to top:
+  $(".backtotop").bind("click", function() {
+    $(this).parent().scrollTop(0);
+  }).parent().scrollTop(0);
+
+  //Bind font change:
+
+  const defFont = "\"Satisfy\"\, cursive";
+  $(".readable").bind("click", function() {
+    var fontRem = $("#messageBox").css("font-family");
+    var compare = defFont.localeCompare(fontRem);
+    if (compare==0) {
+      $("#messageBox").css("font-family", "\'Indie Flower\'\, cursive");
+    } else {
+      $("#messageBox").css("font-family", defFont);
+    }
+  });
+
+  //Setup video playback and Audio play.
+  document.querySelector('video').playbackRate = 0.7;
+  document.querySelector('audio').play();
 </script>
 {% endaddtoblock %}
