@@ -48,6 +48,8 @@
     animation-name: ckw;
     animation-duration: 1s;
     transform-origin: center;
+    -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+    -moz-transform-origin: center;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
   }
@@ -56,6 +58,8 @@
     animation-name: ckw;
     animation-duration: 2s;
     transform-origin: center;
+    -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+    -moz-transform-origin: center;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
   }
@@ -65,6 +69,8 @@
     animation-duration: 3.2s;
     animation-iteration-count: infinite;
     transform-origin: center;
+    -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+    -moz-transform-origin: center;
     animation-timing-function: linear;
   }
   #piece4 {
@@ -72,6 +78,8 @@
     animation-name: ckw;
     animation-duration: 5s;
     transform-origin: center;
+    -webkit-transform-origin: 100% 0% 0; /*Chrome Support*/
+    -moz-transform-origin: center;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
   }
@@ -79,6 +87,7 @@
   @keyframes ckw {
       0% {
           transform: rotate(0deg);
+
       }
       100% {
           transform: rotate(360deg);

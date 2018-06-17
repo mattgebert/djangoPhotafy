@@ -1,4 +1,6 @@
 from django.conf.urls import url, include
+from django.views.generic.base import RedirectView
+
 from photaHome import views
 
 app_name = 'photaHome'
@@ -14,6 +16,9 @@ for app in PAGE_APPS:
         url(r'^'+klass.href, include(klass.name + ".urls"))
     ]
 
+faviconView = RedirectView.as_view(url='static/photaHome/icon/mg_icon.png', permanent=True)
+
 urlpatterns = [
     url(r'^$', views.homeView, name='home'),
+    url(r'^favicon.ico', faviconView),
 ] + page_urls

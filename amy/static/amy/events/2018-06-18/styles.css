@@ -16,6 +16,7 @@
 .date20180618 span.highlight {
   background-image: linear-gradient(0deg, #FFFF00 ,#FFAA00);
   color: transparent;
+  -webkit-background-clip:text;
   background-clip: text;
   transition: 0.5s;
 }
@@ -67,10 +68,18 @@
   background-image: linear-gradient(0deg, #FFFF00 ,#FFAA00);
   color: transparent;
   background-clip: text;
+  -webkit-background-clip:text;
 }
 
 .date20180618 .birthdayMessage * {
   white-space: normal;
+}
+
+.date20180618 .birthdayMessage div.extraContainer {
+  position:absolute;
+  height:100%;
+  width: 100%;
+  padding-right: 15px;
 }
 
 .date20180618 .birthdayMessage div#messageBox {
@@ -79,7 +88,12 @@
   font-family: 'Satisfy', cursive;
   font-size: 18px;
   height: 70%;
-  overflow-y: scroll;
+  -webkit-height: 300px;
+  /*-webkit-transform: translate3d(0,0,0);*/
+  overflow-y: auto;
+  position: relative;
+  /*position: absolute;*/
+
 }
 .date20180618 .birthdayMessage div#signoff {
   text-align: right;
@@ -158,6 +172,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate3d(-50%,-50%);
   width: 100%;
   height: auto;
 }
