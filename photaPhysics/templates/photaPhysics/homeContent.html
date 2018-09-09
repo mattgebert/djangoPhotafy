@@ -1,0 +1,19 @@
+{% load static %}
+{% load sekizai_tags %}
+
+{% addtoblock 'css' %}
+<link rel="stylesheet" href="{% static 'photaPhysics/css/home.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Share+Tech+Mono|Ubuntu:400" rel="stylesheet">
+{% endaddtoblock %}
+
+
+<div class="row banner">
+  <img src="{% static 'photaPhysics/img/WaferC3_Flake29_20x.jpg' %}" />
+  <div class="row bannerFront fader"></div>
+  <div class="row bannerFront" id="BannerTxt">
+    <div class="bannerFront inner">
+      <h1>Heterostructures & Topological Materials</h1>
+    </div>
+  </div>
+  <div class="row bannerFront fader"></div>
+</div>

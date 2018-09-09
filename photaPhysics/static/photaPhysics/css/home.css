@@ -1,0 +1,50 @@
+/* Look at me!*/
+
+.banner {
+  width: 100%;
+  vertical-align: middle;
+  height: 200px;
+  overflow-y: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+img {
+  width: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+}
+
+.bannerFront {
+  margin: auto;
+  position: relative;
+}
+
+.row .fader {
+  background-color: rgba(0,0,200,0.4);
+  height: 20px;
+}
+
+.row #BannerTxt {
+  height: 160px;
+  background-color: rgba(0,0,0,0);
+  text-align: center;
+  vertical-align: middle;
+  display: table;
+  width: 100%;
+}
+
+.inner {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 40px;
+  color: black;
+  font-family: 'Josefin Slab', serif;
+}
