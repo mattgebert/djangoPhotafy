@@ -66,7 +66,8 @@ for (i=-bins/2; i<bins/2; i++){
 
 //Set SVG Axis
 x.domain(d3.extent(data, function(d) { return d.binCentre; }));
-y.domain([0,d3.max(data, function(d) { return d.count; })]);
+// y.domain([0,d3.max(data, function(d) { return d.count; })]);
+y.domain([0,10]);
 //y.domain([0,1]);
 //Draw Dataset
 g.append("path")
@@ -82,7 +83,12 @@ var progress = function() {
   } else {
     binLoc = Math.round((rand-histLow)*bins/(histHigh-histLow));
     data[binLoc].count = data[binLoc].count + 1;
-    y.domain([0, d3.max(data, function(d) { return d.count; })]);
+    var max = d3.max(data, function(d) { return d.count; });
+    if (max >= 10) {
+      y.domain([0, 1.1*max]); //TODO perhaps max+2 or something else.
+    } else {
+      y.domain([0,10]);
+    }
     // update the data association with the path and recompute the area
     svg.selectAll("path").datum(data)
       .attr("d", line);

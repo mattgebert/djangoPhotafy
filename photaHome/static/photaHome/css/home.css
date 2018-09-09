@@ -139,7 +139,12 @@
 }
 
 .chart rect {
-  fill:steelblue
+  fill:steelblue;
+  fill-opacity: 0.1;
+  stroke: steelblue;
+  /*stroke-linecap: round;*/
+  /*stroke-linejoin: round;*/
+  stroke-width: 1.5;
 }
 .chart text {
   fill: white;
