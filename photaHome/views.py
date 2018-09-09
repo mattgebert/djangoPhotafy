@@ -14,5 +14,6 @@ def homeView(request):
         {
             'HOME_ON':False,
             'profiles':Socialprofile.objects.all(),
+            'bgs': ['bubsrt','sinfunc','stdist'],
         }
     )

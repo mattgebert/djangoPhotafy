@@ -81,9 +81,11 @@
 <script src="{% static 'photaHome/js/customFns.js' %}"></script>
 <!--Specific Page Script -->
 <script src="{% static 'photaHome/js/home.js' %}"></script>
-<!-- <script src="{% static 'photaHome/js/svgBgs/sinfunc.js' %}"></script> -->
-<!-- <script src="{% static 'photaHome/js/svgBgs/stdist.js' %}"></script> -->
-<script src="{% static 'photaHome/js/svgBgs/bubsrt.js' %}"></script>
 
+{% with bg=bgs|random %}
+{% with bgurl='photaHome/js/svgBgs/'|add:bg|add:'.js'%}
+  <script src="{% static bgurl %}"></script>
+{% endwith %}
+{% endwith %}
 </body>
 </html>

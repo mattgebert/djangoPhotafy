@@ -55,26 +55,30 @@ svg.selectAll(".bar")
 //Define function to get next datapoint.
 var progress = function() {
 
-  var mini = 0;
-  var minval = data[mini].val;
-  var i,val;
+  var i,j,val, minival;
+  var indexes = [];
+  for (i=0; i<bars-1; i++) {
+      indexes.push(i);
+  }
+
   for (i=1; i< bars; i++) {
-    val = data[i].val;
-    if (minval > val) {
-      mini = i;
-      minval = val;
-      // if (i == bars-1) {
-      //   data = datacopy;
-      // }
+    //Select a random index from the list of indexes:
+    j = Math.floor(Math.random()*(indexes.length-1)); //Length-1 due to comparison needed
+    j = indexes.splice(j,1)[0];
+
+    minval = data[j].val;
+    val = data[j+1].val;
+    if (minval >= val) {
+      // Do nothing, order is correct {High to low}
     } else {
-      var iind = data[mini].ind;
-      // alert(i + " " + data[i].ind + " " + val);
-      // alert(mini + " " + iind + ' ' + minval);
+      var iind = data[j].ind; //Copy existing index
       //Swap elements:
-      data[mini].ind = data[i].ind;
-      data[i].ind = iind;
-      data.splice(mini,0,data.splice(i,1)[0]);
+      data[j].ind = data[j+1].ind;
+      data[j+1].ind = iind;
+      //Shift positions in list for D3.
+      data.splice(j,0,data.splice(j+1,1)[0]);
       i = bars + 1; //End loop
+      // alert(j+""+);
     }
   }
 
