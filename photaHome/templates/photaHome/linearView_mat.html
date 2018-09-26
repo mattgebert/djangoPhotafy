@@ -1,0 +1,25 @@
+{% load static %}
+{% load sekizai_tags %}
+{% include "photaHome/_css_external_mat.html" %}
+{% include "photaHome/_js_scripts_mat.html" %}
+
+<html>
+<head>
+  <link rel="icon" type="image/png" href="{% static 'photaHome/icon/mg_icon.png' %}"/>
+  <link rel="icon" type="image/png" href="{% static 'photaHome/icon/mg_icon.png' %}"/>
+  {% render_block "css" %}
+  <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
+</head>
+<body>
+  <div class="frames">
+    {% include "photaHome/menubar.html" %}
+    <div class="row content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <div class="background"></div>
+  <script src="{% static 'photaHome/js/customFns.js' %}"></script>
+  {% render_block "js" %}
+</body>
+</html>
