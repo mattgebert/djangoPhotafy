@@ -45,6 +45,16 @@ img {
 h1 {
   font-size: 40px;
   line-height: 40px;
-  color: black;
+  /* color: black; */
+  color: white;
   font-family: 'Josefin Slab', serif;
+}
+
+
+.background {
+  top:0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-color: red;
 }

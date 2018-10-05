@@ -8,7 +8,7 @@
 
 
 <div class="row banner">
-  <img src="{% static 'photaPhysics/img/WaferC3_Flake29_20x.jpg' %}" />
+  <!-- <img src="{% static 'photaPhysics/img/WaferC3_Flake29_20x.jpg' %}" /> -->
   <div class="row bannerFront fader"></div>
   <div class="row bannerFront" id="BannerTxt">
     <div class="bannerFront inner">
@@ -17,3 +17,12 @@
   </div>
   <div class="row bannerFront fader"></div>
 </div>
+<div class="background">
+  <svg class="lattice">
+  </svg>
+</div>
+
+
+{% addtoblock 'js' %}
+<script src='{% static "photaHome/js/hexgrid.js" %}'></script>
+{% endaddtoblock%}
