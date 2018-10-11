@@ -51,10 +51,48 @@ h1 {
 }
 
 
-.background {
+.svgContainer {
   top:0;
-  bottom: 0;
+  /* bottom: 0; */
   height: 100%;
   width: 100%;
-  background-color: red;
+  position: relative;
+  overflow: hidden; 
+  /* background-color: rgba(255,255,255,1); */
+  /* background-color: #4682b4; */
+}
+
+
+/* Hexgrid: https://bl.ocks.org/mbostock/5249328 */
+.hexagon {
+  /* fill: #d1d1d1; */
+  pointer-events: all;
+}
+
+.hexagon path {
+  -webkit-transition: fill 250ms linear;
+  transition: fill 250ms linear;
+}
+
+.hexagon :hover {
+  fill: rgba(150,220,256,0.5);
+}
+
+.hexagon .fill {
+  /* fill: rgba(0,100,200,0.4); */
+  fill: rgb(70,130,220);
+}
+
+.mesh {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-opacity: .3;
+  pointer-events: none;
+}
+
+.border {
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+  pointer-events: none;
 }
