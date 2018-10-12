@@ -57,7 +57,7 @@ h1 {
   height: 100%;
   width: 100%;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
   /* background-color: rgba(255,255,255,1); */
   /* background-color: #4682b4; */
 }
@@ -70,8 +70,8 @@ h1 {
 }
 
 .hexagon path {
-  -webkit-transition: fill 250ms linear;
-  transition: fill 250ms linear;
+  -webkit-transition: fill 1000ms linear;
+  transition: fill 1000ms linear;
 }
 
 .hexagon :hover {
@@ -81,6 +81,8 @@ h1 {
 .hexagon .fill {
   /* fill: rgba(0,100,200,0.4); */
   fill: rgb(70,130,220);
+  -webkit-transition: fill 250ms linear;
+  transition: fill 250ms linear;
 }
 
 .mesh {

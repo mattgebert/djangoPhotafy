@@ -24,7 +24,8 @@ function hexTopology(radius, width, height) {
       geometries.push({
         type: "Polygon",
         arcs: [[q, q + 1, q + 2, ~(q + (n + 2 - (j & 1)) * 3), ~(q - 2), ~(q - (n + 2 + (j & 1)) * 3 + 2)]],
-        fill: Math.random() > j / n * 2
+        // fill: Math.random() > j / n * 2
+        fill: false
       });
     }
   }
@@ -64,11 +65,14 @@ var svg = d3.select(".lattice")
     .attr("width", width)
     .attr("height", height);
 
-svg.append("g")
+var test;
+
+var hexs = svg.append("g")
     .attr("class", "hexagon")
   .selectAll("path")
     .data(topology.objects.hexagons.geometries)
   .enter().append("path")
+    .attr("m", function(d,i) { return i; })
     .attr("d", function(d) { return path(topojson.feature(topology, d)); })
     .attr("class", function(d) { return d.fill ? "fill" : null; })
     .on("mousedown", mousedown)
@@ -92,10 +96,11 @@ function mousedown(d) {
 }
 
 function mousemove(d) {
-  if (mousing) {
-    d3.select(this).classed("fill", d.fill = mousing > 0);
-    border.call(redraw);
-  }
+  // TODO: If you want to re-enamble interaction this function is core for clicking.
+  // if (mousing) {
+  //   d3.select(this).classed("fill", d.fill = mousing > 0);
+  //   border.call(redraw);
+  // }
 }
 
 function mouseup() {
@@ -107,10 +112,37 @@ function redraw(border) {
   border.attr("d", path(topojson.mesh(topology, topology.objects.hexagons, function(a, b) { return a.fill ^ b.fill; })));
 }
 
+// var singleHex;
+// var test;
 
 function progress() {
+  var rand = Math.floor(Math.random()*hexs._groups[0].length);
+  var singleHex = d3.select(hexs._groups[0][rand]);
+  // alert(singleHex.attr("class"))
+  if (singleHex.attr("class") == "fill") {
+    topology.objects.hexagons.geometries[singleHex.attr("m")].fill = false;
+    singleHex.classed("fill", false);
+    // test = topology.objects.hexagons.geometries;
+    // alert("OK");
+  } else {
+    topology.objects.hexagons.geometries[singleHex.attr("m")].fill = true;
+    singleHex.classed("fill", true);
+  }
+  border.call(redraw);
 
+  setTimeout(function() {
+    if (singleHex.attr("class") == "fill") {
+      topology.objects.hexagons.geometries[singleHex.attr("m")].fill = false;
+      singleHex.classed("fill", false);
+      // test = topology.objects.hexagons.geometries;
+      // alert("OK");
+    } else {
+      topology.objects.hexagons.geometries[singleHex.attr("m")].fill = true;
+      singleHex.classed("fill", true);
+    }
+    border.call(redraw);
+  }, 5000)
 };
 
 //Set periodic function to progressively generate data.
-// var intervalID = setInterval(progress, 1000);
+var intervalID = setInterval(progress, 300);
