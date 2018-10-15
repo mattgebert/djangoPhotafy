@@ -1,0 +1,43 @@
+body {
+  margin:0;
+  overflow-x: hidden;
+  /*background: #000010;*/
+}
+
+.row {
+  margin:0;
+  margin-left:0;
+  margin-right:0;
+}
+
+/*TODO: Controversal, should I keep this or not??*/
+* {
+  white-space: nowrap;
+}
+
+.background {
+  background: #000010;
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  color:white;
+  z-index: -1;
+}
+
+.frames {
+  height:100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;  /* Flex means that all subelements will be able to 'scale' to fill the page. Content now does this and scales to the remainder of the page after the menubar is rendered */
+}
+
+.content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative; /* Setting relative position allows absolute positioning of subelements in templates. Very improtant! */
+}

@@ -3,6 +3,7 @@
 .links {
   width:100%;
   margin:0;
+  flex: 0 0 auto;
 }
 .links .maincontent {
   /*padding:20px;*/
@@ -49,6 +50,7 @@
 .underline {
   height: 2px;
   transition:1s;
+  flex: 0 0 auto;
 }
 
 

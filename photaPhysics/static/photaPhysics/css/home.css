@@ -34,6 +34,8 @@ img {
   display: table;
   width: 100%;
 }
+.box {
+}
 
 .inner {
   display: table-cell;
@@ -56,11 +58,19 @@ h1 {
   /* bottom: 0; */
   height: 100%;
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  position: absolute;
+
   /* background-color: rgba(255,255,255,1); */
   /* background-color: #4682b4; */
 }
+
+.overlayContainer {
+  top:0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
 
 
 /* Hexgrid: https://bl.ocks.org/mbostock/5249328 */
