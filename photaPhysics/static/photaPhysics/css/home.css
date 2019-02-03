@@ -1,64 +1,4 @@
 /* Look at me!*/
-
-.banner {
-  width: 60%;
-  vertical-align: middle;
-  height: 200px;
-  overflow-y: hidden;
-  display: inline-block;
-  position: relative;
-}
-
-img {
-  width: 100%;
-  position: absolute;
-  top:0;
-  left:0;
-  opacity: 0.9;
-}
-
-.bannerFront {
-  margin: auto;
-  position: relative;
-  width: 100%;
-}
-
-.row .fader {
-  background-color: rgba(0,0,200,0.4);
-  height: 20px;
-  width: 100%;
-}
-
-.row #BannerTxt {
-  height: 160px;
-  background-color: rgba(0,0,0,0);
-  text-align: center;
-  vertical-align: middle;
-  display: table;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
-.inner {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  width: 100%;
-}
-
-h1 {
-  font-size: 40px;
-  line-height: 40px;
-  /* color: black; */
-  color: white;
-  font-family: 'Josefin Slab', serif;
-  word-wrap: break-word;
-  white-space: normal;
-  width: inherit;
-  overflow-x: hidden;
-}
-
-
 .svgContainer {
   top:0;
   /* bottom: 0; */
@@ -77,6 +17,19 @@ h1 {
   position: absolute;
   text-align: center;
 }
+
+.projBubble {
+  width: 90%;
+  padding: 10px;
+  background-color: rgba(0,0,0,0.5);
+  color:white;
+  
+}
+
+.projBubble h1 {
+  font-size: 25pt;
+}
+
 
 
 

@@ -199,5 +199,5 @@ function progress() {
 // 48 to 92.
 
 //Set periodic function to progressively generate data.
-var intervalID = setInterval(progress, 500);
+var intervalID = setInterval(progress, 700);
 // progress();

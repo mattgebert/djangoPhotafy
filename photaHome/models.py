@@ -1,6 +1,52 @@
 from django.db import models
+import os.path
+from djangoPhotafy.settings import BASE_DIR
+from photaHome.settings import PAGE_APPS
+from photaHome.pageapps import get_pageapp
+from datetime import date
+
+pageapps = ()
+for app in PAGE_APPS:
+    pageappClass = get_pageapp(app)
+    pageapps += ((pageappClass.name,pageappClass.page_name),)
 
 # Create your models here.
+class Subpagebubble(models.Model):
+    "Links to create pages that are blog like, but are created for each file"
+
+    href = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+    template_path = models.CharField(max_length=200)#, unique=True)
+    date_created = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+
+    STATUS_CHOICES = (
+        ('d', 'Draft'),
+        ('p', 'Published'),
+        ('h', 'Hidden'),
+    )
+
+    status = models.CharField(max_length=1,choices=STATUS_CHOICES, default='d')
+
+    pageapp = models.CharField(
+        max_length=100,
+        choices = pageapps,
+    )
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(Subpagebubble, self).__init__(*args, **kwargs)
+        if user is not None:
+            self.prefill_from_user(user)
+
+    def __str__(self):
+        return self.get_pageapp_display() + ":" + self.title
+
+    def save(self):
+        
+        return
+
 class Socialprofile(models.Model):
     """Object for a social media profile and it's link."""
 
