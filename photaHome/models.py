@@ -2,8 +2,9 @@ from django.db import models
 import os.path
 from djangoPhotafy.settings import BASE_DIR
 from photaHome.settings import PAGE_APPS
-from photaHome.pageapps import get_pageapp
+from photaHome.pageapps import get_pageapp,  get_pageapp_classes
 from datetime import date
+from shutil import copyfile
 
 pageapps = ()
 for app in PAGE_APPS:
@@ -43,8 +44,53 @@ class Subpagebubble(models.Model):
     def __str__(self):
         return self.get_pageapp_display() + ":" + self.title
 
-    def save(self):
-        
+    def save(self, *args, **kwargs):
+        #check that there this isn't already something created.
+        if not self._state.adding:
+            #Existing instance, skip
+            pass
+        else:
+            href = self.href #cleaned_data.get('href')
+            title = self.title #cleaned_data.get('title')
+            description = self.description #cleaned_data.get('description')
+            pageapp = self.pageapp #cleaned_data.get('pageapp')
+
+            #If a new addition, generate new template path. Match pageapp class for pathing
+            pageapp_classes = get_pageapp_classes()
+            subpageClass = None
+            #Match the selected pageape
+            for klass in pageapp_classes:
+                if klass.name == pageapp:
+                    subpageClass = klass
+            if subpageClass is None:
+                raise forms.ValidationError("A Pageapp needs to be selected.")
+            subpage_template_base = BASE_DIR + "/" + subpageClass.name + "/templates/"
+            subpage_template_local = subpageClass.name + "/subpages/"
+            subpage_template_path = subpage_template_base + subpage_template_local
+
+            #Check for the existance of other subpages with same name
+            if not os.path.isdir(subpage_template_path):
+                os.mkdir(subpage_template_path)
+
+            #Check for the existance of files for subpage:
+            counter = 1
+            if os.path.isdir(subpage_template_path + title):
+                while os.path.isdir(subpage_template_path + title +'_'+ str(counter)):
+                    counter+=1
+                template_path = subpage_template_path + title +'_'+ str(counter)
+            else:
+                template_path = subpage_template_path + title
+
+            #Setup new files and save paths
+            self.template_path = subpage_template_local + title + '_' + str(counter)
+            os.mkdir(template_path)
+            print(template_path + " -- created.")
+
+            #Create default template files
+            copyfile(BASE_DIR + '/photaHome/templates/photaHome/subpage_template.html', template_path + '/content.html')
+
+        #Save the updated model fields:
+        super(Subpagebubble, self).save(*args, **kwargs)
         return
 
 class Socialprofile(models.Model):

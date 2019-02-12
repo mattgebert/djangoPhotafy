@@ -1,0 +1,35 @@
+{% load static %}
+{% load sekizai_tags %}
+
+{% addtoblock 'css' %}
+<link rel="stylesheet" href="{% static 'photaHome/css/subpage.css' %}" />
+{% endaddtoblock %}
+
+<div class="scrollFrame">
+  <div class="fullwidthImage">
+    <img src="{% static 'amy/events/2017-02-14/lost.jpg' %}" /> <!-- TODO: Change image -->
+    <div class="row datetime">
+      <div class="col s10"></div>
+      <div class="col s2 date shifter">
+        <div class="altText">Modified date! =) </div>
+        <div class="normText">{{ subpage.date_modified|date:'l, d F Y' }}</div>
+      </div>
+    </div>
+    <div class="row imgOverlay">
+      <div class="row title">
+        {{ subpage.title }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scrollFrame valign-wrapper right-align">
+  <div class="scrollNav">
+    <div class="row title">
+      Navigation
+    </div>
+  </div>
+</div>
+
+{% addtoblock 'js' %}
+{% endaddtoblock%}
