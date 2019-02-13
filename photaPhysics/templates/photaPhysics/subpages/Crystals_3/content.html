@@ -23,13 +23,23 @@
   </div>
 </div>
 
-<div class="scrollFrame valign-wrapper right-align">
-  <div class="scrollNav">
-    <div class="row title">
-      Navigation
+<div class="scrollFrame valign-wrapper">
+    <div class="col hide-on-small-only m3 l2">
+      <ul class="section table-of-contents">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#structure">Structure</a></li>
+        <li><a href="#initialization">Intialization</a></li>
+      </ul>
     </div>
   </div>
 </div>
 
 {% addtoblock 'js' %}
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.scrollspy');
+    var instances = M.ScrollSpy.init(elems, {}});
+  });
+</script>
+
 {% endaddtoblock%}

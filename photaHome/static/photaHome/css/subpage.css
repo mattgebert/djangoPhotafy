@@ -73,15 +73,17 @@
   top:0;
   left:0;
 }
-.scrollNav {
-  /* width: 100%; */
-  padding-right: 40px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  text-align: center;
+.table-of-contents {
+  background-color: rgba(0,0,0,0.3)
 }
-.scrollNav .title {
-  color: white;
-  text-align: center;
-  width: 100%;
+
+.table-of-contents a{
+  color:rgba(150,150,150,1);
+  font-size:20px;
+  font-weight:400;
+  /* float:right; */
+}
+
+.table-of-contents a:hover{
+  color:white;
 }
