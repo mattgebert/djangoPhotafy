@@ -5,40 +5,105 @@
 <link rel="stylesheet" href="{% static 'photaHome/css/subpage.css' %}" />
 {% endaddtoblock %}
 
-<div class="scrollFrame">
-  <div class="fullwidthImage">
+<!-- ADD YOUR TABLE-OF-CONTENTS HERE -->
+<div class="scrollFrame valign-wrapper">
+  <div class="TOC col hide-on-small-only m3 l2">
+    <ul class="section table-of-contents">
+      <li><a href="#lattices">Lattices</a></li>
+      <li><a href="#electrons">Electrons</a></li>
+      <li><a href="#phonons">Phonons</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ADD YOUR CONTENT HERE -->
+<div class="MAT scrollFrame">
+  <div class="row fullwidthImage section" id="top">
     <img src="{% static 'amy/events/2017-02-14/lost.jpg' %}" /> <!-- TODO: Change image -->
     <div class="row datetime">
       <div class="col s10"></div>
       <div class="col s2 date shifter">
-        <div class="altText">Modified date! =) </div>
+        <div class="altText">Date modified! =) </div>
         <div class="normText">{{ subpage.date_modified|date:'l, d F Y' }}</div>
       </div>
     </div>
     <div class="row imgOverlay">
-      <div class="row title">
-        {{ subpage.title }}
+      <div class="row">
+        <h1 class="title">
+          {{ subpage.title }}
+        </h1>
+      </div>
+      <div class="row">
+        <h6 class="subtitle">
+          {{ subpage.description }}
+        </h6>
       </div>
     </div>
   </div>
-</div>
+  <div class="row section" id="lattices">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Lattices</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
 
-<div class="scrollFrame valign-wrapper">
-    <div class="col hide-on-small-only m3 l2">
-      <ul class="section table-of-contents">
-        <li><a href="#introduction">Introduction</a></li>
-        <li><a href="#structure">Structure</a></li>
-        <li><a href="#initialization">Intialization</a></li>
-      </ul>
+    </div>
+  </div>
+  <div class="row section" id="electrons">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Electrons</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
+
+    </div>
+  </div>
+  <div class="row section" id="phonons">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Phonons</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
+
     </div>
   </div>
 </div>
 
 {% addtoblock 'js' %}
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.scrollspy');
-    var instances = M.ScrollSpy.init(elems, {}});
+  $(document).ready(function(){
+    var sectionObjs = [];
+    $('.table-of-contents a').each(function(i, obj) {
+      sectionObjs.push(obj);
+    });
+    // .click(function(e){
+      // e.preventDefault();
+    // });
+
+    // $('.scrollspy').scrollSpy({
+    // //   // scrollOffset: 200,
+    //   throttle: 50
+    // });
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var elems = document.querySelectorAll('.scrollspy');
+    //   var instances = M.ScrollSpy.init(elems, {throttle:50});
+    // });
+
+    $('.MAT').scroll(function(e) {
+      var found = false;
+      for (var k=0; k < sectionObjs.length; k++) {
+        if (!found && isScrolledIntoView($(sectionObjs[k]).attr('href'))) {
+          $(sectionObjs[k]).addClass('active');
+          found = true;
+        } else {
+          $(sectionObjs[k]).removeClass('active');
+        }
+      }
+    });
   });
 </script>
 

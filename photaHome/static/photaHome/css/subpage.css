@@ -28,6 +28,17 @@
   font-size: 100px;
 }
 
+.fullwidthImage .subtitle {
+    white-space: normal;
+    color:#ffffff;
+    font-size: 20px;
+    padding: 3px;
+    /* padding-left: 0em; */
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+
 .fullwidthImage .datetime {
   position: relative;
   top:50px;
@@ -44,11 +55,12 @@
 
 .shifter {
 }
+
 .shifter .altText {
   position: absolute;
   top:0;
   opacity: 0;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 .shifter:hover .altText {
   opacity: 1;
@@ -57,7 +69,7 @@
   position: absolute;
   top:0;
   opacity: 1;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 .shifter:hover .normText {
   opacity: 0;
@@ -66,6 +78,13 @@
 .content {
   overflow-y: hidden;
 }
+.MAT {
+  overflow-y: auto;
+}
+.TOC {
+  z-index: 10;
+}
+
 .scrollFrame {
   position: absolute;
   width: 100%;
@@ -73,17 +92,57 @@
   top:0;
   left:0;
 }
+
 .table-of-contents {
-  background-color: rgba(0,0,0,0.3)
+  background-color: rgba(0,0,0,0.2);
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  transition: 0.5s;
 }
 
 .table-of-contents a{
-  color:rgba(150,150,150,1);
+  color:rgba(150,150,150,0.3);
   font-size:20px;
   font-weight:400;
+  transition: 0.5s;
   /* float:right; */
 }
 
 .table-of-contents a:hover{
   color:white;
+}
+.table-of-contents a.active{
+  color:rgba(255,255,255,0.5);
+}
+.table-of-contents a.active:hover{
+  color:white;
+}
+
+/* If the contents is hovered over */
+.table-of-contents:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+.table-of-contents:hover a{
+    color:rgba(150,150,150,0.6);
+}
+.table-of-contents:hover a.active{
+    color:rgba(255,255,255,0.8);
+}
+.table-of-contents:hover a:hover{
+    color:rgba(255,255,225,1);
+    transition: 0s;
+    border-left-width: thick;
+}
+
+
+.section .title h2{
+  white-space: normal;
+  color:#ffffff;
+  font-size: 40px;
+}
+
+.randPaddingBlock {
+  height: 30%;
+  width: 100%;
+  background-color: rgba(70,130,180,0.4);
 }
