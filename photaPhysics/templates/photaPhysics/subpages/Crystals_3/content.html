@@ -76,22 +76,14 @@
 <script type="text/javascript">
   $(document).ready(function(){
     var sectionObjs = [];
+    var offsetMenubarHeight = $('.links').height() + 2;
     $('.table-of-contents a').each(function(i, obj) {
       sectionObjs.push(obj);
+    })
+    .click(function(e){
+      e.preventDefault();
+      scrollTillTopOpts(($(this).attr('href')),'.MAT', offsetMenubarHeight ,400);
     });
-    // .click(function(e){
-      // e.preventDefault();
-    // });
-
-    // $('.scrollspy').scrollSpy({
-    // //   // scrollOffset: 200,
-    //   throttle: 50
-    // });
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var elems = document.querySelectorAll('.scrollspy');
-    //   var instances = M.ScrollSpy.init(elems, {throttle:50});
-    // });
 
     $('.MAT').scroll(function(e) {
       var found = false;

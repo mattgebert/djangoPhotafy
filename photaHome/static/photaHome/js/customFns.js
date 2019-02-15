@@ -51,6 +51,15 @@ function scrollTillTop(elem, container) {
   $(container).animate({scrollTop:[initDiff,'swing']}, 500);
 }
 
+//Custom Written Function to scroll page to a specific element with options.
+function scrollTillTopOpts(elem, container,offset,ms) {
+
+  var docViewTop = $(container).scrollTop();
+  var elemTop = $(elem).offset().top;
+  var initDiff = Math.ceil(elemTop + docViewTop - offset);
+
+  $(container).animate({scrollTop:[initDiff,'swing']}, ms);
+}
 
 
 //Custom Written Function to match heights of columned elements of a class.

@@ -34,7 +34,7 @@
     font-size: 20px;
     padding: 3px;
     /* padding-left: 0em; */
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.2);
     border-radius: 5px;
 }
 
@@ -94,14 +94,14 @@
 }
 
 .table-of-contents {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.1);
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
   transition: 0.5s;
 }
 
 .table-of-contents a{
-  color:rgba(150,150,150,0.3);
+  color:rgba(150,150,150,0.2);
   font-size:20px;
   font-weight:400;
   transition: 0.5s;
@@ -142,7 +142,7 @@
 }
 
 .randPaddingBlock {
-  height: 30%;
+  height: 120%;
   width: 100%;
   background-color: rgba(70,130,180,0.4);
 }
