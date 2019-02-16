@@ -77,6 +77,8 @@
   $(document).ready(function(){
     var sectionObjs = [];
     var offsetMenubarHeight = $('.links').height() + 2;
+
+    //Setup table of contents navigation.
     $('.table-of-contents a').each(function(i, obj) {
       sectionObjs.push(obj);
     })
@@ -85,10 +87,11 @@
       scrollTillTopOpts(($(this).attr('href')),'.MAT', offsetMenubarHeight ,400);
     });
 
+    //Setup table of contents dynamic updating with scrolling.
     $('.MAT').scroll(function(e) {
       var found = false;
       for (var k=0; k < sectionObjs.length; k++) {
-        if (!found && isScrolledIntoView($(sectionObjs[k]).attr('href'))) {
+        if (!found && isScrolledIntoViewOpts($(sectionObjs[k]).attr('href'),offsetMenubarHeight,0)) {
           $(sectionObjs[k]).addClass('active');
           found = true;
         } else {
@@ -96,6 +99,9 @@
         }
       }
     });
+
+    //Trigger initial scroll event
+    $('.MAT').scroll();
   });
 </script>
 
