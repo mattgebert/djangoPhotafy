@@ -38,8 +38,29 @@ function isScrolledIntoView(elem)
     var elemTop = $(elem).offset().top;
     var elemBottom = elemTop + $(elem).height();
 
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) || ((elemBottom >= docViewBottom) && (elemTop <= docViewTop));
 }
+function isScrolledFullyIntoViewOpts(elem,offsetTop,offsetBottom)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top - offsetTop;
+    var elemBottom = elemTop + $(elem).height() - offsetBottom;
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) || ((elemBottom >= docViewBottom) && (elemTop <= docViewTop));
+}
+function isScrolledIntoViewOpts(elem,offsetTop,offsetBottom)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top - offsetTop;
+    var elemBottom = elemTop + $(elem).height() - offsetBottom;
+
+    return ((docViewTop >= elemTop) && (docViewTop <= elemBottom)) || ((docViewBottom >= elemTop) && (docViewBottom <= elemBottom));
+}
+
 
 //Custom Written Function to scroll page to a specific element.
 function scrollTillTop(elem, container) {
