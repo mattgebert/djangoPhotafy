@@ -13,3 +13,88 @@
   display: block;
   text-align: center;
 }
+
+.relevance a {
+  color:#d73027
+}
+.evidence a {
+  color:#fc8d59
+}
+.jesus a {
+  color:#ffffbf
+}
+.mystory a {
+  color:#e0f3f8
+}
+.church a {
+  color:#4575b4
+}
+
+div.fullwidthImage {
+  height: 100%;
+}
+
+div.fullwidthImage .imgOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* top:0; */
+  /* bottom:0; */
+  /* left:0; */
+  /* right:0; */
+  width: 100%;
+  height: 100%;
+  vertical-align: center;
+}
+div.fullwidthImage .imgOverlay .row {
+  width: 100%;
+}
+
+.toc-icons div:only-child {
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 1em;
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+
+div.parallax{
+  z-index: 0 !important;
+}
+
+div.background {
+  /* background-color: rgba(0,0,0,0); */
+  z-index: -2;
+}
+
+
+
+/* From: https://stackoverflow.com/questions/39205432/materialize-grid-do-5-columns */
+.s5ths,
+.m5ths,
+.l5ths,
+.xl5ths {
+  margin-left: auto;
+  left: auto;
+  right: auto;
+}
+.row .col.s5ths {
+  width: 20%;
+}
+
+@media only screen and (min-width: 601px) {
+  .row .col.m5ths {
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .row .col.l5ths {
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .row .col.xl5ths {
+    width: 20%;
+  }
+}

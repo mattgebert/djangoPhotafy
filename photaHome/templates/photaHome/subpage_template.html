@@ -5,13 +5,104 @@
 <link rel="stylesheet" href="{% static 'photaHome/css/subpage.css' %}" />
 {% endaddtoblock %}
 
-<div class="fullwidthImage">
-  <img src="{% static 'amy/events/2017-02-14/lost.jpg' %}" /> <!-- TODO: Change image -->
-  <div class="row imgOverlay"></div>
+<!-- ADD YOUR TABLE-OF-CONTENTS HERE -->
+<div class="scrollFrame valign-wrapper">
+  <div class="TOC col hide-on-small-only m3 l2">
+    <ul class="section table-of-contents">
+      <li><a href="#lattices">Lattices</a></li>
+      <li><a href="#electrons">Electrons</a></li>
+      <li><a href="#phonons">Phonons</a></li>
+    </ul>
+  </div>
 </div>
-<div>
 
+<!-- ADD YOUR CONTENT HERE -->
+<div class="MAT scrollFrame">
+  <div class="row fullwidthImage section" id="top">
+    <img src="{% static 'amy/events/2017-02-14/lost.jpg' %}" /> <!-- TODO: Change image -->
+    <div class="row datetime">
+      <div class="col s10"></div>
+      <div class="col s2 date shifter">
+        <div class="altText">Date modified! =) </div>
+        <div class="normText">{{ subpage.date_modified|date:'l, d F Y' }}</div>
+      </div>
+    </div>
+    <div class="row imgOverlay">
+      <div class="row">
+        <h1 class="title">
+          {{ subpage.title }}
+        </h1>
+      </div>
+      <div class="row">
+        <h6 class="subtitle">
+          {{ subpage.description }}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="row section" id="lattices">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Lattices</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
+
+    </div>
+  </div>
+  <div class="row section" id="electrons">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Electrons</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
+
+    </div>
+  </div>
+  <div class="row section" id="phonons">
+    <div class="row title">
+      <div class="col s6 offset-s1">
+        <h2>Phonons</h2>
+      </div>
+    </div>
+    <div class="row randPaddingBlock">
+
+    </div>
+  </div>
 </div>
 
 {% addtoblock 'js' %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    var sectionObjs = [];
+    var offsetMenubarHeight = $('.links').height() + 2;
+
+    //Setup table of contents navigation.
+    $('.table-of-contents a').each(function(i, obj) {
+      sectionObjs.push(obj);
+    })
+    .click(function(e){
+      e.preventDefault();
+      scrollTillTopOpts(($(this).attr('href')),'.MAT', offsetMenubarHeight ,400);
+    });
+
+    //Setup table of contents dynamic updating with scrolling.
+    $('.MAT').scroll(function(e) {
+      var found = false;
+      for (var k=0; k < sectionObjs.length; k++) {
+        if (!found && isScrolledIntoViewOpts($(sectionObjs[k]).attr('href'),offsetMenubarHeight,0)) {
+          $(sectionObjs[k]).addClass('active');
+          found = true;
+        } else {
+          $(sectionObjs[k]).removeClass('active');
+        }
+      }
+    });
+
+    //Trigger initial scroll event
+    $('.MAT').scroll();
+  });
+</script>
+
 {% endaddtoblock%}
