@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {"id": "Jesus", "group": 1, "hovtxt":"Everything about Christianity comes from belief in Jesus at it's core."},
+    {"id": "God", "group": 2, "hovtxt":""},
+    {"id": "Cosmilogical argument", "group": 3, "hovtxt":""}
+  ],
+  "links": [
+    {"source": "Jesus", "target": "God", "value": 1},
+    {"source": "God", "target": "Cosmilogical argument", "value": 1}
+  ]
+}

@@ -6,14 +6,6 @@
 <link rel="stylesheet" href="{% static 'photaHome/css/subpage.css' %}" />
 {% endaddtoblock %}
 
-{% addtoblock "js" %}
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
-</script>
-{% endaddtoblock %}
-
-<!-- Get Unicode from http://unicode-search.net/unicode-namesearch.pl?term=INTEGRAL -->
 
 <!-- ADD YOUR TABLE-OF-CONTENTS HERE -->
 <div class="scrollFrame valign-wrapper">
@@ -91,14 +83,56 @@
       <div class="col l2 m1 s0"></div>
     </div>
   </div>
-  <div class="row section" id="relevance">
+  <div class="row section " id="relevance">
     <div class="row title">
       <div class="col s6 offset-s1">
         <h2>Relevance?</h2>
       </div>
     </div>
-    <div class="row randPaddingBlock">
-
+    <div class="row sec-info">
+      <div class="row para">
+        <div class="col l10 s12 offset-l1">
+          <h3>Have you ever considered the life of Jesus? I think it’s profoundly relevant to you, and for a number of reasons.</h3>
+        </div>
+      </div>
+      <div class="row para">
+        <div class="row flexy">
+          <div class="col l2 m4 s6 offset-l1 imgTxtContainer">
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>No matter what has been done or is part of your past, present and future, Jesus unconditionally accepts all who come to him with love. This includes you.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+              <span>Jesus cares about your heart. He does not judge based on "works", achievements or success. In our busy, success driven culture, this is incredibly relevant.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+              <span>Understanding who Jesus is will help you understand yourself, as you grapple with Jesus’ interactions with other people, and reflect yourself.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+              <span>Jesus claims to be God, not "up in the clouds" but here on earth, someone who you can study and get to know.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+              <span>Some people desire a safe place to practise spirituality & mindfulness. Jesus recognises spiritual needs, incorperated prayer regularly, and had a connection to nature.</span>
+          </div>
+          <div class="col l1"></div>
+          <div class="col l2 m4 s6 offset-l1 imgTxtContainer">
+              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+              <span>Jesus provides a good framework for making life decisions.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Jesus leads the way in physical resurrection; an end to death and suffering.</span>
+          </div>
+          <div class="col l2 m4 s6 imgTxtContainer">
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Sacrifice, at the cross, is at the heart of Jesus' life. Taking responsibility, giving something up for the sake of good is something you should also be motivated to do. </span>
+          </div>
+          <div class="col l7"></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row section" id="evidence">
@@ -106,6 +140,10 @@
       <div class="col s6 offset-s1">
         <h2>Evidence</h2>
       </div>
+    </div>
+    <div class="svgContainer">
+      <svg id="evidenceSvg">
+      </svg>
     </div>
     <div class="row randPaddingBlock">
 
@@ -140,7 +178,15 @@
   </div>
 </div>
 
-{% addtoblock 'js' %}
+{% addtoblock "js" %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript">
+  jsonfile = "{% static 'photaChristianity/json/intro-evidence-d3.json' %}";
+</script>
+
 <script type="text/javascript">
   $(document).ready(function(){
     var sectionObjs = [];
@@ -179,4 +225,5 @@
   });
 </script>
 
+<script src="{% static 'photaChristianity/js/intro-evidence-d3.js' %}"></script>
 {% endaddtoblock%}
