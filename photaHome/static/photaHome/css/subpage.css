@@ -110,7 +110,8 @@
   color:white;
 }
 .table-of-contents a.active{
-  color:rgba(255,255,255,0.5);
+  color:rgba(255,255,255,0.25);
+  border-left-color: rgba(255,0,0,0.2);
 }
 .table-of-contents a.active:hover{
   color:white;
@@ -118,13 +119,15 @@
 
 /* If the contents is hovered over */
 .table-of-contents:hover {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.8);
 }
 .table-of-contents:hover a{
     color:rgba(150,150,150,0.6);
 }
 .table-of-contents:hover a.active{
     color:rgba(255,255,255,0.8);
+    border-left-color: red;
+    border-left-width: thick;
 }
 .table-of-contents:hover a:hover{
     color:rgba(255,255,225,1);
@@ -137,6 +140,102 @@
   white-space: normal;
   color:#ffffff;
   font-size: 40px;
+}
+
+.section div.imgBkgnd {
+  position: relative;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+}
+
+.section div.para {
+  color: white;
+  width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.section div.flexy {
+  width: 100%;
+  text-align: center;
+  /* display: inline-flex; */
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* padding: 5px !important; */
+  /* padding-top: 0px !important; */
+  padding-bottom: 10px;
+}
+
+.section .imgTxtContainer {
+  flex: 1 0 auto;
+  position: relative;
+  justify-content: space-between;
+  display: inline-block;
+  /* margin: 5px; */
+  padding:10px;
+}
+
+.section .imgTxtContainer img {
+  position: relative;
+  display: block;
+  top:0;
+  left:0;
+  width: 100%;
+  filter:brightness(50%);
+}
+
+.section .imgTxtContainer span {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translate(0, -50%);
+  text-align: center;
+  color: #fff;
+  /* text-shadow: 0 0 15px; */
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
+  padding: 10px;
+  /* position:absolute;
+  text-align: center;
+  top:0;
+  left:0;
+  width: 100%; */
+}
+
+.section div.para div.col {
+  /* display: inline-block; */
+  position: relative;
+}
+
+.section div.para ul,h3,li {
+  width: 100%;
+  white-space: normal;
+}
+
+.section h3 {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+}
+.section li {
+  text-align: left;
+}
+
+.section .sec-info {
+  background-color: rgba(70,130,180,0.4);
+}
+
+.section .sec-info .para div {
+  text-align: left;
+  /* padding-top: 20px; */
+}
+
+.section .sec-info .para span {
+  white-space: normal;
 }
 
 .randPaddingBlock {
