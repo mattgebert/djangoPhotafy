@@ -71,7 +71,7 @@ div.background {
 
 div.svgContainer {
   width: 100%;
-  height: 60%;
+  height: 80%;
   display: inline-flex;
   position: relative;
   background-color: rgba(040,0,040,1)
@@ -79,6 +79,11 @@ div.svgContainer {
 div.svgContainer svg{
   width: 100%;
   height: 100%;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(30,150,220,0.95);
 }
 
 svg circle {
@@ -96,11 +101,13 @@ svg circle:hover {
 svg text {
   fill: white;
   text-anchor:middle;
+  word-wrap: break-word;
 }
 
 svg line {
   /* stroke: #5aa97b; */
-  stroke: #00293e;
+  /* stroke: #00293e; */
+  stroke: rgba(255,255,255,0.4);
   stroke-width:2px;
 }
 
