@@ -58,7 +58,7 @@ function isScrolledIntoViewOpts(elem,offsetTop,offsetBottom)
     var elemTop = $(elem).offset().top - offsetTop;
     var elemBottom = elemTop + $(elem).height() - offsetBottom;
 
-    return ((docViewTop >= elemTop) && (docViewTop <= elemBottom)) || ((docViewBottom >= elemTop) && (docViewBottom <= elemBottom));
+    return ((elemTop >= docViewTop) && (elemTop <= docViewBottom)) || ((elemBottom >= docViewTop) && (elemBottom <= docViewBottom)) || ((elemTop <= docViewTop) && (elemBottom >= docViewBottom));
 }
 
 

@@ -268,7 +268,6 @@
 
     //Setup table of contents dynamic updating with scrolling.
     $('.MAT').scroll(function(e) {
-
       var found = false;
       for (var k=0; k < sectionObjs.length; k++) {
         if (!found && isScrolledIntoViewOpts($(sectionObjs[k]).attr('href'),offsetMenubarHeight,0)) {
@@ -278,6 +277,7 @@
           $(sectionObjs[k]).removeClass('active');
         }
       }
+      // alert(isScrolledIntoViewOpts($(sectionObjs[0]).attr('href'),offsetMenubarHeight,0));
     });
 
     //Trigger initial scroll event
