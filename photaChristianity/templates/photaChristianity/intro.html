@@ -103,25 +103,25 @@
             <span>No matter what has been done or is part of your past, present and future, Jesus unconditionally accepts all who come to him with love. This includes you.</span>
           </div>
           <div class="col l2 m4 s6 imgTxtContainer">
-              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
-              <span>Jesus cares about your heart. He does not judge based on "works", achievements or success. In our busy, success driven culture, this is incredibly relevant.</span>
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Jesus cares about your heart. He does not judge based on "works", achievements or success. In our busy, success driven culture, this is incredibly relevant.</span>
           </div>
           <div class="col l2 m4 s6 imgTxtContainer">
-              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
-              <span>Understanding who Jesus is will help you understand yourself, as you grapple with Jesus’ interactions with other people, and reflect yourself.</span>
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Understanding who Jesus is will help you understand yourself, as you grapple with Jesus’ interactions with other people, and reflect yourself.</span>
           </div>
           <div class="col l2 m4 s6 imgTxtContainer">
-              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
-              <span>Jesus claims to be God, not "up in the clouds" but here on earth, someone who you can study and get to know.</span>
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Jesus claims to be God, not "up in the clouds" but here on earth, someone who you can study and get to know.</span>
           </div>
           <div class="col l2 m4 s6 imgTxtContainer">
-              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
-              <span>Some people desire a safe place to practise spirituality & mindfulness. Jesus recognises spiritual needs, incorperated prayer regularly, and had a connection to nature.</span>
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Some people desire a safe place to practise spirituality & mindfulness. Jesus recognises spiritual needs, incorperated prayer regularly, and had a connection to nature.</span>
           </div>
           <div class="col l1"></div>
           <div class="col l2 m4 s6 offset-l1 imgTxtContainer">
-              <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
-              <span>Jesus provides a good framework for making life decisions.</span>
+            <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
+            <span>Jesus provides a good framework for making life decisions.</span>
           </div>
           <div class="col l2 m4 s6 imgTxtContainer">
             <img src="{% static 'photaChristianity/img/relevance/lens.jpg' %}" />
@@ -142,13 +142,71 @@
         <h2>Evidence</h2>
       </div>
     </div>
-    <div class="svgContainer">
+    <div class="row svgContainer">
+      <div class="buttons">
+        <button name="evidenceBtnExpand" type="button" value="Expand all" onclick="expandNodes()">Expand all</button>
+        <button name="evidenceBtnCollapse" type="button" value="Collapse all" onclick="collapseNodes()">Collapse all</button>
+      </div>
       <!-- <input style="width:240px;" type="range" min="0" max="1" step="any" value="0.5"> -->
       <svg id="evidenceSvg">
       </svg>
     </div>
-    <div class="row randPaddingBlock">
+    <div class="row textBody">
+      <div class="divider"></div>
+      <div class="row">
+        <h5>Historical evidence</h5>
+        <div class="col m6">
+          <h6 id="The-gospels-describing-Jesus">The gospels describing Jesus</h6>
+          <p></p>
+          <h6 id="Non-christian-sources">Non-christian sources</h6>
+          <p></p>
+          <h6 id="The-biblical-narative">The biblical narative</h6>
+          <p></p>
+          <h6 id="Acts-of-Jesus'-followers">Acts of Jesus' followers</h6>
+          <p></p>
+        </div>
+        <div class="col m6">
+          <img src="{% static "photaChristianity/img/deadseascrollcave.jpg" %}"/>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <h5>Arguments for God</h5>
+        <div class="col m6">
+          <div class="row">
+            <div class="col m6"><img src="{% static "photaChristianity/img/deadseascrollcave.jpg" %}"/></div>
+            <div class="col m6"><img src="{% static "photaChristianity/img/deadseascrollcave.jpg" %}"/></div>
+          </div>
+          <div class="row">
+            <div class="col m6"><img src="{% static "photaChristianity/img/deadseascrollcave.jpg" %}"/></div>
+            <div class="col m6"><img src="{% static "photaChristianity/img/deadseascrollcave.jpg" %}"/></div>
+          </div>
+        </div>
+        <div class="col m6">
+          <h6 id="Cosmological-argument">Cosmological argument</h6>
+          <p></p>
+          <h6 id="Universal-moral-law">Universal moral law</h6>
+          <p></p>
+          <h6 id="Comprehensible-universe">Comprehensible universe</h6>
+          <p id="Mathematics">Mathematics</p>
+          <h6 id="Human-conciousness">Human conciousness</h6>
+          <p></p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <h5>FAQ</h5>
+        <div class="col m6">
+          <h6 id="Evolution-&-creation">Evolution & creation</h6>
+          <p></p>
+          <h6 id="Biblical-integrity">Biblical integrity</h6>
+          <p></p>
+        </div>
+        <div class="col m6">
 
+        </div>
+      </div>
+      <div class="divider"></div>
     </div>
   </div>
   <div class="row section" id="jesus">
@@ -196,14 +254,14 @@
 
     //Setup table of contents navigation.
     $('.table-of-contents a').each(function(i, obj) {
-      sectionObjs.push(obj);
+      sectionObjs.push(obj); //Add all table of contents objects to a list.
     })
-    .click(function(e){
+    .click(function(e){ //For each object bind a click functionality.
       e.preventDefault();
       scrollTillTopOpts(($(this).attr('href')),'.MAT', offsetMenubarHeight ,400);
     });
 
-    $('.toc-icons a').click(function(e){
+    $('.toc-icons a').click(function(e){ //Do the same for the table of contents icons.
       e.preventDefault();
       scrollTillTopOpts(($(this).attr('href')),'.MAT', offsetMenubarHeight ,400);
     });

@@ -103,3 +103,12 @@ function matchHeightCustom(elem)
         $(this).css('height',maxHeight.concat('px'));
     });
 }
+
+//Replace Function for Javacript
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+String.prototype.replaceAll = function(find, replace) {
+  var target = this;
+  return target.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}

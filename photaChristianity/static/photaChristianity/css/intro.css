@@ -71,7 +71,7 @@ div.background {
 
 div.svgContainer {
   width: 100%;
-  height: 80%;
+  height: 90%;
   display: inline-flex;
   position: relative;
   background-color: rgba(040,0,040,1)
@@ -111,43 +111,17 @@ svg line {
   stroke-width:2px;
 }
 
-.svgContainer input {
+.svgContainer div.buttons {
   position:absolute;
-  left:50px;
+  right:50px;
   top: 0;
+}
+.svgContainer .buttons button {
+  width: 100px;
+  height: 5%;
+  text-align: center;
   border-color: rgba(1,1,1,0);
 }
 .svgContainer span.thumb {
   transform: translateX(50px) rotate(-45deg);
-}
-
-/* From: https://stackoverflow.com/questions/39205432/materialize-grid-do-5-columns */
-.s5ths,
-.m5ths,
-.l5ths,
-.xl5ths {
-  margin-left: auto;
-  left: auto;
-  right: auto;
-}
-.row .col.s5ths {
-  width: 20%;
-}
-
-@media only screen and (min-width: 601px) {
-  .row .col.m5ths {
-    width: 20%;
-  }
-}
-
-@media only screen and (min-width: 993px) {
-  .row .col.l5ths {
-    width: 20%;
-  }
-}
-
-@media only screen and (min-width: 1201px) {
-  .row .col.xl5ths {
-    width: 20%;
-  }
 }
