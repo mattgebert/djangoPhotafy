@@ -5,36 +5,36 @@
 var data = {
   "nodes": [
     {"id": "Jesus", "level": 1, "hovtxt":""},
-
-    {"id": "Arguments for God", "level": 2, "hovtxt":"Some people believe Jesus existed, but don't believe the things he said about God and himself. </br> Here are some suggestions as to why God might exist."},
-    {"id": "Cosmilogical argument", "level": 3, "hovtxt":""},
-    {"id": "Human conciousness", "level": 3, "hovtxt":""},
-    {"id": "Comprehensible mathematics", "level": 3, "hovtxt":""},
-    {"id": "Universal moral law", "level": 3, "hovtxt":""},
-
-    {"id": "Historical evidence", "level":2, "hovtxt":""},
-    {"id": "Biblical accounts","level":3,"hovtxt":""},
-    {"id": "Non-christian sources","level":3,"hovtxt":""},
-
-    {"id": "Resolvable issues", "level":2, "hovtxt":""},
-    {"id": "Evolution & creation", "level":3, "hovtxt":""},
-    {"id": "Biblical integrity", "level":3, "hovtxt":""}
+      {"id": "Arguments for God", "level": 2, "hovtxt":"Some people believe Jesus existed, but don't believe the things he said about God and himself. </br> Here are some suggestions as to why God might exist."},
+        {"id": "Cosmological argument", "level": 3, "hovtxt":""},
+        {"id": "Human conciousness", "level": 3, "hovtxt":""},
+        {"id": "Comprehensible universe", "level": 3, "hovtxt":""},
+          {"id": "Mathematics", "level": 4, "hovtxt":""},
+        {"id": "Universal moral law", "level": 3, "hovtxt":""},
+      {"id": "Historical evidence", "level":2, "hovtxt":""},
+        {"id": "The gospels describing Jesus","level":3,"hovtxt":""},
+        {"id": "Non-christian sources","level":3,"hovtxt":""},
+        {"id": "The biblical narative","level":3,"hovtxt":""},
+        {"id": "Acts of Jesus' followers","level":3,"hovtxt":""},
+      {"id": "FAQ", "level":2, "hovtxt":""},
+        {"id": "Evolution & creation", "level":3, "hovtxt":""},
+        {"id": "Biblical integrity", "level":3, "hovtxt":""}
   ],
   "links": [
     {"source": "Jesus", "target": "Arguments for God", "value": 1},
-    {"source": "Jesus", "target": "Historical evidence","value":3},
-    {"source": "Jesus", "target": "Resolvable issues", "value": 1},
-
-    {"source": "Arguments for God", "target": "Cosmilogical argument", "value": 2},
-    {"source": "Arguments for God", "target": "Human conciousness", "value": 2},
-    {"source": "Arguments for God", "target": "Comprehensible mathematics", "value": 2},
-    {"source": "Arguments for God", "target": "Universal moral law", "value": 2},
-
-    {"source":"Historical evidence","target":"Biblical accounts","value":3},
-    {"source":"Historical evidence","target":"Non-christian sources","value":3},
-
-    {"source":"Resolvable issues","target":"Evolution & creation","value":2},
-    {"source":"Resolvable issues","target":"Biblical integrity","value":2}
+      {"source": "Arguments for God", "target": "Cosmological argument", "value": 2},
+      {"source": "Arguments for God", "target": "Human conciousness", "value": 2},
+      {"source": "Arguments for God", "target": "Comprehensible universe", "value": 2},
+        {"source": "Comprehensible universe", "target": "Mathematics", "value": 2},
+      {"source": "Arguments for God", "target": "Universal moral law", "value": 2},
+    {"source": "Jesus", "target": "Historical evidence","value":1},
+      {"source":"Historical evidence","target":"The gospels describing Jesus","value":2},
+      {"source":"Historical evidence","target":"Non-christian sources","value":2},
+      {"source":"Historical evidence","target":"The biblical narative","value":2},
+      {"source":"Historical evidence","target":"Acts of Jesus' followers","value":2},
+    {"source": "Jesus", "target": "FAQ", "value": 1},
+      {"source":"FAQ","target":"Evolution & creation","value":2},
+      {"source":"FAQ","target":"Biblical integrity","value":2}
   ]
 }
 
@@ -51,18 +51,26 @@ var colours = ['#FF7070', '#FFA07A', '#FFD700','#008080', '#5aa97b']; //#48D1CC
 var color = d3.scaleOrdinal().range(colours); //d3["schemeSet1"]
 
 var simulation = d3.forceSimulation()
-    .force("charge", d3.forceManyBody().strength(-1000))
-    .force("link", d3.forceLink().distance(100).strength(function(d) {
+    .force("charge", d3.forceManyBody()
+    .strength(function(d) {
+      return -Math.floor(10000 / Math.pow(d.level, 0.6)); //120;
+      // return -3000;
+    }))
+    .force("link", d3.forceLink().distance(function(d) {
+      console.log(Math.pow(d.value, 0.1));
+      return Math.floor(200 / Math.pow(d.value, 1.5)); //120;
+      // return 120;
+    }).strength(function(d) {
       if (d.source.displayChildren == true) {
-        return 1;
+        return 5; //1
       } else {
         return 0;
       }
     }).id(function(d) { return d.id; }))
     // .force("center", d3.forceCenter(width / 2, height / 2))
     // .force("center", d3.forceCenter(0,0))
-    .force("x", d3.forceX().strength(0.07))
-    .force("y", d3.forceY().strength(0.14)); //https://bl.ocks.org/andrew-reid/4aa3dab2265a16626d71b3412a9e4ec6
+    .force("x", d3.forceX().x(0).strength(0.36)) //0.7
+    .force("y", d3.forceY().y(0).strength(0.56)); //0.14 //https://bl.ocks.org/andrew-reid/4aa3dab2265a16626d71b3412a9e4ec6
 
 var link = svg.append("g")
     .attr("class", "links")
@@ -81,11 +89,7 @@ var node = svg.append("g")
       d.displayChildren = false;
       return "none";
     } else {
-      // if (d.level == 1) {
-        // d.displayChildren = true;
-      // } else {
-          d.displayChildren = false;
-      // }
+      d.displayChildren = false;
       return "";
     }
   });
@@ -116,18 +120,20 @@ circles
       div.transition()
           .duration(500)
           .style("opacity", 0);
-  })
-  .on("click", function(d) {
-    d.displayChildren = !d.displayChildren; //Invert selection.
-    updateNodes();
   });
 
 var labels = node.append("text");
 
 labels.text(function(d) {
-  return d.id;
+  return d.id.replace('\n',''); //TODO: Wrap https://bl.ocks.org/mbostock/7555321
 }).attr("transform", function(d) {
   return "translate(0 ," + (20 + Math.floor(30/Math.pow(d.level,0.2))) + ")";
+}).attr("font-size" , function(d) {
+  var size = Math.floor(30/Math.pow(d.level,0.6));
+  if (size < 12) {
+    return 12;
+  }
+  return size;
 });
 // .attr("textLength", function(d) { //TODO UPDATE
 //   return 3*Math.floor(30/Math.pow(d.level,0.2));
@@ -145,8 +151,12 @@ simulation.force("link")
 node.append("title")
 .text(function(d) { return d.id; });
 
-node.each(function(d,i) { //Link each node with its parent.
+node.each(function(d) { //Link each node with its parent.
   findParent(d);
+});
+
+node.each(function(d) { //Generate hasChild property for onclick behaviour:
+  d.hasChildren = hasChild(d);
 })
 
 function ticked() {
@@ -212,6 +222,20 @@ link.attr("display", function(d) {
   }
 });
 
+function expandNodes() {
+  node.each(function(d) {
+    d.displayChildren = true;
+  });
+  updateNodes();
+};
+
+function collapseNodes () {
+  node.each(function(d) {
+    d.displayChildren = false;
+  });
+  updateNodes();
+}
+
 function updateNodes() {
 
   node.attr("display", function(d) {
@@ -252,6 +276,16 @@ function hasHidingParent(d) {
   }
 }
 
+function hasChild(d) {
+  for (var i=0; i < data.links.length; i++) {
+    if (data.links[i].source.id == d.id) { //Match clicked node with link
+      return true;
+    }
+  }
+  return false;
+
+}
+
 function findParent(d) { //Finds parent node.
   d.parent = null;
   for (var i=0; i < data.links.length; i++) {
@@ -260,3 +294,16 @@ function findParent(d) { //Finds parent node.
     }
   }
 }
+
+//Define click behaviour for nodes.
+$(document).ready(function(){
+  var offsetMenubarHeight = $('.links').height() + 2;
+  circles.on("click", function(d) {
+    if (d.hasChildren) {
+      d.displayChildren = !d.displayChildren; //Invert selection.
+      updateNodes();
+    } else {
+      scrollTillTopOpts(("#"+d.id.replaceAll(" ","-")).replaceAll("'","\\'").replaceAll("&","\\&"),'.MAT', offsetMenubarHeight ,400); //Relies on scroll function defined in CustomFcns.js.
+    }
+  });
+});

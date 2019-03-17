@@ -38,3 +38,6 @@ class SubpageAdmin(admin.ModelAdmin):
     list_display = ('title', 'pageapp', 'href', 'description', 'status', 'date_modified', 'date_created')
 
 admin.site.register(Subpagebubble, SubpageAdmin)
+
+
+#TODO: make a interface to scan static directory for unlinked pages, and choose to upload them (tick boxes). This means content can be deleted from the website without affecting github, and added later, remotely through git.
