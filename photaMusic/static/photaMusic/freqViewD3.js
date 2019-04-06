@@ -12,11 +12,15 @@ height = +jsvg.height() - margin.top - margin.bottom;
 var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-var x = d3.scaleLinear().rangeRound([0, width]);
-var y = d3.scaleLinear().rangeRound([height, 0]);
+// var x = d3.scaleSymlog().rangeRound([0, width]);
+// var x = d3.scaleLinear().rangeRound([0, width]);
+var x = d3.scaleLog().rangeRound([0, width]);
+var y = d3.scaleLinear().rangeRound([height-margin.top-30, 0]);
+
+var xAxis;
 
 var line = d3.line()
-.x(function(d) { return x(d.x); })
+.x(function(d) { if (d.x < 1) { return 0;} else {return x(d.x);}})
 .y(function(d) { return y(d.y); });
 
 // var svgResize = function() {
@@ -34,8 +38,6 @@ var timestep = 0;
 var segmentize = function(data) {
   return data.spectra.map(function(d,i) {
       return {"x":xaxis[i], "y":d}
-      // return {"x":i, "y":i*i}
-      // return {"x":d.x, "y":d.y*d.y}
   });
 };
 
@@ -53,7 +55,8 @@ d3.json("data.json", function(error, json) {
 
   $(document).ready(function() {
     //Set SVG Axis
-    x.domain(d3.extent(timesegData, function (d) { return d.x; }));
+    // x.domain(d3.extent(timesegData, function (d) { return d.x; })); //issues coz returns 0.
+    x.domain([10, d3.max(timesegData, function (d) { return d.x; })]); //issues coz returns 0.
     // y.domain(d3.extent(timesegData, function (d) { return d.y; }));
     y.domain([0, max]);
     //Draw Dataset
@@ -61,7 +64,29 @@ d3.json("data.json", function(error, json) {
     .datum(timesegData)
     .attr("d", line);
 
-    audio = new Audio("Ellie Goulding - Lights (Phota Remix).mp3");
+    // Setup axis
+      // Add the x Axis
+    xAxis = d3.axisBottom()
+        .scale(x)
+        // .orient("bottom")
+        .ticks(20, ",.1s")
+        .tickSize(6, 0);
+
+    svg.append("g")
+        .attr("transform", "translate(0," + (height-margin.top-25) + ")")
+        // .call(d3.axisBottom(x));
+        .call(xAxis);
+    // text label for the x axis
+    // svg.append("text")
+    //     .attr("transform",
+    //           "translate(" + (width/2) + " ," +
+    //                          (height -margin.top-25) + ")")
+    //     .style("text-anchor", "middle")
+    //     .text("Date");
+
+    // audio = new Audio("Ellie Goulding - Lights (Phota Remix).mp3");
+    // audio = new Audio("Shepard Tone.mp3");
+    audio = new Audio("output.wav");
 
     play = function() {
       // Set periodic function to progressively generate data.
@@ -83,8 +108,6 @@ d3.json("data.json", function(error, json) {
 
 var playing = false;
 
-
-
 Number.prototype.countDecimals = function () {
     if(Math.floor(this.valueOf()) === this.valueOf()) return 0;
     return this.toString().split(".")[1].length || 0;
@@ -99,13 +122,18 @@ var progress = function() {
     timestep += 1;
     timesegData = segmentize(data[timestep]);
 
-    //Update axes
-    x.domain(d3.extent(timesegData, function (d) { return d.x; }));
+    //Update axes - x doesn't need updating.
+    // x.domain(d3.extent(timesegData, function (d) { return d.x; }));
+    // x.domain([1, d3.max(timesegData, function (d) { return d.x; })]); //issues coz returns 0.
     // y.domain(d3.extent(timesegData, function (d) { return d.y; }));
-    y.domain([0,max])
+    // y.domain([0,max])
 
     //Update line
     svg.selectAll("path").datum(timesegData)
       .attr("d", line);
     }
+  else {
+    pause();
+    progress();
+  }
 }
