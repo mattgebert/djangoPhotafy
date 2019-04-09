@@ -8,7 +8,8 @@ import itertools
 
 # filename = "Phota - The Fifth Part.mp3"
 # filename = "Ellie Goulding - Lights (Phota Remix).mp3"
-filename = "Shepard Tone.mp3"
+# filename = "Shepard Tone.mp3"
+filename = "11 - Bulletproof.ogg"
 # dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_path = os.getcwd()
 inputFilepath = dir_path + "/static/photaMusic/mp3/" + filename

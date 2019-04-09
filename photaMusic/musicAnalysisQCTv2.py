@@ -7,9 +7,10 @@ import librosa
 # CONVERT TO WAVE FOORMAT
 # hydrogen:interrupt-kernel
 
-filename = "Phota - The Fifth Part.mp3"
-# filename = "Ellie Goulding - Lights (Phota Remix).mp3"
+# filename = "Phota - The Fifth Part.mp3"
+filename = "Ellie Goulding - Lights (Phota Remix).mp3"
 # filename = "Shepard Tone.mp3"
+# filename = "11 - Bulletproof.ogg"
 # dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_path = os.getcwd()
 inputFilepath = dir_path + "/static/photaMusic/mp3/" + filename
@@ -29,18 +30,21 @@ import soundfile as sf
 # Process FFT Data
 y, samplerate = sf.read(outputFilepath)
 # Need to select bins such that we have enough octaves to span from low freq (5hz) to 44100 Hz (Minimum 8 octaves?)
-octaves = 12;
-bpo=20 #bins per octave
+octaves = 12
+bpo=120 #bins per octave
 nb=bpo*octaves #number of bins
 fmin=5 #frequency minimum
-# number of samples is: duration * samplerate / hop_length
-300*samplerate/hopLength
 
-binTime = 0.1;
+binTime = 0.03
 desiredHopLength = samplerate * binTime
+desiredHopLength
+2**9
 hopLength = int(desiredHopLength - desiredHopLength%2**9)
 binTime = hopLength / samplerate
 binTime
+
+# number of samples is: duration * samplerate / hop_length
+300*samplerate/hopLength
 
 yfftL = np.abs(librosa.cqt(y[:,0], hop_length = hopLength, fmin=fmin, sr=samplerate, n_bins=nb, bins_per_octave=bpo))
 yfftR = np.abs(librosa.cqt(y[:,1], hop_length = hopLength, fmin=fmin, sr=samplerate, n_bins=nb, bins_per_octave=bpo))
@@ -109,6 +113,13 @@ analysisOutputPath = dir_path + '/static/photaMusic/data.json'
 
 output = {'xaxis':xfftComp.tolist(), "blockTime":binTime,"max":max,"data":dataOutput}
 json.dump(output, codecs.open(analysisOutputPath, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
+json_str = json.dumps(output, separators=(',', ':'), sort_keys=True, indent=4)
+json_bytes = json_str.encode('utf-8')
+
+import gzip
+analysisOutputPath2 = dir_path + '/static/photaMusic/data.gzip'
+with gzip.GzipFile(analysisOutputPath2, 'w') as fout:
+    fout.write(json_bytes)
 
 os.system("firefox " + dir_path + "/static/photaMusic/freqView.html")
 

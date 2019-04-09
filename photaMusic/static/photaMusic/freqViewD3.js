@@ -43,10 +43,20 @@ var segmentize = function(data) {
 
 var timesegData, max, intervalID, audio, play, pause;
 
+var requestText;
+var request = new XMLHttpRequest();
+request.responseType = 'arraybuffer';
+request.onload = function() {
+  requestText = request.response;
+  then(JSON.parse(pako.inflate(requestText, { to: 'string' })));
+};
+request.open('GET',"data.gzip");
+request.send();
 
-d3.json("data.json", function(error, json) {
-  if (error) return console.warn(error);
-}).then(function(d) {
+// d3.json("data.json", function(error, json) {
+//     if (error) return console.warn(error);
+//   }).then(function(d) {
+function then(d) {
   data = d.data;
   blockTime = d.blockTime;
   xaxis = d.xaxis;
@@ -104,7 +114,8 @@ d3.json("data.json", function(error, json) {
       }
     }
   });
-});
+// });
+};
 
 var playing = false;
 
