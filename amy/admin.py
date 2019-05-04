@@ -6,6 +6,8 @@ from .models import Image, ImageSet
 
 class ImageInLine(admin.TabularInline):
     model = Image
+    fields = ("image_tag",)
+    readonly_fields = ("image_tag",)
     extra = 3
 
 class ImageSetAdmin(admin.ModelAdmin):
@@ -14,6 +16,13 @@ class ImageSetAdmin(admin.ModelAdmin):
     ]
     inlines = [ImageInLine]
 
+class ImageAdmin(admin.ModelAdmin):
+    fields = ("image_tag","img","image_set","name","description")
+    readonly_fields = ("image_tag",)
+    # class Meta:
+    pass
+
+
 
 admin.site.register(ImageSet, ImageSetAdmin)
-admin.site.register(Image)
+admin.site.register(Image, ImageAdmin)

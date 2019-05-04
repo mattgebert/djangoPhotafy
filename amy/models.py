@@ -18,6 +18,8 @@ class ImageSet(models.Model):
 
 # https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.FileField
 
+from django.utils.safestring import mark_safe
+
 class Image(models.Model):
     image_set =      models.ForeignKey(ImageSet, on_delete=models.CASCADE)
     # image = models.ImageField(upload_to=ImageSet.filepath, max_length=200)
@@ -27,3 +29,9 @@ class Image(models.Model):
 
     def __str__(self):
         return self.name + ": '" + self.description + "'"
+
+
+
+    def image_tag(self):
+        return mark_safe(u'<img style="width:400px" src="%s" />' % ('/'+self.img.url[4:]))
+    image_tag.short_description = 'Image'
