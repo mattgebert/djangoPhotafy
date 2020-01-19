@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 
 from .models import publicTrack, photaTrack, publicAudioFile, photaAudioFile, playlist, audioContainer
-
+from .models import publicAudioFile, photaAudioFile, audioFile
 # class audioFileInLine(admin.TabularInline):
 #     model = audioFile
 #     extra = 3
@@ -12,6 +12,26 @@ from .models import publicTrack, photaTrack, publicAudioFile, photaAudioFile, pl
 #         (None, {'fields':['track_name']}),
 #     ]
 #     inlines = [audioFileInLine]
+
+class audioFileForm(forms.ModelForm):
+    class Meta:
+        # fields = ["img", 'fileAudio']
+        fields = ['file']
+        model = audioFile
+
+class audioFileAdmin(admin.ModelAdmin):
+    def delete_queryset(self, request, queryset):
+        successes = 0
+        for obj in queryset:
+            retCode = obj.delete()
+            if retCode == 0:
+                successes += 1
+        self.message_user(request, "%s successfully deleted." % successes)
+    delete_queryset.short_description = "Delete selected Phota Audio Files"
+
+    model = audioFile
+    actions = [delete_queryset] #TODO TEST
+
 
 class trackForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -76,8 +96,8 @@ class AddPublicTrack(trackAdmin):
 admin.site.register(photaTrack, AddPhotaTrack)
 admin.site.register(publicTrack, AddPublicTrack)
 # admin.site.register(audioFile)
-admin.site.register(publicAudioFile)
-admin.site.register(photaAudioFile)
+admin.site.register(publicAudioFile, audioFileAdmin)
+admin.site.register(photaAudioFile, audioFileAdmin)
 
 
 
