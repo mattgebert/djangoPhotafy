@@ -20,26 +20,24 @@ var line = d3.line()
     .x(function(d) { return x(d.time); })
     .y(function(d) { return y(d.amp); });
 
-var svgResize = function() {
-  //Update Container Elements
-  width = +jsvg.width() - margin.left - margin.right;
-  height = +jsvg.height() - margin.top - margin.bottom;
-  g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  x = d3.scaleLinear()
-      .rangeRound([0, width]);
-  y = d3.scaleLinear()
-      .rangeRound([height, 0]);
-};
-
+var area = d3.area()
+    .x(function(d) { return x(d.time); })
+    .y0(height)
+    .y1(function(d) { return y(d.amp); });
 
 //Generation of Data Points
 var expfunc = function(xval){
-  return +Math.exp(width/height*2*xval/dataPoints);
+  return +Math.exp(-decay*((-xval)**1.1));
 }
-var yfunc = function(xval){
-  return +Math.pow(Math.sin(Math.PI * xval * 5 / dataPoints),2);
+
+var pointsPerPeriod = 80;
+var yfunc = function(tval){
+  return +Math.pow(Math.sin(2 * Math.PI * tval / pointsPerPeriod),2);
 };
-var dataPoints = 400;
+
+var dataPoints = Math.floor(width/5);
+//20 = exp((width/5)^1.1 * decay) --> decay = 5 * log(20) / width
+var decay = 13*Math.log(10) / width**1.1;
 var data = [];
 var expCurve = [];
 var t, i;
@@ -63,21 +61,33 @@ y.domain([0,1]);
 //Draw Dataset
 g.append("path")
     .datum(data)
+    .attr("class","line")
     .attr("d", line);
+//Draw area
+svg.append("path")
+   .data([data])
+   .attr("class", "area")
+   .attr("d", area);
+
 
 //Define function to get next datapoint.
 var progress = function() {
   // update the list of coordinates
-  t++;
+  t = t + 1;
+
+  console.log(t);
+  //Remove first entry | earliest time
   data.splice(0,1);
+  //Generate new entry
   var datum = {
-    time: +-t,
+    time: -t,
     sinamp:+yfunc(t),
     amp:0,
   };
+  //Add to stack
   data.push(datum);
 
-  // apply amplitude filter:
+  // apply amplitude filter over all points
   for (i=0; i<dataPoints; i++) {
     data[i].amp = expCurve[i] * data[i].sinamp;
   }
@@ -87,16 +97,97 @@ var progress = function() {
   y.domain([0,1]); //Could do a list here with amplitude ie [0, max(data...)]
 
   // update the data association with the path and recompute the area
-  svg.selectAll("path").datum(data)
+  svg.selectAll("path.line").datum(data)
     .attr("d", line);
+  svg.selectAll("path.area").datum(data)
+    .attr("d", area);
 
-
-  if (t == 2*dataPoints-1) {
-    t = dataPoints;
-    for (i=0; i < dataPoints; i++) {
-      data[i].time = +-i;
+  //Stop t from overflowing after many cycles:
+  if (t >= 10*dataPoints) { //TODO: large number multiple
+    var lastT = data[dataPoints-1].time % pointsPerPeriod;
+    if (lastT < 0) {
+      lastT = -lastT;
     }
+    for (i=0; i<dataPoints; i++) {
+      data[dataPoints - i - 1].time = -(lastT - i);
+    }
+    t = lastT;
   }
 }
 //Set periodic function to progressively generate data.
-var intervalID = setInterval(progress, 30);
+var intervalID
+function start() {
+  intervalID = setInterval(progress, 60);
+}
+start();
+
+//Bind Resize events:
+var rtime;
+var timeout = false;
+var delta = 500;
+$(window).resize(function() {
+  //Stop Iterations
+  if (intervalID != 0) {
+    clearInterval(intervalID);
+    intervalID = 0;
+  }
+
+  //Set a timer for end of event
+  rtime = new Date();
+  if (timeout === false) {
+    timeout = true
+    setTimeout(resizeSVG, delta);
+  }
+})
+
+function resizeSVG() {
+  if (new Date() - rtime < delta) {
+    setTimeout(resizeSVG, delta);
+  } else {
+    timeout = false;
+    //Resize "done". Reset parameters here:
+    resizeSinWave();
+    start();
+  }
+}
+
+function resizeSinWave() {
+  width = +jsvg.width() - margin.left - margin.right,
+  height = +jsvg.height() - margin.top - margin.bottom;
+  g.remove()
+  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  x = d3.scaleLinear()
+      .rangeRound([0, width]);
+  y = d3.scaleLinear()
+      .rangeRound([height, 0]);
+
+  pointsPerPeriod = 80;
+  dataPoints = Math.floor(width/5);
+  decay = 13*Math.log(10) / width**1.1;
+  data = [];
+  expCurve = [];
+  for (i=0; i<dataPoints; i++){
+    var expDatum = +expfunc(+i-dataPoints);
+    var yfn = +yfunc(i);
+    var datum = {
+      time: +-i,
+      sinamp: yfn,
+      amp:expDatum * yfn,
+    };
+    data.push(datum);
+    expCurve.push(expDatum);
+  }
+  t = dataPoints; //Set time = i for couting.
+
+  //Set SVG Axis
+  x.domain(d3.extent(data, function(d) { return d.time; }));
+  //Draw Dataset
+  g.append("path")
+      .datum(data)
+      .attr("class","line")
+      .attr("d", line);
+
+  area.y0(height);
+
+}

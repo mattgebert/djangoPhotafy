@@ -18,17 +18,20 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
-bars = 30;
-indexes = []
+var barsPer1920 = 30;
+var bars = Math.floor(barsPer1920 * width / 1920);
+var indexes = [];
 var i;
+
 for (i=0; i<bars; i++) {
   indexes.push(i);
 }
 
 var data = [];
+var decay = -(bars**2)/Math.log(25) //Amp = 2 = exp(-j^2 / X) --> X = -width^2/log(2)
 for (i=0; i<bars; i++){
   var j = indexes.splice(Math.floor(Math.random() * indexes.length),1)[0];
-  var amp = Math.exp(-(j**2)/(2*10**2));
+  var amp = Math.exp(-(j**2)/(decay));
   var datum = {
     ind: j,
     val: amp,
@@ -54,7 +57,6 @@ svg.selectAll(".bar")
 //Draw Dataset
 //Define function to get next datapoint.
 var progress = function() {
-
   var i,j,val, minival;
   var indexes = [];
   for (i=0; i<bars-1; i++) {
@@ -69,6 +71,7 @@ var progress = function() {
     val = data[j+1].val;
     if (minval >= val) {
       //Data order is correct, but if iterated through all values, then reset:
+      // alert("i:" + i + "\n bars-1:" + (bars-1));
       if (i == bars-1) {
         resetBars();
       }
@@ -104,11 +107,10 @@ var resetBars = function () {
   }
   for (i=0; i<bars; i++){
     var j = indexes.splice(Math.floor(Math.random() * indexes.length),1)[0];
-    var amp = Math.exp(-(j**2)/(2*10**2));
+    var amp = Math.exp(-(j**2)/(decay));
     data[i].ind = j;
     data[i].val = amp;
   }
-
 
   //Apply changes to each data element left to right.
   var transition = svg.transition().duration(1000);
@@ -120,6 +122,7 @@ var resetBars = function () {
   .attr("y", function(d) { return y(d.val) })
   .attr("height", function(d) { return height - y(d.val); })
   .call(endAll, start); //Bring back timings
+
 };
 
 function endAll(transition, callback) {
@@ -138,6 +141,81 @@ function endAll(transition, callback) {
 //Set periodic function to progressively generate data.
 var intervalID;
 function start() {
-  intervalID = setInterval(progress, 300);;
+  intervalID = setInterval(progress, 300);
 }
 start();
+
+//Bind Resize events:
+var rtime;
+var timeout = false;
+var delta = 500;
+$(window).resize(function() {
+  //Stop Iterations
+  if (intervalID != 0) {
+    clearInterval(intervalID);
+    intervalID = 0;
+  }
+
+  //Set a timer for end of event
+  rtime = new Date();
+  if (timeout === false) {
+    timeout = true
+    setTimeout(resizeBarPlot, delta)
+  }
+})
+
+function resizeBarPlot() {
+  if (new Date() - rtime < delta) {
+    setTimeout(resizeBarPlot, delta);
+  } else {
+    timeout = false;
+
+    //Resize "done". Reset parameters here:
+    width = +jsvg.width() - margin.left - margin.right,
+    height = +jsvg.height() - margin.top - margin.bottom;
+    g.remove();
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    x = d3.scaleBand()
+      .rangeRound([0,width]).padding(0.1);
+    y = d3.scaleLinear()
+        .range([height, 0]);
+
+    barsPer1920 = 30;
+    bars = Math.floor(barsPer1920 * width / 1920);
+    indexes = []
+    for (i=0; i<bars; i++) {
+      indexes.push(i);
+    }
+
+    data = [];
+    decay = -(bars**2)/Math.log(10) //Amp = 2 = exp(-j^2 / X) --> X = -width^2/log(2)
+    for (i=0; i<bars; i++){
+      var j = indexes.splice(Math.floor(Math.random() * indexes.length),1)[0];
+      var amp = Math.exp(-(j**2)/(decay));
+      var datum = {
+        ind: j,
+        val: amp,
+      };
+      data.push(datum);
+    }
+
+    x.domain(data.map(function(d) { return d.ind; }));
+    y.domain([0, d3.max(data, function(d) { return d.val; })*1.5]);
+
+    //Set SVG Axis
+    svg.selectAll(".bar").remove();
+    svg.selectAll(".bar")
+          .data(data)
+        .enter().append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d) { return x(d.ind ); })
+          .attr("width", x.bandwidth())
+          .attr("y", function(d) { return y(d.val); })
+          .attr("height", function(d) { return height - y(d.val); });
+
+
+    start()
+  }
+}

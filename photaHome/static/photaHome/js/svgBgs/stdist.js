@@ -20,16 +20,10 @@ var line = d3.line()
 .x(function(d) { return x(d.binCentre); })
 .y(function(d) { return y(d.count); });
 
-var svgResize = function() {
-  //Update Container Elements
-  width = +jsvg.width() - margin.left - margin.right;
-  height = +jsvg.height() - margin.top - margin.bottom;
-  g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  x = d3.scaleLinear()
-  .rangeRound([0, width]);
-  y = d3.scaleLinear()
-  .rangeRound([height, 0]);
-};
+var area = d3.area()
+    .x(function(d) { return x(d.binCentre); })
+    .y0(height)
+    .y1(function(d) { return y(d.count); });
 
 
 //Generation of Data Points
@@ -48,7 +42,7 @@ var pointGen = function(mean, stdev) {
 
 var histLow = -10;
 var histHigh = 10;
-var bins = 100.0;
+var bins = width / 1920 * 100.0;
 var binwidth = (histHigh - histLow) / bins;
 var data = [];
 var i;
@@ -69,10 +63,17 @@ x.domain(d3.extent(data, function(d) { return d.binCentre; }));
 // y.domain([0,d3.max(data, function(d) { return d.count; })]);
 y.domain([0,10]);
 //y.domain([0,1]);
+
 //Draw Dataset
 g.append("path")
 .datum(data)
+.attr("class", "line")
 .attr("d", line);
+//Draw area
+svg.append("path")
+   .data([data])
+   .attr("class", "area")
+   .attr("d", area);
 
 //Define function to get next datapoint.
 var progress = function() {
@@ -81,7 +82,7 @@ var progress = function() {
   if (rand > histHigh || rand < histLow) {
     //Do nothing, bar outside range.
   } else {
-    binLoc = Math.round((rand-histLow)*bins/(histHigh-histLow));
+    binLoc = Math.floor((rand-histLow)*bins/(histHigh-histLow));
     data[binLoc].count = data[binLoc].count + 1;
     var max = d3.max(data, function(d) { return d.count; });
     if (max >= 10) {
@@ -89,11 +90,58 @@ var progress = function() {
     } else {
       y.domain([0,10]);
     }
+
     // update the data association with the path and recompute the area
-    svg.selectAll("path").datum(data)
+    svg.selectAll("path.line").datum(data)
       .attr("d", line);
+    svg.selectAll("path.area").data([data])
+      .attr("d", area);
   }
 
 }
+
 //Set periodic function to progressively generate data.
-var intervalID = setInterval(progress, 30);
+var intervalID
+function start() {
+  intervalID = setInterval(progress, 60 * 1920 / width);
+}
+start();
+
+//Bind Resize events:
+var rtime;
+var timeout = false;
+var delta = 500;
+$(window).resize(function() {
+  //Stop Iterations
+  if (intervalID != 0) {
+    clearInterval(intervalID);
+    intervalID = 0;
+  }
+
+  //Set a timer for end of event
+  rtime = new Date();
+  if (timeout === false) {
+    timeout = true
+    setTimeout(resizeSVG, delta);
+  }
+})
+
+function resizeSVG() {
+  if (new Date() - rtime < delta) {
+    setTimeout(resizeSVG, delta);
+  } else {
+    timeout = false;
+    //Resize "done". Reset parameters here:
+    resizeStDist();
+    start();
+  }
+}
+
+function resizeStDist() {
+  width = +jsvg.width() - margin.left - margin.right,
+  height = +jsvg.height() - margin.top - margin.bottom;
+  g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  x.rangeRound([0, width]);
+  y.rangeRound([height, 0]);
+  area.y0(height);
+}
