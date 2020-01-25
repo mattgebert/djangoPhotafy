@@ -22,9 +22,32 @@ $(document).ready(function() {
 });
 
 //TODO: implement resize functionality for scrolling and scaling elements
-function resize_event() {
+function reposition_social_links() {
   var pageBarHeight = $('.links').css('height').replace(/[^-\d\.]/g, '');
   var pageBarTop = $('.links').offset().top;
   var subpageHeight = $(document).height() - pageBarHeight - pageBarTop;
   $('.social-links').css('height', subpageHeight + 'px');
 };
+
+//Bind Resize events:
+var rtime1;
+var timeout1 = false;
+var delta1 = 500;
+$(window).resize(function() {
+  //Set a timer for end of event
+  rtime1 = new Date();
+  if (timeout1 === false) {
+    timeout1 = true;
+    setTimeout(resizeTrigger, delta1);
+  }
+})
+
+function resizeTrigger() {
+  if (new Date() - rtime1 < delta1) {
+    setTimeout(resizeTrigger, delta1);
+  } else {
+    timeout1 = false;
+    //Resize "done". Reset parameters here:
+    reposition_social_links();
+  }
+}
