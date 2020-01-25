@@ -65,10 +65,15 @@
 .social-links .link-container{
   position: absolute;
   bottom:0;
-  right:0;
+  right:0 !important;
   text-align: right;
   display:table;
   padding: 40px;
+  float:none;
+}
+
+ .social-links .link-container .col {
+   padding:0px;
 }
 
 .social-links .fab{

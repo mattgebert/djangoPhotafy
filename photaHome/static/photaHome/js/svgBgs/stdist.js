@@ -42,12 +42,11 @@ var pointGen = function(mean, stdev) {
 
 var histLow = -10;
 var histHigh = 10;
-var bins = width / 1920 * 100.0;
+var bins = Math.floor(width / 1920 * 100.0);
 var binwidth = (histHigh - histLow) / bins;
 var data = [];
 var i;
-for (i=-bins/2; i<bins/2; i++){
-
+for (i=-Math.floor(bins/2); i<Math.floor(bins/2); i++){
   var datum = {
     count: 0,
     binHigh: i + binwidth,
@@ -55,7 +54,6 @@ for (i=-bins/2; i<bins/2; i++){
     binCentre: i + binwidth/2
   };
   data.push(datum);
-  // alert(data.length);
 }
 
 //Set SVG Axis
@@ -65,17 +63,18 @@ y.domain([0,10]);
 //y.domain([0,1]);
 
 //Draw Dataset
-g.append("path")
+var lineObj = g.append("path")
 .datum(data)
 .attr("class", "line")
 .attr("d", line);
 //Draw area
-svg.append("path")
+var areaObj = svg.append("path")
    .data([data])
    .attr("class", "area")
    .attr("d", area);
 
 //Define function to get next datapoint.
+var max = 10;
 var progress = function() {
   // update the sample
   rand = pointGen(-10,4);
@@ -84,7 +83,7 @@ var progress = function() {
   } else {
     binLoc = Math.floor((rand-histLow)*bins/(histHigh-histLow));
     data[binLoc].count = data[binLoc].count + 1;
-    var max = d3.max(data, function(d) { return d.count; });
+    max = d3.max(data, function(d) { return d.count; });
     if (max >= 10) {
       y.domain([0, 1.1*max]); //TODO perhaps max+2 or something else.
     } else {
@@ -103,7 +102,7 @@ var progress = function() {
 //Set periodic function to progressively generate data.
 var intervalID
 function start() {
-  intervalID = setInterval(progress, 60 * 1920 / width);
+  intervalID = setInterval(progress, 30 * 1920 / width);
 }
 start();
 
@@ -144,4 +143,56 @@ function resizeStDist() {
   x.rangeRound([0, width]);
   y.rangeRound([height, 0]);
   area.y0(height);
+
+  //Resize number of bins
+  bins = Math.floor(width / 1920 * 100.0);
+  if (bins > data.length) { //More datapoints
+    //Increase data points
+    for (i=0; i<bins; i++){
+      //Update existing
+      if (i < data.length) {
+        data[i].binHigh = - bins/2 + i + binwidth;
+        data[i].binLow = -bins/2 + i;
+        data[i].binCentre = -bins/2 + i + binwidth/2;
+        data[i].count = data[i].count / max * 10;
+      } else {
+        //Add new bins:
+        var datum = {
+          count: 0,
+          binHigh: -bins/2 + i + binwidth,
+          binLow: -bins/2 + i,
+          binCentre: -bins/2 + i + binwidth/2
+        };
+        data.push(datum);
+      }
+    }
+  } else if (bins < data.length) { //Less datapoints
+    //Remove data points
+    for (i=0; i<data.length; i++){
+      if (i < bins) {
+        //Update existing
+        data[i].binHigh = - bins/2 + i + binwidth;
+        data[i].binLow = -bins/2 + i;
+        data[i].binCentre = -bins/2 + i + binwidth/2;
+        data[i].count = data[i].count / max * 10;
+      } else {
+        //Remove old:
+        data.splice(bins,data.length - bins);
+      }
+    }
+  }
+
+  max = d3.max(data, function(d) { return d.count; });
+  x.domain(d3.extent(data, function(d) { return d.binCentre; }));
+  if (max >= 10) {
+    y.domain([0, 1.1*max]); //TODO perhaps max+2 or something else.
+  } else {
+    y.domain([0,10]);
+  }
+
+  svg.selectAll("path.line").datum(data)
+    .attr("d", line);
+  svg.selectAll("path.area").data([data])
+    .attr("d", area);
+
 }

@@ -60,9 +60,11 @@
       {% include "photaHome/menubar_mat.html" %}
       <div class="row social-links">
         <div class="algnRight">
-          <div class="link-container">
+          <div class="link-container col s4">
             {% for profile in profiles %}
-            <a href="{{ profile.href }}" class="{{ profile.get_fa_icon }}" target="_blank"></a>
+              <div class="col m2">
+              <a href="{{ profile.href }}" class="{{ profile.get_fa_icon }}" target="_blank"></a>
+              </div>
             {% endfor %}
           </div>
         </div>
