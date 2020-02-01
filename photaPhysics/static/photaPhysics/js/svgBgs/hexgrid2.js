@@ -65,8 +65,6 @@ var svg = d3.select(".lattice")
 .attr("width", width)
 .attr("height", height);
 
-var test;
-
 var hexs = svg.append("g")
 .attr("class", "hexagon")
 .selectAll("path")
@@ -112,50 +110,70 @@ function redraw(border) {
   border.attr("d", path(topojson.mesh(topology, topology.objects.hexagons, function(a, b) { return a.fill ^ b.fill; })));
 }
 
-// var singleHex;
-// var test;
 
-function getUnfilledAjacent(rand) {
+var dx = radius * 2 * Math.sin(Math.PI / 3),
+dy = radius * 1.5,
+m = Math.ceil((height + radius) / dy) + 1,
+n = Math.ceil(width / dx) + 1;
+var possibleIndexes = [];
+// alert("m:" + m + "\nn:" + n)
+
+function getUnfilledAjacent(rand, onlyUnfilledFlag) {
+  //Reset indexes:
+  possibleIndexes = [];
   //  From a given index, checks one by one the surrounding items.
-  var dx = radius * 2 * Math.sin(Math.PI / 3),
-  dy = radius * 1.5,
-  m = Math.ceil((height + radius) / dy) + 1,
-  n = Math.ceil(width / dx) + 1;
-  var possibleIndexes = [];
-  var left = (rand % n > 0);
-  var right = (rand % n < m);
-  var up = (Math.floor(rand/n) > 1);
-  var down = (Math.floor(rand/n) < m);
-  if (left) {
+  var left = ((rand % n) > 0); //Does a node to the left exist?
+  var right = ((rand % n) < n-1); //Does a node to the right exist?
+  var up = (Math.floor(rand/n) > 1); //Does a node above exist?
+  var down = (Math.floor(rand/n) < m); //Does a node below exist?
+
+  //Need to check which hexagonal row this is. The hexagonal pattern repeats every second row.
+  var rowOffset = (rand % (2*n)) >= n;
+
+  if (!left) {
+    //Check which row if needs to add leftside up and down.
+    if (!rowOffset) { //If false, need to add.
+      possibleIndexes.push(rand-n);
+      possibleIndexes.push(rand+n);
+    }
+  } else {
     possibleIndexes.push(rand-1);
     if (up) {
-      possibleIndexes.push(rand-n);
+      possibleIndexes.push(rand-n-rowOffset);
     };
     if (down) {
-      possibleIndexes.push(rand+n);
+      possibleIndexes.push(rand+n-rowOffset);
     };
   }
   if (right) {
     possibleIndexes.push(rand+1);
     if (up) {
-      possibleIndexes.push(rand-n+1);
+      possibleIndexes.push(rand-n+1-rowOffset);
     };
     if (down) {
-      possibleIndexes.push(rand+n+1);
+      possibleIndexes.push(rand+n+1-rowOffset);
     };
   };
+
   //Check each index to see if unfilled
   var unfilledIndexes = [];
   for (var i = 0; i<possibleIndexes.length; i++) {
-    if (d3.select(hexs._groups[0][possibleIndexes[i]]).attr("class") != "fill") {
+    if (d3.select(hexs._groups[0][possibleIndexes[i]]).attr("class") == "") {
       unfilledIndexes.push(possibleIndexes[i]);
+    } else {
+      //Do nothing, already filled.
     }
   };
-  // alert("2");
   return possibleIndexes;
 }
 
-function highlightDecay(singleHex, i) {
+function nodeHighlightDecay(singleHex, i) {
+  nodeHighlight(singleHex, i);
+  nodeDecay(singleHex, i);
+};
+
+
+function nodeHighlight(singleHex, i) {
   setTimeout(function() {
     if (singleHex.attr("class") == "fill") {
       topology.objects.hexagons.geometries[singleHex.attr("m")].fill = false;
@@ -166,7 +184,9 @@ function highlightDecay(singleHex, i) {
     }
     border.call(redraw);
   }, i*50);
-  //
+}
+
+function nodeDecay(singleHex, i) {
   setTimeout(function() {
     if (singleHex.attr("class") == "fill") {
       topology.objects.hexagons.geometries[singleHex.attr("m")].fill = false;
@@ -177,27 +197,100 @@ function highlightDecay(singleHex, i) {
     }
     border.call(redraw);
   }, 5000 + 50*i);
-};
+}
 
 
 function progress() {
-  var rand = Math.floor(Math.random()*hexs._groups[0].length);
-  var singleHex = d3.select(hexs._groups[0][rand]);
   var maxLength = 10;
   var minLength = 2;
+  //Stop condition - find a note that is not filled.
+  var filled = true;
+  while (filled) {
+    //Code to test a particular edge of the code - change offset 45 etc.
+    // var rand = 45 + Math.floor(Math.random()*m)*45;
+
+    //Select random node, check if filled.
+    var rand = Math.floor(Math.random()*hexs._groups[0].length);
+    var singleHex = d3.select(hexs._groups[0][rand]);
+    if (singleHex.attr("class") != "fill") {
+      filled = false;
+    }
+  }
   var linkLength = Math.floor(Math.random()*(maxLength-minLength)+minLength);
+  // var newHexs = getUnfilledAjacent(rand, true);
+  // console.log(newHexs.length)
+  // nodeHighlightDecay(singleHex, 0);
+  // for (var i = 0 ; i < newHexs.length; i++) {
+  //   nodeHighlightDecay(d3.select(hexs._groups[0][newHexs[i]]), i+1);
+  // }
+
+  //Need a list to track highlighted nodes during this run, due to the delay between "filling".
+  var highlightedNodeSet = [];
+  highlightedNodeSet.push(rand)
 
   for (var i = 0; i<linkLength; i++) {
-    highlightDecay(singleHex, i);
+    nodeHighlightDecay(singleHex, i);
+    // setTimeout(function(i) {alert(i);}, i*50);
     if (i+1 < linkLength ) {
-      var newHexs = getUnfilledAjacent(rand);
-      rand = newHexs[Math.floor(Math.random()*newHexs.length)];
+      var newHexs = getUnfilledAjacent(rand,true);
+      var filled = true;
+      while (filled) {
+        filled = false;
+        var ind = Math.floor(Math.random()*newHexs.length)
+        rand = newHexs[ind];
+        for (j = 0; j < highlightedNodeSet.length; j++) {
+          if (rand == highlightedNodeSet[j]) {
+            filled = true;
+            //Remove filled node of new hexes:
+            newHexs.splice(ind, 1);
+          }
+        }
+      }
       singleHex = d3.select(hexs._groups[0][rand]);
+      highlightedNodeSet.push(rand);
     }
   }
 };
-// 48 to 92.
 
 //Set periodic function to progressively generate data.
-var intervalID = setInterval(progress, 700);
-// progress();
+var intervalID
+function start() {
+  intervalID = setInterval(progress, 700);
+}
+function stop() {
+  if (intervalID != -1) {
+    clearInterval(intervalID);
+    intervalID = -1;
+  }
+}
+start();
+
+//Bind Resize events:
+var rtime1;
+var timeout1 = false;
+var delta1 = 500;
+$(window).resize(function() {
+  //Stop Iterations
+  stop()
+  //Set a timer for end of event
+  rtime1 = new Date();
+  if (timeout1 === false) {
+    timeout1 = true;
+    setTimeout(resizeTrigger, delta1);
+  }
+})
+
+function resizeTrigger() {
+  if (new Date() - rtime1 < delta1) {
+    setTimeout(resizeTrigger, delta1);
+  } else {
+    timeout1 = false;
+    //Resize "done". Reset parameters here:
+
+    start()
+  }
+}
+
+function resizeHexGrid() {
+
+}

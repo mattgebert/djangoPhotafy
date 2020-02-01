@@ -69,10 +69,11 @@
   text-align: right;
   display:table;
   padding: 40px;
-  float:none;
+  /* float:none; */
 }
 
  .social-links .link-container .col {
+   float:right;
    padding:0px;
 }
 
