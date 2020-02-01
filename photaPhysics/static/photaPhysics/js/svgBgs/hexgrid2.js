@@ -2,7 +2,7 @@
 //for some reason multiplicitive factor stops generation of very large hight and many more nodes than necessary. Not an issue with the width.
 var width = $(".svgContainer").css("width").replace(/[^-\d\.]/g, '')*1.001,
 height = $(".svgContainer").css("height").replace(/[^-\d\.]/g, '')*1.001,
-radius = 25;
+radius = 25 * Math.pow(width*height/(1080*1920), 0.2);
 
 function hexTopology(radius, width, height) {
   var dx = radius * 2 * Math.sin(Math.PI / 3),
@@ -77,7 +77,7 @@ var hexs = svg.append("g")
 .on("mousemove", mousemove)
 .on("mouseup", mouseup);
 
-svg.append("path")
+var mesh = svg.append("path")
 .datum(topojson.mesh(topology, topology.objects.hexagons))
 .attr("class", "mesh")
 .attr("d", path);
@@ -286,11 +286,53 @@ function resizeTrigger() {
   } else {
     timeout1 = false;
     //Resize "done". Reset parameters here:
-
-    start()
+    resizeHexGrid();
+    start();
   }
 }
 
 function resizeHexGrid() {
 
+  width = $(".svgContainer").css("width").replace(/[^-\d\.]/g, '')*1.001,
+  height = $(".svgContainer").css("height").replace(/[^-\d\.]/g, '')*1.001,
+  radius = 25 * Math.pow(width*height/(1080*1920), 0.2);
+
+  topology = hexTopology(radius, width, height);
+  projection = hexProjection(radius);
+  path = d3.geoPath()
+  .projection(projection);
+
+  svg.attr("width", width)
+  .attr("height", height);
+
+  hexs.remove();
+  hexs = svg.append("g")
+    .attr("class", "hexagon")
+    .selectAll("path")
+    .data(topology.objects.hexagons.geometries)
+    .enter().append("path")
+    .attr("m", function(d,i) { return i; })
+    .attr("d", function(d) { return path(topojson.feature(topology, d)); })
+    .attr("class", function(d) { return d.fill ? "fill" : null; })
+    .on("mousedown", mousedown)
+    .on("mousemove", mousemove)
+    .on("mouseup", mouseup);
+
+  mesh.remove();
+  mesh = svg.append("path")
+  .datum(topojson.mesh(topology, topology.objects.hexagons))
+  .attr("class", "mesh")
+  .attr("d", path);
+
+  border.remove();
+  border = svg.append("path")
+  .attr("class", "border")
+  .call(redraw);
+
+
+  dx = radius * 2 * Math.sin(Math.PI / 3),
+  dy = radius * 1.5,
+  m = Math.ceil((height + radius) / dy) + 1,
+  n = Math.ceil(width / dx) + 1;
+  possibleIndexes = [];
 }
