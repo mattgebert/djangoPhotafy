@@ -36,15 +36,17 @@
   letter-spacing: 5px;
   font-weight:bolder;
   font-size: 80px;
-  line-height: 50px;
-  color: #FFFFFF
+  /* line-height: 50px; */
+  color: #FFFFFF;
+  white-space: pre-wrap;
 }
 
 .nameplate h2 {
   font-size: 30px;
-  line-height: 20px;
+  /* line-height: 20px; */
   color: #888888;
   font-family: 'Josefin Slab', serif;
+  white-space: pre-wrap;
 }
 
 /*--------------------------- Font Awesome ---------------------------*/

@@ -11,7 +11,7 @@
   <div class="col s2"></div>
   <div class="col s8 maincontent">
     {% for name, href, icon in page_apps %}
-    <div class="col s3 subpagelink" id="menubar-{{ href }}" onclick="location.href = '{{ href }}';" href="/{{ href }}">
+    <div class="col l3 subpagelink" id="menubar-{{ href }}" onclick="location.href = '{{ href }}';" href="/{{ href }}">
       <a href="/{{ href }}">
         <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
       </a>
@@ -21,13 +21,13 @@
   <div class="col s2 linkbar sidebars"></div>
   {% else %}
   <div class="maincontent">
-    <div class="col s1 subpagelink" id="home" onclick="location.href = '{% url 'photaHome:home' %}';">
+    <div class="col l1 m2 s2 subpagelink" id="home" onclick="location.href = '{% url 'photaHome:home' %}';">
       <a href="{% url 'photaHome:home' %}">
         <h3><i class="fa fa-home"></i></h3>
       </a>
     </div>
     {% for name, href, icon in page_apps %}
-    <div class="col s2 subpagelink" id="menubar-{{ href }}" onclick="location.href = '/{{ href }}';" href="/{{ href }}">
+    <div class="col l2 m3 s5 subpagelink" id="menubar-{{ href }}" onclick="location.href = '/{{ href }}';" href="/{{ href }}">
       <a href="/{{ href }}">
         <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
       </a>
