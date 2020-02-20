@@ -8,18 +8,18 @@
   display:block;
   position:fixed;
   overflow-x:hidden;
-  overflow-y:hidden;
+  /* overflow-y:hidden; */
   margin:0 auto;
   z-index:2;
 }
 
 .space {
-  height: 15%;
+  height: 7%;
   width:100%;
   margin:0;
 }
 .space2 {
-  height: 10%;
+  height: 5%;
   width:100%;
   margin:0;
 }
@@ -44,6 +44,14 @@
 .nameplate h2 {
   font-size: 30px;
   /* line-height: 20px; */
+  color: #888888;
+  font-family: 'Josefin Slab', serif;
+  white-space: pre-wrap;
+}
+
+.nameplate h3 {
+  font-size: 20px;
+  padding-top: 0px;
   color: #888888;
   font-family: 'Josefin Slab', serif;
   white-space: pre-wrap;
