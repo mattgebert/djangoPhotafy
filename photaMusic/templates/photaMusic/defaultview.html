@@ -9,7 +9,28 @@
 </head>
 <body>
   <div class="frames">
-    {% include "photaHome/menubar.html" %}
+    {% include "photaHome/menubar_mat.html" %}
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Lo  go</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="sass.html">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">Javascript</a></li>
+    <li><a href="mobile.html">Mobile</a></li>
+  </ul>
+
   </div>
   <div class="background">
 
