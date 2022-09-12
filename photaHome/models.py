@@ -99,28 +99,35 @@ class Socialprofile(models.Model):
     href = models.CharField(max_length=200)
     account_name = models.CharField(max_length=200)
 
-    GOOGLE = 'go'
-    FACEBOOK = 'fb'
-    TWITTER = 'tw'
-    YOUTUBE = 'yt'
-    LINKEDIN = "in"
-    STACKOVERFLOW = "st"
+    ARXIV =         "ax"
+    FACEBOOK =      'fb'
+    GITHUB =        'gh'
+    GOOGLE =        'go'
+    LINKEDIN =      "in"
+    ORCID =         'or'
+    SOUNDCLOUD =    'sc'
+    REDDIT =        're'
+    RESEARCHGATE =  "rg"
     STACKEXCHANGE = 'se'
-    SOUNDCLOUD = 'sc'
-    GITHUB = 'gh'
-    REDDIT = 're'
+    STACKOVERFLOW = "st"
+    TWITTER =       'tw'
+    YOUTUBE =       'yt'
 
     SOCIAL_PLATFORM_CHOICES = (
         ('Social Media', (
-            (GOOGLE, 'Google+'),
             (FACEBOOK, 'Facebook'),
-            (TWITTER, 'Twitter'),
+            (GOOGLE, 'Google+'),
             (LINKEDIN, 'Linked In'),
+            (TWITTER, 'Twitter'),
         )),
         ('Content Creation',(
-            (YOUTUBE, 'Youtube'),
-            (SOUNDCLOUD, 'Soundcloud'),
             (GITHUB, 'Github'),
+            (SOUNDCLOUD, 'Soundcloud'),
+            (YOUTUBE, 'Youtube'),
+        )),
+        ('Academic', (
+            (ORCID, "ORCID"),
+            (RESEARCHGATE, "Research Gate"),
         )),
         ('Forums',(
             (STACKOVERFLOW, 'Stack Overflow'),
@@ -130,16 +137,18 @@ class Socialprofile(models.Model):
     )
 
     SOCIAL_PLATFORM_ICONS = {
-        GOOGLE: 'fab fa-google',
-        FACEBOOK: 'fab fa-facebook',
-        TWITTER: 'fab fa-twitter',
-        LINKEDIN: 'fab fa-linkedin',
-        YOUTUBE: 'fab fa-youtube',
-        SOUNDCLOUD: 'fab fa-soundcloud',
-        GITHUB: 'fab fa-github',
-        STACKOVERFLOW: 'fab fa-stack-overflow',
-        STACKEXCHANGE: 'fab fa-stack-exchange',
-        REDDIT: 'fab fa-reddit'
+        FACEBOOK:       'fab fa-facebook',
+        GITHUB:         'fab fa-github',
+        GOOGLE:         'fab fa-google',
+        LINKEDIN:       'fab fa-linkedin',
+        YOUTUBE:        'fab fa-youtube',
+        SOUNDCLOUD:     'fab fa-soundcloud',
+        ORCID:          'fab fa-orcid',
+        REDDIT:         'fab fa-reddit',
+        RESEARCHGATE:   'fab fa-researchgate',
+        STACKOVERFLOW:  'fab fa-stack-overflow',
+        STACKEXCHANGE:  'fab fa-stack-exchange',
+        TWITTER:        'fab fa-twitter',
     }
 
     platform = models.CharField(

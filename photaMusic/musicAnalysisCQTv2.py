@@ -1,18 +1,27 @@
+# %matplotlib inline
 import os
 import numpy as np
 import json, codecs
 import itertools
 import librosa
+import time
+
+start_time = time.time()
+
+print("Initial time is: " + str(time.time()-start_time))
 
 # CONVERT TO WAVE FOORMAT
 # hydrogen:interrupt-kernel
 
 # filename = "Phota - The Fifth Part.mp3"
 filename = "Ellie Goulding - Lights (Phota Remix).mp3"
+
+print(filename)
 # filename = "Shepard Tone.mp3"
 # filename = "11 - Bulletproof.ogg"
 # dir_path = os.path.dirname(os.path.realpath(__file__))
-dir_path = os.getcwd()
+# dir_path = os.getcwd()
+dir_path = "/opt/djangoPhotafy/photaMusic/"
 inputFilepath = dir_path + "/static/photaMusic/mp3/" + filename
 outputFilepath = dir_path + "/static/photaMusic/output.wav"
 inputFilepath = inputFilepath.replace(" ","\ ").replace("(","\(").replace(")","\)")
@@ -23,6 +32,8 @@ os.system(command)
 # Create new file:
 command = "ffmpeg -i " +  inputFilepath + " " + outputFilepath
 os.system(command)
+
+print("FFMPEG time is: " + str(time.time()-start_time))
 
 # READ SEGMENTS OF DATA
 import soundfile as sf
@@ -54,6 +65,8 @@ yfftR.shape
 yfft = (yfftL + yfftR)/2;
 yfft.shape
 
+
+print("CQT time is: " + str(time.time()-start_time))
 
 # Force the smallest set of samples at the end to squish into a 3D matrix by padding.
 if (yfft[-1].shape != yfft[-2].shape):
@@ -118,6 +131,7 @@ for i in range(1,yfftComp.shape[0]):
         else:
             prevVals[j] = yfftComp[i,j]
 
+print("Analysing Process Time is: " + str(time.time()-start_time))
 
 # Write json file: make a dict in python.
 dataOutput = [{'t':i,'spectra':j.tolist()} for i,j in zip(timestamps,yfftComp)]
@@ -135,6 +149,8 @@ with gzip.GzipFile(analysisOutputPath2, 'w') as fout:
 
 os.system("firefox " + dir_path + "/static/photaMusic/freqView.html")
 
+print("File generation & firefox time is: " + str(time.time()-start_time))
+
 # Generate an amplitude graph
 duration = len(y) / samplerate
 snipTime = duration/1000; #seconds - divide song evently.
@@ -148,6 +164,7 @@ amplitudeSnips = np.stack([np.sum(np.sum(yfftComp.T[0+b:samplesToAverage+b,::],a
 amplitudeSnips = np.stack([np.sum(np.sum(np.greater(yfftComp[0+b:samplesToAverage+b,::],0.6),axis=0),axis=0) for b in range(0,snipBins)])
 np.max(amplitudeSnips)
 
+print("Amplitude graph calc time is: " + str(time.time()-start_time))
 
 yfftComp.shape
 yfftComp[0:samplesToAverage,::];
@@ -161,7 +178,7 @@ np.sum(np.greater(yfftComp,0.1))
 import matplotlib.pyplot as plt
 
 factor = 60;
-rms = [np.sqrt(np.mean(block**2)) for block in sf.blocks('static/photaMusic/output.wav', blocksize=1024*factor, overlap=512*factor)]
+rms = [np.sqrt(np.mean(block**2)) for block in sf.blocks(dir_path + 'static/photaMusic/output.wav', blocksize=1024*factor, overlap=512*factor)]
 rms = np.stack(rms)
 rms.size
 
@@ -191,6 +208,7 @@ def gaussianFilter(array1d, length, iterations=1):
 
 rms2 = gaussianFilter(rms,9,iterations=10)
 
+print("RMS Calc time is: " + str(time.time()-start_time))
 
 # Normalize
 rms = rms / np.max(rms)
@@ -203,6 +221,8 @@ ax = plt.axes()
 ax.set_ylim([0,np.max(rms)])
 ax.set_ylim([0,1])
 ax.plot(timevals,rms, timevals, rms2)
+ax.set_ylabel("RMS")
+ax.set_xlabel("Time (s)")
 plt.show()
 
 fig = plt.figure()
@@ -210,12 +230,18 @@ ax = plt.axes()
 ax.set_ylim([0,np.max(amplitudeSnips)])
 # ax.set_ylim([0,10])
 ax.plot(timeSamples,amplitudeSnips)
+ax.set_xlabel("Time (s)")
+ax.set_ylabel("Binned Amplitudes")
 plt.show()
 
+
+blocksize = 1024 * factor
 %matplotlib inline
 import matplotlib.pyplot as plt
 fig = plt.figure()
 ax = plt.axes()
 ax.set_xscale('log',basex=10)
 ax.plot(xfftComp, 2.0/blocksize * yfftComp[500][:]) #Plot Left
+ax.set_ylabel("FFT Amplitude")
+ax.set_xlabel("Frequency")
 plt.show()

@@ -2,5 +2,5 @@
 PAGE_APPS = [
     'photaChristianity.apps.PhotachristianityConfig',
     'photaPhysics.apps.PhotaphysicsConfig',
-    'photaMusic.apps.PhotamusicConfig',
+    # 'photaMusic.apps.PhotamusicConfig',
 ]
