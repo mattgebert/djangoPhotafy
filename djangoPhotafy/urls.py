@@ -17,7 +17,9 @@ from django.conf.urls import url, include
 from django.urls import path
 from django.contrib import admin
 from photaHome.views import homeView
-
+from django.conf.urls.static import static
+from django.conf import settings
+# from djangoPhotafy import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +28,5 @@ urlpatterns = [
     url(r'^', include('photaHome.urls'), name="photaHome"),
     #auth urls for login, logout & password management.
     path('accounts/', include('django.contrib.auth.urls')),
-]
+
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

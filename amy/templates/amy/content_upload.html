@@ -1,9 +1,10 @@
 {# extends 'photaHome/linearView.html' #}
 
 {% block "content" %}
+<h1>Image Fileset Uploader</h1>
 <form enctype="multipart/form-data" method="post" action="{% url 'amy:upload'  %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <input type="submit" value="Submit" />
 </form>
 {% endblock %}

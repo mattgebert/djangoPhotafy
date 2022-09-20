@@ -1,8 +1,8 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.views.generic.edit import FormView
-from .forms import FileFieldForm
+from .forms import ImageFieldForm, ImageSetFieldForm
 from django.contrib.auth.decorators import login_required
-from .models import ImageSet
+from .models import ImageSet, Image
 from datetime import *
 from django.http import Http404
 
@@ -83,8 +83,8 @@ def event20170618(request):
 
 
 ### Allows upload of data such as images for amy's database.
-class FileFieldView(FormView):
-    form_class = FileFieldForm
+class ImageSetFieldView(FormView):
+    form_class = ImageSetFieldForm
     template_name = 'amy/content_upload.html'  # Replace with your template.
     success_url = 'amy'  # Replace with your URL or reverse().
 
@@ -100,21 +100,63 @@ class FileFieldView(FormView):
         else:
             return self.form_invalid(form)
 
+def get_imgset(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ImageSetFieldForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            data = request.POST.get("set_name")
+
+            #create new table lines:
+            s = ImageSet(set_name = data)
+            s.save()
+
+            # redirect to a new URL:
+            return redirect('/amy/')
+
+        else:
+            return render(request, 'amy/content_upload.html',
+            {
+                'form': form,
+            })
+
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ImageSetFieldForm()
+        return render(request, 'amy/content_upload.html',
+        {
+            'form': form,
+        })
+
 def get_img(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = FileFieldForm(request.POST)
+        form = ImageFieldForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
+            data = request.POST.get("set_name")
+
+            #create new table lines:
+            s = Image(set_name = data)
+            s.save()
+
             # redirect to a new URL:
-            return HttpResponseRedirect('/amy/')
+            return redirect('/amy/')
+
+        else:
+            return render(request, 'amy/content_upload.html',
+            {
+                'form': form,
+            })
 
             # if a GET (or any other method) we'll create a blank form
     else:
-        form = FileFieldForm()
+        form = ImageFieldForm()
         return render(request, 'amy/content_upload.html',
         {
             'form': form,
