@@ -52,9 +52,7 @@ def imgInSet(setName="set", filepath=''):
                     counter+=1
                 imagename = (defaultName + str(counter))
 
-                #Imports image to database.
-                #https://stackoverflow.com/questions/15332086/saving-image-file-through-django-shell
-                f = FileWrapper(open(root + file, 'rb'))
+
                 i = s.image_set.create(name=imagename, description=defaultDescription)
                 i.img.save(file,f)
                 createdImages.append(i)

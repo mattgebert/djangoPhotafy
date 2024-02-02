@@ -34,3 +34,7 @@ class Image(models.Model):
     def image_tag(self):
         return mark_safe(u'<img style="width:400px" src="%s" />' % (self.img.url))
     image_tag.short_description = 'Image'
+
+    def image_tag_icon(self):
+        return mark_safe(u'<img style="width:40px" src="%s" />' % (self.img.url))
+    image_tag_icon.short_description = 'Image'

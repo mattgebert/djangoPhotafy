@@ -1,4 +1,6 @@
-from django.conf.urls import url, include
+from django.conf.urls import include
+#from django.conf.urls import url
+from django.urls import re_path as url
 from django.views.generic.base import RedirectView
 
 from photaHome import views

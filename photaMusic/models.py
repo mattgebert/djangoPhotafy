@@ -1,9 +1,20 @@
+from pathlib import Path
 from django.db import models
 import datetime as dt
 import os
 from django.core.files import File
 import uuid
 from .music_analysis import CQT_Gzip
+
+
+def convert_bytes(num): #https://stackoverflow.com/a/39988702/1717003
+    """
+    this function will convert bytes to MB.... GB... etc
+    """
+    for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+        if num < 1024.0:
+            return "%3.1f %s" % (num, x)
+        num /= 1024.0
 
 class generalFile(models.Model):
     # filename = models.CharField(max_length=200)
@@ -22,21 +33,9 @@ class generalFile(models.Model):
     def filesize(self):
         return convert_bytes(self.filesize_bytes())
 
-    def file_loc(self):
-        return str(self.file)
-
 class audioFile(generalFile):
     class Meta:
         abstract = True
-
-    # def unique_file_path(instance, filename):
-    #     # Save original file name in model
-    #     instance.original_file_name = filename
-    #
-    #     # Get new file name/upload path
-    #     base, ext = splitext(filename)
-    #     newname = "%s%s" % (uuid.uuid4(), ext)
-    #     return os.path.join('photos', newname)
 
     def save(self, *args, **kwargs):
         # self.original_filename = str(self.file)
@@ -46,83 +45,73 @@ class audioFile(generalFile):
 
     def isMP3(self):
         """Allow checking if file saved is mp3 format."""
-        if(self.file_loc().split(".")[-1] != "mp3"):
+        if(self.file.path.split(".")[-1] != "mp3"):
             return False
         else:
             return True
 
     def convert_to_MP3(self):
         # Generate path for new file
-        input_path = self.file_loc().replace(" ", "\ ")
-        output_path = "".join(input_path.split(".")[:-1]) + ".mp3"
-
+        input_path = self.file.path
+        dir = os.path.dirname(input_path)
+        filename = os.path.basename(input_path)
+        
+        # Create tmp directory for file conversion (saving disk file below will create a duplicate of this tmp file)
+        tmp_dir = os.path.join(dir, "tmp")
+        if not os.path.isdir(tmp_dir):
+            command = "mkdir " + tmp_dir
+            os.system(command)
+            
+        # Create tmp conversion filepath.
+        output_path = os.path.join(tmp_dir, "".join(filename.split(".")[:-1]) + ".mp3")
+        
         # Check if file exists:
         while (os.path.isfile(output_path)):
             output_path = output_path.split(".")[:-1] + "_" + str(uuid.uuid4())[:8]
-
-        # Remove output_path if file already exists
-        # command = "rm " + output_path
-        # code = os.system(command)
 
         # Convert using FFMPEG
         command = "ffmpeg -i " +  input_path + " " + output_path
         code = os.system(command)
         if code is 0: #Successful compile.
-            # Create new track object:
-            self.file.name=output_path
-            self.save()
+            # Create new track object - note this also generates a new clone of the file in static - hence we created
+            oPath = Path(output_path)
+            with oPath.open(mode="rb") as f:
+                self.file = File(f, name=oPath.name)
+                self.save()
+            
             # Remove old file.
             command = "rm " + input_path
             code = os.system(command)
-
-    def clone_self_as_MP3(self):
-        # Define new track object
-        new_track = self.make_new_file()
-        # Generate path for new file
-        input_path = self.file_loc().replace(" ", "\ ")
-        output_path = "".join(input_path.split(".")[:-1]) + ".mp3"
-
-        # Check if file exists:
-        while (os.path.isfile(output_path)):
-            output_path = output_path.split(".")[:-1] + "_" + str(uuid.uuid4())[:8]
-
-        # Remove output_path if file already exists
-        command = "rm " + output_path
-        code = os.system(command)
-        # Convert using FFMPEG
-        command = "ffmpeg -i " +  input_path + " " + output_path
-        code = os.system(command)
-        if code is 0: #Successful compile.
-            # Create new track object:
-            new_track.name=output_path
-            new_track.save()
-            return
-        else:
-            raise Exception("" + self.file + " not successfully cloned as .mp3 with FFMPEG.")
-
-    def makeNewFile(self, output_path):
-        """REQUIRES IMPLEMENTATION IN SUPER"""
-        raise Exception('Make Track function requires implementation for class.')
-
+            
+            # Remove tmp file
+            if output_path != self.file.path:
+                command = "rm " + output_path
+                code = os.system(command)
+                   
     def delete(self):
-        # Delte audio file from server:
-        command = "rm " + self.file_loc()
+        # Delete audio file from server:
+        command = "rm " + self.file.path
         code = os.system(command)
         # Delete object
         super(audioFile,self).delete()
         return code
 
+
+# Excellent reference for synchronising data and HTML audio/video element. 
+# https://stackoverflow.com/questions/71204297/sync-an-html5-video-with-an-highchart-js-line-chart
+# https://jsfiddle.net/BlackLabel/8a6yvjs5/
+
 class publicAudioFile(audioFile):
     file = models.FileField(upload_to="photaMusic/static/photaMusic/publicTracks/")
 
-    def make_new_file(self):
-        return publicAudioFile()
+    # def make_new_file(self):
+    #     return publicAudioFile()
 
 class photaAudioFile(audioFile):
     file = models.FileField(upload_to="photaMusic/static/photaMusic/photaTracks/")
 
-    def make_new_file(self):
-        return photaAudioFile()
+    # def make_new_file(self):
+    #     return photaAudioFile()
 
 # Analysis Classes:
 class CQT_gzip_file(generalFile):
@@ -174,16 +163,20 @@ class audioContainer(models.Model):
         return str(self.file_audio)
 
     def save(self,*args,**kwargs):
-        if(str(self.file_audio).split(".")[-1] != "mp3"):
-            print("File is not an mp3 format. Converting with FFMPEG...")
-            self.create_mp3_if_other()
-
-            # Create CQT gzip file.
-            self.cqt = CQT_gzip_file()
-            self.cqt.file = CQT_Gzip(self.file_audio.file_loc())
-
-            super(audioContainer,self).save(*args,**kwargs)
+        if not self.file_audio.isMP3():
+            raise AttributeError("File is not an mp3 format.")
         else:
+            # Create CQT gzip file object
+            self.cqt = CQT_gzip_file()
+            # Generate CQT gzip file
+            gzip_path = CQT_Gzip(self.file_audio.path)
+            
+            # Save file.
+            gzipPath = Path(gzip_path)
+            with gzipPath.open(mode="rb") as f:
+                self.cqt = File(f, name=gzipPath.name)
+                self.cqt.save()
+            
             super(audioContainer,self).save(*args,**kwargs)
 
 
@@ -261,14 +254,3 @@ class playlist(models.Model):
     # Delete Playlist
     # Remove Track
     # Add Track
-
-
-
-def convert_bytes(num): #https://stackoverflow.com/a/39988702/1717003
-    """
-    this function will convert bytes to MB.... GB... etc
-    """
-    for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
-        if num < 1024.0:
-            return "%3.1f %s" % (num, x)
-        num /= 1024.0

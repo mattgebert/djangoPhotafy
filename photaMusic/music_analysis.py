@@ -6,6 +6,7 @@ import gzip
 import itertools
 import json, codecs
 
+dir_path = ""
 
 # READ SEGMENTS OF DATA
 def CQT(filePath, octaves=12, bins_per_octave=120, min_freq_hz = 5, binTimeSecs = 0.03):
@@ -78,14 +79,15 @@ def CQT(filePath, octaves=12, bins_per_octave=120, min_freq_hz = 5, binTimeSecs 
     output = {'xaxis':xfftComp.tolist(), "blockTime":binTime,"max":max,"data":dataOutput}
     return output
 
-def CQT_Dict(filePath):
-    output = CQT(filepath)
-    json.dump(output, codecs.open(analysisOutputPath, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
+# def CQT_Dict(filePath):
+#     output = CQT(filePath)
+#     json.dump(output, codecs.open(analysisOutputPath, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
 
 def CQT_Gzip(filePath):
-    output = CQT(filepath)
+    output = CQT(filePath)
     json_str = json.dumps(output, separators=(',', ':'), sort_keys=True, indent=4)
     json_bytes = json_str.encode('utf-8')
     analysisOutputPath2 = dir_path + '/static/photaMusic/data_new.gzip'
     with gzip.GzipFile(analysisOutputPath2, 'w') as fout:
         fout.write(json_bytes)
+    return analysisOutputPath2

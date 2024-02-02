@@ -83,22 +83,22 @@ def event20170618(request):
 
 
 ### Allows upload of data such as images for amy's database.
-class ImageSetFieldView(FormView):
-    form_class = ImageSetFieldForm
-    template_name = 'amy/content_upload.html'  # Replace with your template.
-    success_url = 'amy'  # Replace with your URL or reverse().
-
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        files = request.FILES.getlist('file_field')
-        if form.is_valid():
-            for f in files:
-                # ... Do something with each file.
-                print(f)
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+# class ImageSetFieldView(FormView):
+#     form_class = ImageSetFieldForm
+#     template_name = 'amy/content_upload.html'  # Replace with your template.
+#     success_url = 'amy'  # Replace with your URL or reverse().
+#
+#     def post(self, request, *args, **kwargs):
+#         form_class = self.get_form_class()
+#         form = self.get_form(form_class)
+#         files = request.FILES.getlist('file_field')
+#         if form.is_valid():
+#             for f in files:
+#                 # ... Do something with each file.
+#                 print(f)
+#             return self.form_valid(form)
+#         else:
+#             return self.form_invalid(form)
 
 def get_imgset(request):
     # if this is a POST request we need to process the form data
@@ -118,7 +118,7 @@ def get_imgset(request):
             return redirect('/amy/')
 
         else:
-            return render(request, 'amy/content_upload.html',
+            return render(request, 'amy/newset.html',
             {
                 'form': form,
             })
@@ -135,15 +135,40 @@ def get_img(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = ImageFieldForm(request.POST)
+        form = ImageFieldForm(request.POST, request.FILES)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            data = request.POST.get("set_name")
+            data_new_set = request.POST.get("new_set")
+            s = None
+            setImageNames = []
+            if data_new_set:
+                #create new set table lines:
+                data_new_set_name = request.POST.get("new_set_name")
+                s = ImageSet(set_name = data_new_set_name)
+                s.save()
+            else:
+                #Get existing dataset
+                s_pk = int(request.POST.get("image_set"))
+                s = ImageSet.objects.get(pk=s_pk)
+                setImageNames = [i.name for i in Image.objects.filter(pk=s_pk)]
 
-            #create new table lines:
-            s = Image(set_name = data)
-            s.save()
+            #Process files to upload.
+            counter = 0
+            valid_formats = (".jpg",".png","jpeg","gif")
+            for file in request.FILES.getlist("img"):
+                if not str(file).endswith(valid_formats):
+                    raise ValidationError("Allowed image formats are '.jpg', '.png', '.gif'.")
+                #Finds Image Name
+                defaultName = str(file)
+                defaultDescription = ""
+                imagename = defaultName
+                while imagename in str(setImageNames):
+                    #Increment counter till a new name is formed.
+                    counter+=1
+                    imagename = (defaultName + str(counter))
+                i = s.image_set.create(name=imagename, description=defaultDescription,img=file)
+                i.save()
 
             # redirect to a new URL:
             return redirect('/amy/')

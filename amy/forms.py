@@ -32,12 +32,54 @@ class ImageSetFieldForm(forms.ModelForm):
             raise ValidationError("Set name already used: " + data)
         return data
 
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
 
 class ImageFieldForm(forms.ModelForm):
-    new_set = forms.BooleanField()
-    new_set_name = forms.CharField()
-    img = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    new_set = forms.BooleanField(required=False)
+    new_set_name = forms.CharField(required=False)
+    
+    #Updated in Django 5.0  https://docs.djangoproject.com/en/5.0/topics/http/file-uploads/#uploading-multiple-files
+    # img = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+    img = forms.ImageField(widget=MultipleFileInput, required=False) 
+
 
     class Meta:
         model = Image
         fields = ["image_set"]
+
+    def __init__(self, *args, **kwargs):
+        super(ImageFieldForm,self).__init__(*args,**kwargs)
+        self.fields['image_set'].required = False
+
+    # def post(self, request, *args, **kwargs):
+        # form_class = self.get_form_class()
+    #     form = self.get_form(form_class)
+    #     files = request.FILES.getlist('img')
+    #     if form.is_valid():
+    #         # for
+    #         return self.form_valid()
+    #     else:
+    #         return self.form_invalid()
+
+    # def clean_img(self):
+    # def post(self, request, *args, **kwargs):
+    #     print("okay")
+    #     valid_formats = (".jpg",".png","jpeg","gif")
+    #     images = request.FILES.get("img")
+    #     for i in images:
+    #         print(i)
+    #         if not i.endswith(valid_formats):
+    #             raise ValidationError("Allowed image formats are '.jpg', '.png', '.gif'.")
+    #     return self.form_valid()
+
+    def clean_new_set_name(self):
+        if self.cleaned_data["new_set"]:
+            data = self.cleaned_data["new_set_name"]
+            setnames = [set.set_name for set in ImageSet.objects.all()]
+            if data in setnames:
+                raise ValidationError("Set name already used: " + data)
+            return data
+        else:
+            return self.cleaned_data

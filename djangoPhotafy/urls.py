@@ -13,8 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.urls import path
+from django.conf.urls import include
+from django.urls import path, re_path
 from django.contrib import admin
 from photaHome.views import homeView
 from django.conf.urls.static import static
@@ -22,10 +22,10 @@ from django.conf import settings
 # from djangoPhotafy import settings
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^amy/', include('amy.urls'), name="amy"),
-    url(r'^500/', include('fivehundred.urls'), name="500"),
-    url(r'^', include('photaHome.urls'), name="photaHome"),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^amy/', include('amy.urls'), name="amy"),
+    re_path(r'^500/', include('fivehundred.urls'), name="500"),
+    re_path(r'^', include('photaHome.urls'), name="photaHome"),
     #auth urls for login, logout & password management.
     path('accounts/', include('django.contrib.auth.urls')),
 

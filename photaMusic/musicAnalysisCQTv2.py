@@ -174,7 +174,7 @@ yfftComp[0,400]
 np.greater(yfftComp,0.2);
 np.sum(np.greater(yfftComp,0.1))
 
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 
 factor = 60;
@@ -236,7 +236,7 @@ plt.show()
 
 
 blocksize = 1024 * factor
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 fig = plt.figure()
 ax = plt.axes()
