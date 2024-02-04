@@ -1,6 +1,6 @@
 {% load static %}
 {% load sekizai_tags %}
-{% include "photaHome/_css_external.html" %}
+{% include "photaHome/_css_external_mat.html" %}
 {% include "photaHome/_js_scripts.html" %}
 
 <html>
@@ -35,12 +35,32 @@
   <link rel="stylesheet" href="{% static 'photaHome/css/home.css' %}" />
   <link rel="stylesheet" href="{% static 'photaHome/css/photaDefault.css' %}" />
   <!--Extra Fonts: https://fonts.google.com, also https://designshack.net/articles/css/the-10-best-script-and-handwritten-google-web-fonts/-->
-  <link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Share+Tech+Mono|Ubuntu:400" rel="stylesheet">
+  {% comment %} <link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Share+Tech+Mono|Ubuntu:400" rel="stylesheet"> {% endcomment %}
+  <link href="https://fonts.googleapis.com/css?family=Electrolize|Josefin+Slab|Ubuntu:400" rel="stylesheet">
 
   <!-- Scripts at the bottom! -->
 </head>
 <body>
   <div class="frames">
+    {% comment %} Sidenav menu, pulled out of relative elements below {% endcomment %}
+    {% if not HOME_ON %}
+    <ul class="sidenav links" id="mobile-sidebar">
+      <!-- Generate link for Homepage if on subpage. -->
+      <li class="subpagelink" id="sidebar-home">
+        <a href="{% url 'photaHome:home' %}">
+          <h3><i class="fa fa-home"></i><span>Home</span></h3>
+        </a>
+      </li>
+
+      {% for name, href, icon in page_apps %}
+      <li class="subpagelink" id="sidebar-{{ href }}">
+          <a href="/{{ href }}">
+            <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
+          </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <!--  INFORMATION TEXT -->
     <div class="information">
       <div class="row space"></div>
@@ -48,10 +68,10 @@
         <div class="col l2 m2 s1"></div>
         <div class="col l8 m8 s10 maincontent">
           <div class="row">
-            <h1>Matthew Gebert</h1>
+            <h1 class="col l12 m12 s12">Matthew Gebert</h1>
           </div>
           <div class="row">
-            <h2>Postgraduate Physics at Monash University. All view on this site are explicitly my own.</h2>
+            <h2 class="col l12 m12 s12">PhD Cond-Matter Physics, B.Eng (Elec. & Comp. Sys.)</h2>
           </div>
           <div class="row">
             <h3> </h3>

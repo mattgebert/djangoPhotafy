@@ -3,10 +3,13 @@
 {# Add css/js calls to head / endbody #}
 {% addtoblock "css" %}
 <link rel="stylesheet" href="{% static 'photaHome/css/menubar_mat.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono:400" rel="stylesheet">
 {% endaddtoblock %}
 <!-- Generalized Menubar -->
 {% block menubar %}
-<div class="row links">
+
+{% comment %} Menubar, created without inbuild nav class. {% endcomment %}
+{% comment %} <div class="row links">
   {% if not HOME_ON %}
   <div class="col s2"></div>
   <div class="col s8 maincontent">
@@ -35,7 +38,62 @@
     {% endfor %}
   </div>
   {% endif %}
-</div>
+</div> {% endcomment %}
+
+{% comment %} Menubar, build with nav class. {% endcomment %}
+
+{% if HOME_ON %}
+<ul class="sidenav links" id="mobile-sidebar">
+  <!-- Generate link for Homepage if on subpage. -->
+  <li class="subpagelink" id="sidebar-home">
+    <a href="{% url 'photaHome:home' %}">
+      <h3><i class="fa fa-home"></i><span>Home</span></h3>
+    </a>
+  </li>
+
+  {% for name, href, icon in page_apps %}
+  <li class="subpagelink" id="sidebar-{{ href }}">
+      <a href="/{{ href }}">
+        <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
+      </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% comment %} <div class="navbar-fixed"> {% endcomment %}
+<nav class="links maincontent">
+  <div class="nav-wrapper row">
+    {% if not HOME_ON %}
+    <div class="col s2"></div>
+    {% comment %} {% else %} {% endcomment %}
+    {% endif %}
+    <a href="#" data-target="mobile-sidebar" class="sidenav-trigger"><i class="fas fa-bars"></i><span>Dive deeper</span></a>
+    
+    <ul class="left hide-on-med-and-down col s8">
+      <!-- Generate link for Homepage if on subpage. -->  
+      {% if HOME_ON %}
+        <li class="col l1 m2 s3 subpagelink">
+            <a href="{% url 'photaHome:home' %}">
+              <h3><i class="fa fa-home"></i></h3>
+            </a>
+        </li>
+      {% endif %}
+      {% for name, href, icon in page_apps %}
+      <li class="col l2 m3 s5 subpagelink" id="menubar-{{ href }}">
+      <a href="/{{ href }}">
+        <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
+      </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if not HOME_ON %}
+    <div class="col s2"></div>
+    {% endif %}
+  </div>
+</nav>
+{% comment %} </div> {% endcomment %}
+
 <div class="row underline"></div>
 {% endblock %}
 <!-- End Generalized Menubar -->
@@ -47,6 +105,14 @@
   var crnt_pg = -1;
   {% for name, href, icon in page_apps %}menubar_items.push("{{ href }}");
   {% if href in request.path %}crnt_pg = {{ forloop.counter0 }};{% endif %}{% endfor %}
+  
+  // Load  materialize navbar components.
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {
+      // Options
+    });
+  });
 </script>
 {% if HOME_ON %}
 <script src="{% static 'photaHome/js/menubar_mat.js' %}" ></script>

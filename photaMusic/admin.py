@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from .models import publicTrack, photaTrack, publicAudioFile, photaAudioFile, playlist, audioContainer
-from .models import publicAudioFile, photaAudioFile, audioFile
+from .models import publicTrack, photaTrack, publicAudioFile, photaAudioFile, audioContainer, audioFile
 # class audioFileInLine(admin.TabularInline):
 #     model = audioFile
 #     extra = 3

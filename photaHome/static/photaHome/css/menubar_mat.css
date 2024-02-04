@@ -5,8 +5,36 @@
   margin:0;
   flex: 0 0 auto;
 }
+ 
 .links .maincontent {
   /*padding:20px;*/
+  line-height: normal !important;
+}
+
+nav.links {
+  /* background: #114455; */
+  background: none;
+}
+
+div.row.nav-wrapper ul {
+  vertical-align: middle;
+}
+
+div.row.nav-wrapper .col {
+  padding: 0%;
+}
+
+ul.sidenav {
+  background-color: #000010;
+  z-index: 10;
+}
+
+ul.sidenav li {
+  z-index: 10;
+}
+
+div.sidenav-overlay {
+  z-index: 9;
 }
 
 .links .linkbar{
@@ -33,7 +61,6 @@
   background-color:none;
   display: block;
   transition:0.5s;
-  height: 50px;
 }
 .links .subpagelink:hover span {
   color: #114455;
@@ -60,6 +87,4 @@
   font-size:22  px;
   line-height:100%;
   margin: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
