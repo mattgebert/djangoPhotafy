@@ -1,9 +1,10 @@
+
 {% load static %}
 {% load sekizai_tags %}
 {% include "photaHome/_css_external_mat.html" %}
 {% include "photaHome/_js_scripts.html" %}
 
-<html>
+<!DOCTYPE html>
 <head>
   <title>Matt Gebert</title>
 
@@ -42,25 +43,7 @@
 </head>
 <body>
   <div class="frames">
-    {% comment %} Sidenav menu, pulled out of relative elements below {% endcomment %}
-    {% if not HOME_ON %}
-    <ul class="sidenav links" id="mobile-sidebar">
-      <!-- Generate link for Homepage if on subpage. -->
-      <li class="subpagelink" id="sidebar-home">
-        <a href="{% url 'photaHome:home' %}">
-          <h3><i class="fa fa-home"></i><span>Home</span></h3>
-        </a>
-      </li>
-
-      {% for name, href, icon in page_apps %}
-      <li class="subpagelink" id="sidebar-{{ href }}">
-          <a href="/{{ href }}">
-            <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
-          </a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+    {% include "photaHome/menubar_sidenav_mat.html" %}
     <!--  INFORMATION TEXT -->
     <div class="information">
       <div class="row space"></div>
@@ -80,7 +63,7 @@
         <div class="col l2 m2 s1"></div>
       </div>
       <div class="row space2"></div>
-      {% include "photaHome/menubar_mat.html" %}
+      {% include "photaHome/menubar_without_sidenav_mat.html" %}
       <div class="row social-links">
         <div class="algnRight">
           <div class="link-container col s4">

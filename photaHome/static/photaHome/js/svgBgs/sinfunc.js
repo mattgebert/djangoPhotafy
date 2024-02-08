@@ -75,7 +75,7 @@ var progress = function() {
   // update the list of coordinates
   t = t + 1;
 
-  console.log(t);
+  // console.log(t);
   //Remove first entry | earliest time
   data.splice(0,1);
   //Generate new entry

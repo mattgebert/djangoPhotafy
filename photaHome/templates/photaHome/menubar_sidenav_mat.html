@@ -1,0 +1,23 @@
+{% comment %} 
+  This Template requires the use of menubar_mat.html or menubar_without_sidenav_mat.html js and css.
+{% endcomment %}
+
+<div class="menubar">
+<ul id="mobile-sidebar" class="sidenav">
+  <!-- Generate link for Homepage if on subpage. -->
+  {% if HOME_ON %}
+  <li class="subpagelink" id="sidebar-home">
+    <a href="{% url 'photaHome:home' %}">
+      <h3><i class="fa fa-home"></i><span>Home</span></h3>
+    </a>
+  </li>
+  {% endif %}
+  {% for name, href, icon in page_apps %}
+  <li class="subpagelink" id="sidebar-{{ href }}">
+    <a href="/{{ href }}">
+      <h3><i class="{{ icon }}"></i><span>{{ name }}</span></h3>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+</div>

@@ -1,48 +1,36 @@
 /*----------------------Specifies the CSS for a menubar---------------------*/
 
-.links {
+/* Main Navbar */
+
+nav.menubar#main-navbar {
   width:100%;
   margin:0;
   flex: 0 0 auto;
-}
- 
-.links .maincontent {
-  /*padding:20px;*/
   line-height: normal !important;
-}
-
-nav.links {
-  /* background: #114455; */
   background: none;
+  box-shadow: none !important;
 }
 
-div.row.nav-wrapper ul {
-  vertical-align: middle;
+nav.menubar .nav-wrapper ul {
+  width: 100%;
+  padding-left: 0px;
 }
 
-div.row.nav-wrapper .col {
-  padding: 0%;
+nav.menubar .nav-wrapper ul li {
+  width: inherit;
 }
 
-ul.sidenav {
-  background-color: #000010;
-  z-index: 10;
+nav.menubar .nav-wrapper ul li a {
+  width: 100%
 }
 
-ul.sidenav li {
-  z-index: 10;
+/* General Nav Elements */
+.menubar .subpagelink {
+  background:none;
+  transition:0.5s;
 }
 
-div.sidenav-overlay {
-  z-index: 9;
-}
-
-.links .linkbar{
-  padding:0px
-}
-
-.links span {
-  padding-right: 80px;
+.menubar .subpagelink span {
   font-size: 22px;
   color: #FFFFFF;
   font-family: 'Share Tech Mono', monospace;
@@ -50,41 +38,75 @@ div.sidenav-overlay {
   line-height: 1.1;
 }
 
-.links i {
+.menubar .subpagelink i {
   padding-right: 10px;
   color: #77EEEE;
   transition:0.5s;
   font-size: 24px;
 }
 
-.links .subpagelink {
-  background-color:none;
-  display: block;
-  transition:0.5s;
-}
-.links .subpagelink:hover span {
-  color: #114455;
-}
-.links .subpagelink:hover i {
-  color: #114455;
+.menubar .subpagelink h3 {
+  white-space: nowrap;
+  text-align:left;
+  font-size:22px;
+  line-height:100%;
+  margin: 0;
 }
 
-.links .subpagelink:hover {
-  background-color:rgba(255,255,255,0.8);
-  cursor:pointer;
+.menubar .subpagelink.home h3{
+  text-align:center;
 }
 
-.underline {
+.menubar.underline {
   height: 2px;
   transition:1s;
   flex: 0 0 auto;
 }
 
+/* Sidenav bar */
 
-.links h3 {
-  white-space: nowrap;
-  text-align:center;
-  font-size:22  px;
-  line-height:100%;
-  margin: 0;
+.menubar ul.sidenav {
+  background-color: #000010;
+  z-index: 10;
+}
+
+.menubar ul.sidenav li {
+  z-index: 10;
+  display:grid;
+  align-content: center;
+}
+
+.menubar ul.sidenav li a {
+  display:flex;
+  margin: 0 12px;
+  padding: 0 16px;
+  align-items: center;
+}
+
+div.sidenav-overlay {
+  z-index: 9; /*Push overlay behind menu*/
+}
+
+.menubar .sidenav-trigger {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 !important;
+}
+
+/* Animations of hover on menu links */
+.menubar .subpagelink:hover {
+  background-color: rgba(255,255,255,0.8) !important;
+  cursor:pointer;
+}
+
+.menubar .subpagelink:hover a {
+  background: none !important; /*Override Materialize*/
+}
+
+.menubar .subpagelink:hover span {
+  color: #114455;
+}
+.menubar .subpagelink:hover i {
+  color: #114455;
 }
