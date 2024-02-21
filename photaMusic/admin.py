@@ -1,81 +1,66 @@
 from django.contrib import admin
 from django import forms
 
-from .models import publicTrack, photaTrack, publicAudioFile, photaAudioFile, audioContainer, audioFile
-# class audioFileInLine(admin.TabularInline):
-#     model = audioFile
-#     extra = 3
-#
-# class playlistAdmin(admin.ModelAdmin):
-#     fieldsets = [
-#         (None, {'fields':['track_name']}),
-#     ]
-#     inlines = [audioFileInLine]
-
-class audioFileForm(forms.ModelForm):
-    class Meta:
-        # fields = ["img", 'fileAudio']
-        fields = ['file']
-        model = audioFile
-
-class audioFileAdmin(admin.ModelAdmin):
-    def delete_queryset(self, request, queryset):
-        successes = 0
-        for obj in queryset:
-            retCode = obj.delete()
-            if retCode == 0:
-                successes += 1
-        self.message_user(request, "%s successfully deleted." % successes)
-    delete_queryset.short_description = "Delete selected Phota Audio Files"
-
-    model = audioFile
-    actions = [delete_queryset] #TODO TEST
-
+from .models import publicTrack, photaTrack, audioContainer, baseVisualisationTrack
 
 class trackForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(trackForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].required = False
-        self.fields['file_audio'].required = True
+        self.fields['file'].required = True
         self.fields['track_name'].required = True
 
 
 class trackAdmin(admin.ModelAdmin):
-    fields = ['file_audio','track_name','artist','file_size']
-    readonly_fields = ('file_size',)
-    list_display = ('file_audio','track_name','artist','file_size')
+    fields = ['artist','track_name','file','filesize']
+    readonly_fields = ('filesize',)
+    list_display = ('track_name','artist','file','filesize')
 
     #Obj param required for creating a field.
-    def file_size(self,obj):
-        return obj.file_size()
-    file_size.empty_value_display = '???'
-
-
+    def filesize(self,obj):
+        return obj.filesize()
+    filesize.empty_value_display = '???'
+    
     class Meta:
         model = audioContainer
-    # def filesize(self):
-    #     print(self.file_audio)
-    #     return convert_bytes(os.path.getsize(os.getcwd() + str(self.file_audio)))
-    # filesize.empty_value_display = "???"
+        
+class visualTrackAdmin(trackAdmin):
+    visual_fields = ("cqt_single_gzip_file","cqt_single_gzip_header")
+    fields = trackAdmin.fields + list(visual_fields)
+    readonly_fields = tuple(list(trackAdmin.readonly_fields) + list(visual_fields))
+    list_display = tuple(list(trackAdmin.list_display) + list(visual_fields))
+    
+    class Meta:
+        model = baseVisualisationTrack
 
+# class visualTrackForm(trackForm):
+#     def __init__(self, *args, **kwargs):
+#         super(visualTrackForm, self).__init__(*args, **kwargs)
+#         for field in self.visual_fields:
+#             self.fields[field].required = False
+#         self.fields['file'].required = True
+#         self.fields['track_name'].required = True
+    
 
 class photaTrackForm(trackForm):
     class Meta:
-        fields = ['file_audio','track_name','artist']
+        fields = ['file','track_name','artist']
         model = photaTrack
 
     # def __init__(self, *args, **kwargs):
         # super(photaTrackForm, self).__init__(*args, **kwargs)
 
-class AddPhotaTrack(trackAdmin):
+@admin.register(photaTrack)
+class AddPhotaTrack(visualTrackAdmin):
     form = photaTrackForm
+    change_form_template = "admin/photaMusic/baseVisualisationTrack/change_form.html"
 
 class publicTrackForm(trackForm):
 
     class Meta:
         # fields = ["img", 'fileAudio']
-        fields = ['file_audio','track_name','artist','expiry']
+        fields = ['file','track_name','artist','expiry']
         model = publicTrack
 
     def __init__(self, *args, **kwargs):
@@ -85,20 +70,14 @@ class publicTrackForm(trackForm):
         self.fields['expiry'].disabled = True
         self.fields['expiry'].readonly = True
 
-class AddPublicTrack(trackAdmin):
+@admin.register(publicTrack)
+class AddPublicTrack(visualTrackAdmin):
     form = publicTrackForm
-
-
 
 # admin.site.register(publicTrack, publicTrackInLine)
 # admin.site.register(playlist, playlistAdmin)
-admin.site.register(photaTrack, AddPhotaTrack)
-admin.site.register(publicTrack, AddPublicTrack)
-# admin.site.register(audioFile)
-admin.site.register(publicAudioFile, audioFileAdmin)
-admin.site.register(photaAudioFile, audioFileAdmin)
-
-
+# admin.site.register(photaTrack, AddPhotaTrack)
+# admin.site.register(publicTrack, AddPublicTrack)
 
 
 def convert_bytes(num): #https://stackoverflow.com/a/39988702/1717003

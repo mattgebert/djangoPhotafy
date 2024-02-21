@@ -1,3 +1,4 @@
+#%%
 # %matplotlib inline
 import os
 import numpy as np
@@ -245,3 +246,5 @@ ax.plot(xfftComp, 2.0/blocksize * yfftComp[500][:]) #Plot Left
 ax.set_ylabel("FFT Amplitude")
 ax.set_xlabel("Frequency")
 plt.show()
+
+# %%

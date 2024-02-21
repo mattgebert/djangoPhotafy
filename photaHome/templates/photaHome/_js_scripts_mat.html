@@ -1,15 +1,25 @@
-{% load sekizai_tags %}
+{% load sekizai_tags static %}
 {% addtoblock 'js' %}
 <!--External Scripts-->
-<div id="begin"></div>
+{% if local_cdn %}
+<script src="{{ static 'photaHome/cdn/js/jquery-3.2.1-jquery.min.js' }}"></script>
+<script src="{{ static 'photaHome/cdn/js/jqueryui-1.12.1-jquery-ui.min.js' }}"></script>
+<script src="{{ static 'photaHome/cdn/js/d3js-d3.v5.min.js' }}"></script>
+<script src="{{ static 'photaHome/cdn/js/materialize-2.0.3-alpha-dist-js-materialize.min.js' }}"></script>
+{% else %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/js/materialize.min.js"></script>
+{% endif %}
 
+{% comment %} <div id="begin"></div> {% endcomment %}
+{% comment %}
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
 <div id="end"></div>
 <!-- <script async type="text/javascript" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
 <!-- <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/Accessible-full.js"></script> -->
 <!-- End External Scripts -->
+{% endcomment %}
+
 {% endaddtoblock %}

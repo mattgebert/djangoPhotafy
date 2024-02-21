@@ -9,7 +9,8 @@ app_name = 'photaHome'
 
 # Page Apps
 from .settings import PAGE_APPS
-from photaHome.pageapps import PageAppConfig, get_pageapp
+from photaHome.pageapps import get_pageapp
+
 # Add Page App Urls
 page_urls = []
 for app in PAGE_APPS:

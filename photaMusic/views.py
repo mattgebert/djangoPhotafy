@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.template import loader
+from django.templatetags.static import static
 
 # Create your views here.
 def defaultView(request):
@@ -36,3 +37,11 @@ def music_form(request, song_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+def freq_view(request):
+    return render(request=request,
+                  template_name="photaMusic/freqView.html",
+                  context={
+                    #   Add variables here.
+                    "gzip_path" : static("photaMusic/data_new.gzip")
+                  })

@@ -18,7 +18,6 @@ def homeView(request):
         }
     )
 
-
 def subpageView(request, article_name):
     try:
         subpage = Subpagebubble.objects.filter(

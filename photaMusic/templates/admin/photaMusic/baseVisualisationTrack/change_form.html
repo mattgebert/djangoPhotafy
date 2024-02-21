@@ -1,0 +1,33 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static sekizai_tags %}
+
+{% include "photaHome/_css_external_mat.html" %}
+{% comment %} Add extra styling scripts {% endcomment %}
+{% block extrastyle %}
+{{ block.super }}
+{% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/css/materialize.min.css"> {% endcomment %}
+{% endblock %}
+
+{% block after_field_sets %}
+<h2>Track Visualisation</h2>
+<fieldset class="aligned">
+    <div class="form-row field-filesize">
+        <div class="flex-container">
+            {% if adminform.form.file %}
+            <label>Audio</label> 
+            <div style="width:100%">
+                <audio controls src="{{ adminform.form.file.path }}" style="width:100%">
+            </div>
+            {% else %}
+            <label>Audio</label> 
+            <div style="width:100%">
+                No file uploaded.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</fieldset>
+
+{{ block.super }}
+
+{% endblock %}

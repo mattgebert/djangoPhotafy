@@ -1,3 +1,6 @@
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -47,14 +50,33 @@
     }
   </style>
 </head>
+
 <body style="background: black;">
   <svg class="chart"></svg>
-  <!-- <audio src="Ellie Goulding - Lights (Phota Remix).mp3"></audio> -->
+
+  {% comment %} <audio src="mp3/Ellie Goulding - Lights (Phota Remix).mp3"></audio> {% endcomment %}
+  <audio id="track_element">
+    <source src="{% static 'photaMusic/mp3/Ellie Goulding - Lights (Phota Remix).mp3' %}">
+  </audio>
+
   <button onclick="play();">Play</button>
   <button class="pause" onclick="pause();">Pause</button>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
-  <script type="text/javascript" src="freqViewD3.js"></script>
-  <script type="text/javascript" src="pako.js"></script>
+
+
+  <script>
+    // Setup path for animation data
+    var freq_data_path = "{{ gzip_path }}";
+    var audio_data_path = "{% static 'photaMusic/mp3/Ellie Goulding - Lights (Phota Remix).mp3' %}"
+  </script>
+
+
+  {% comment %} <script type="text/javascript" src="freqViewD3.js"></script> {% endcomment %}
+  {% comment %} <script type="text/javascript" src="pako.js"></script> {% endcomment %}
+  <script type="text/javascript" src="{% static 'photaMusic/freqViewD3.js' %}"></script>
+  <script type="text/javascript" src="{% static 'photaMusic/pako.js' %}"></script>
+
+
 </body>
 </html>

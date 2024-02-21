@@ -50,7 +50,8 @@ request.onload = function() {
   requestText = request.response;
   then(JSON.parse(pako.inflate(requestText, { to: 'string' })));
 };
-request.open('GET',"data.gzip");
+
+request.open('GET',freq_data_path); //Define freq_data_path in template.
 request.send();
 
 // d3.json("data.json", function(error, json) {
@@ -96,7 +97,9 @@ function then(d) {
 
     // audio = new Audio("Ellie Goulding - Lights (Phota Remix).mp3");
     // audio = new Audio("Shepard Tone.mp3");
-    audio = new Audio("output.wav");
+    // audio = new Audio("output.wav");
+    // audio = $("audio#track_element")
+    audio = new Audio(audio_data_path)
 
     play = function() {
       // Set periodic function to progressively generate data.
@@ -145,6 +148,7 @@ var progress = function() {
     }
   else {
     pause();
-    progress();
+    play();
+    // progress();
   }
 }
